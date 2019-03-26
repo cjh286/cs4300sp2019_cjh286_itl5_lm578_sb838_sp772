@@ -7,7 +7,7 @@ net_id = "cjh286, itl5, lm578, sb838, sp772"
 
 @irsystem.route('/', methods=['GET'])
 def search():
-	query = request.args.get('search')
+	query = request.args.get('ingredients')
 	if not query:
 		data = []
 		output_message = ''
