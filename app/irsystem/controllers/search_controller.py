@@ -1,6 +1,7 @@
 from . import *  
 from app.irsystem.models.helpers import *
 from app.irsystem.models.helpers import NumpyEncoder as NumpyEncoder
+from app.irsystem.models.search import *
 
 project_name = "Drink Up!"
 net_id = "cjh286, itl5, lm578, sb838, sp772"
@@ -14,7 +15,10 @@ def search():
 		output_message = ''
 	else:
 		output_message = "Your search: " + ingredients + " " + descriptors
-		data = range(5)
+		drink_list = preprocessUK()
+		drink_names = randomDrinkNames(drink_list)
+		data = drink_names
+
 	return render_template('search.html', name=project_name, netid=net_id, output_message=output_message, data=data)
 
 

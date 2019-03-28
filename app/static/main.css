@@ -33,7 +33,7 @@
 .topcorner{
     position:absolute;
     top:2%;
-    right:2%;
+    left:2%;
 }
 
 .btn{
@@ -47,4 +47,39 @@
 
 .dnm{
     margin-top: -90px;
+}
+
+.shopping-cart-btn{
+    position: absolute;
+    top: 2%;
+    right: 2%;
+}
+
+.close-btn{
+    text-align: right;
+}
+
+#close-cart{
+    background-color: #4285F4;
+    color: white;
+    padding: 10px;
+    border-radius: 12px;
+}
+
+#cart{
+    background-color:#4285F4;
+    border-radius: 15px;
+    padding: 5px 10px;
+
+}
+
+#shopping-list{
+    background-color: white;
+    border: 1px solid black;
+    position: absolute;
+    top: 2%;
+    right: 1%;
+    z-index: 99;
+    padding: 10px;
+    display: none;
 }

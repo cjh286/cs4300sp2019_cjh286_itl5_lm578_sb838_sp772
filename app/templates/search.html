@@ -2,11 +2,31 @@
     <head>
         <link rel="stylesheet" href="/static/bootstrap.min.css">
         <link rel="stylesheet" href="/static/main.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     </head>
+    
     <body>
         <div class="topcorner">
             <p>Project Name: {{ name }}</p>
             <p>Student Name: ({{ netid }})</p>
+        </div>
+
+        <div class="shopping-cart-btn">
+            <button id="cart"><img width='25px' src="/static/shoppingcart.png"></button>
+        </div>
+
+        <div id='shopping-list'>
+            <div class='close-btn'>
+                <button id='close-cart'><i class="fa fa-close"></i></button>
+            </div>
+            <h1>Your Shopping List!</h1>
+            {% if data %}
+            {% for d in data %}  
+                <br>
+                <p>{{d}}</p>
+            {% endfor %}
+        {% endif %}
         </div>
 
         <form class="form-inline global-search">
@@ -25,6 +45,7 @@
                 <button type="submit" class="btn btn-info"> Go! </button>
             </div>
         </form>
+
         <form class="form-inline global-search">
         {% if data %}
             <h1>{{output_message}}</h1>
@@ -36,4 +57,19 @@
         </form>
     </body>
 
+    <script>
+        $("#cart").click(function(){
+            console.log("here");
+            $("#shopping-list").fadeIn();
+            $("#cart").fadeOut();
+        });
+        $("#close-cart").click(function(){
+            console.log("second");
+            $("#shopping-list").fadeOut();
+            $("#cart").fadeIn();
+        });
+
+    </script>
+
 </html>
+
