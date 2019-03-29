@@ -1,0 +1,47 @@
+/* buttons */
+
+/* open shopping cart button */
+.shopping-cart-btn{
+    position: absolute;
+    top: 2%;
+    right: 2%;
+}
+
+#cart{
+    background-color:#88a629;
+    border-radius: 15px;
+    padding: 5px 10px;
+
+}
+
+#cart:hover{
+    background-color: #82a7ca;
+}
+
+/* close shopping cart button */
+.close-btn{
+    text-align: right;
+}
+
+#close-cart{
+    background-color: #88a629;
+    color: white;
+    padding: 10px;
+    border-radius: 12px;
+}
+
+#close-cart:hover{
+    background-color: #82a7ca;
+}
+
+/* shopping list div */
+#shopping-list{
+    background-color: white;
+    border: 1px solid black;
+    position: absolute;
+    top: 2%;
+    right: 1%;
+    z-index: 99;
+    padding: 10px;
+    display: none;
+}

@@ -2,7 +2,9 @@
     <head>
         <link rel="stylesheet" href="/static/bootstrap.min.css">
         <link rel="stylesheet" href="/static/main.css">
+        <link rel="stylesheet" href="/static/shoppinglist.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link href="https://fonts.googleapis.com/css?family=Cuprum" rel="stylesheet">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     </head>
     
@@ -13,14 +15,14 @@
         </div>
 
         <div class="shopping-cart-btn">
-            <button id="cart"><img width='25px' src="/static/shoppingcart.png"></button>
+            <button id="cart"><img width='25px' src="/static/images/shoppingcart.png"></button>
         </div>
 
         <div id='shopping-list'>
             <div class='close-btn'>
                 <button id='close-cart'><i class="fa fa-close"></i></button>
             </div>
-            <h1>Your Shopping List!</h1>
+            <h2>Shopping List</h2>
             {% if data %}
             {% for d in data %}  
                 <br>
@@ -30,8 +32,8 @@
         </div>
 
         <form class="form-inline global-search">
-            <img class='dnm' src="/static/dnm.jpg" width='80px'><br>
-            <h1 style="font-size: 55px; font-family:Futura; color: #4285F4">
+            <img class='dnm' src="/static/images/dnm.jpg" width='80px'><br>
+            <h1 style="font-size: 55px; font-family:Futura; color: #82a7ca">
                 DrinkUp! 
             </h1>
             
@@ -42,13 +44,13 @@
                 <br><br>
                 <input id="input" type="text" name="descriptors" class="form-control" placeholder="descriptors">
                 <br><br>
-                <button type="submit" class="btn btn-info"> Go! </button>
+                <button type="submit" class="btn btn-info">search</button>
             </div>
         </form>
 
         <form class="form-inline global-search">
         {% if data %}
-            <h1>{{output_message}}</h1>
+            <h2>{{output_message}}</h2>
             {% for d in data %}  
                 <br>
                 <p>{{d}}</p>
