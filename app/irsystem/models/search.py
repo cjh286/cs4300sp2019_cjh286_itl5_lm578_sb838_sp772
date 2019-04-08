@@ -50,6 +50,7 @@ def createIngredientsIndex(data):
         break
     return
 
+# for testing only
 if __name__ == "__main__":
     data = preprocessUK()
     # drinkNameIndex = drinkNameIndex(data)
