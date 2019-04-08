@@ -41,7 +41,16 @@ def drinkNameIndex(data):
     
     return drink_to_index, index_to_drink
 
+def createIngredientsIndex(data):
+    for x in data:
+        recipe = x['recipe']
+        print(x)
+        for step in recipe:
+            print(step)
+        break
+    return
+
 if __name__ == "__main__":
     data = preprocessUK()
-    drinkNameIndex = drinkNameIndex(data)
-    print(drinkNameIndex[0])
+    # drinkNameIndex = drinkNameIndex(data)
+    ingredientsIndex = createIngredientsIndex(data)
