@@ -74,7 +74,7 @@ def build_recipe_dict(data, num):
 
         all_recipes.append(drink_name)
         all_ingredients.extend(ingredient_list)
-        recipe_dict[drink_name.lower] = [i.lower() for i in ingredient_list]
+        recipe_dict[drink_name.lower()] = [i.lower() for i in ingredient_list]
     
     return all_recipes, set(all_ingredients), recipe_dict
 
@@ -160,7 +160,7 @@ def main():
     
     ### build dictionary of ingredients to recipes ###
     ingredients_dict = build_ingredients_dict(recipe_dict)
-    query = ("Oranges", "Mint")
+    query = ("oranges", "mint")
     jaccardDict = makeJaccard(query, recipe_dict)
     print(jaccardDict)
     # print(ingredients_dict["Lemon Juice"])
