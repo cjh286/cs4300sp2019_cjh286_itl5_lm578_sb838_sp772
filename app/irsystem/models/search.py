@@ -4,8 +4,6 @@ from pprint import pprint
 import os
 from collections import defaultdict
 
-
-"""Preprocessing"""
 def setup(data, num):
     """ Print some basic information about the json file being parsed
 
@@ -108,6 +106,9 @@ def build_ingredients_dict(input_dict):
 
 
 def main():
+    script_path = os.path.abspath(__file__) 
+    path_list = script_path.split(os.sep)
+    script_directory = path_list[0:len(path_list)-4]
     rel_path = 'scraped_data/uk_output.json'
     path = "/".join(script_directory) + "/" + rel_path
     with open(path) as f:
@@ -125,6 +126,7 @@ def main():
     ### build dictionary of ingredients to recipes ###
     ingredients_dict = build_ingredients_dict(recipe_dict)
     print(ingredients_dict["Lemon Juice"])
+
 
 # for testing only
 if __name__ == "__main__":
