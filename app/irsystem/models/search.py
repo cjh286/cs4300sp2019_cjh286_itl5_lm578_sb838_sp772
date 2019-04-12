@@ -71,12 +71,14 @@ def build_recipe_dict(data, num):
         drink_name = data[index].get('name')
         ingredients = data[index].get('ingredients')
         ingredient_list = [i.get('ingredient') for i in ingredients] 
+        # print(ingredient_list)
 
         all_recipes.append(drink_name)
         all_ingredients.extend(ingredient_list)
         recipe_dict[drink_name.lower()] = [i.lower() for i in ingredient_list]
     
-    return all_recipes, set(all_ingredients), recipe_dict
+    # print(all_ingredients)
+    return all_recipes, set(all_ingredients), recipe_dict 
 
 
 def build_ingredients_dict(input_dict):
@@ -108,6 +110,44 @@ def build_ingredients_dict(input_dict):
     return output
 
 
+def termDocMatrix(input_dict):
+    pass
+
+
+def makeCoOccurrence(input_dict, n_ingredients, index_dict):
+    #n x n matrix -> ingredient by ingredient matrix
+    matrix = [[0]*n_ingredients]*n_ingredients
+    matrix2 = np.zeros((n_ingredients, n_ingredients))
+    
+    for x in input_dict:
+        #x is each recipe
+        # print(input_dict[x])
+        for ingredient1 in input_dict[x]:
+            for ingredient2 in input_dict[x]:
+                index1 = index_dict[ingredient1]
+                index2 = index_dict[ingredient2]
+                if (matrix[index1][index2] == 0):
+                    matrix[index2][index2] = set([x])
+                    matrix[index1][index2] = set([x])
+                else:
+                    matrix[index1][index2].add(x)
+                matrix2[index1][index2] += 1
+    
+    return matrix
+
+def indexDict(input_list):
+    input_list = list(input_list)
+    indexToTerm = {}
+    termToIndex = {}
+    
+    for x in range(len(input_list)):
+        indexToTerm[x] = input_list[x]
+        termToIndex[input_list[x]] = x
+    
+    return indexToTerm, termToIndex
+
+
+
 def makeJaccard(input_query, input_dict):
     #######
     query = list()
@@ -137,7 +177,7 @@ def makeJaccard(input_query, input_dict):
     
     for i in range(0,10):
         recipe_name = list_sort[i]
-        print(i+1 , recipe_name,jacc_dict[recipe_name] )
+        # print(i+1 , recipe_name,jacc_dict[recipe_name] )
     return list_sort
 
 def main():
@@ -157,15 +197,23 @@ def main():
     ### collect lists of all recipes and ingredients ###
     ### create dictionary containing recipe names and list of ingredients ###
     drinks_list, ingredients_list, recipe_dict = build_recipe_dict(data, num_recipes)
-    
+    print(len(drinks_list), len(ingredients_list))
     ### build dictionary of ingredients to recipes ###
     ingredients_dict = build_ingredients_dict(recipe_dict)
     query = ("oranges", "mint")
     jaccardDict = makeJaccard(query, recipe_dict)
-    print(jaccardDict)
+    # print(jaccardDict)
     # print(ingredients_dict["Lemon Juice"])
 
+    indexTermDicts = indexDict(ingredients_list)
+    print('vanilla syrup' in ingredients_list)
 
+    ### build co-occurrence matrix ###
+    co_oc = makeCoOccurrence(recipe_dict, len(ingredients_list), indexTermDicts[1])
+    # pf_index = indexTermDicts[1]['passion fruit yellow syrup']
+    # vanilla = indexTermDicts[1]['vanilla syrup']
+    # print(strawberries_index, vanilla)
+    # print(co_oc)
 
 
 # for testing only
