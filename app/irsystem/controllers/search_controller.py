@@ -9,15 +9,13 @@ net_id = "cjh286, itl5, lm578, sb838, sp772"
 @irsystem.route('/', methods=['GET'])
 def search():
 	ingredients = request.args.get('ingredients')
-	descriptors = request.args.get('descriptors')
+
 	if not ingredients:
 		data = []
 		output_message = ''
 	else:
-		output_message = "Your search: " + ingredients + " " + descriptors
-		drink_list = preprocessUK()
-		drink_names = randomDrinkNames(drink_list)
-		data = drink_names
+		output_message = "Your search: " + ingredients
+		data = "results"
 
 	return render_template('search.html', name=project_name, netid=net_id, output_message=output_message, data=data)
 

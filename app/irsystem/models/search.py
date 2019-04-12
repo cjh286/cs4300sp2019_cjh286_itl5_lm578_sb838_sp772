@@ -126,6 +126,7 @@ def main():
     ### build dictionary of ingredients to recipes ###
     ingredients_dict = build_ingredients_dict(recipe_dict)
     print(ingredients_dict["Lemon Juice"])
+    return ingredients_dict["Lemon Juice"]
 
 
 # for testing only
