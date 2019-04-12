@@ -15,7 +15,7 @@ def search():
 		output_message = ''
 	else:
 		output_message = "Your search: " + ingredients
-		data = "results"
+		data = [1, 2, 3, 4, 5]
 
 	return render_template('search.html', name=project_name, netid=net_id, output_message=output_message, data=data)
 
