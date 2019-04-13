@@ -67,19 +67,23 @@ def build_recipe_dict(data, num):
     all_recipes = []
     all_ingredients = []
     
-    for index in range(num):
+    for index in range(num): #this loops through each recipe
         drink_name = data[index].get('name')
         ingredients = data[index].get('ingredients')
-        ingredient_list = [i.get('ingredient') for i in ingredients] 
-        # print(ingredient_list)
-
+        ingredient_list = []
+        for i in ingredients:
+            ingred = i.get('ingredient')
+            ingredient_list.append(ingred.lower())
+            all_ingredients.append(ingred.lower()) #this is the list of ingredients with duplicates
+        
+        all_ingredients2 = set(all_ingredients) #this is now the list of ingredients without duplicates
         all_recipes.append(drink_name)
-        all_ingredients.extend(ingredient_list)
-        recipe_dict[drink_name.lower()] = [i.lower() for i in ingredient_list]
+        recipe_dict[drink_name.lower()] = ingredient_list
     
-    # print(all_ingredients)
-    return all_recipes, set(all_ingredients), recipe_dict 
+    # print(len(all_ingredients))
+    # print(len(all_ingredients2))
 
+    return all_recipes, all_ingredients2, recipe_dict 
 
 def build_ingredients_dict(input_dict):
     """ build term-frequency of ingredients to recipes
@@ -154,6 +158,7 @@ def makeJaccard(input_query, input_dict):
     query.extend(input_query)
     query_set = set(query)
     jacc_dict=dict()
+    ingreds_common_dict = dict() #the ingredients in common between query and recipe
 
     for drink in input_dict:
         ingreds_set = set(input_dict[drink])
@@ -161,7 +166,8 @@ def makeJaccard(input_query, input_dict):
         intersect = set()
         union = set()
         intersect = ingreds_set.intersection(query_set)
-        union = ingreds_set.intersection(query_set)
+        union = ingreds_set.union(query_set)
+        ingreds_common_dict[drink] = intersect
         len_in = len(intersect)
         len_un = len(union)
 
@@ -177,7 +183,9 @@ def makeJaccard(input_query, input_dict):
     
     for i in range(0,10):
         recipe_name = list_sort[i]
-        # print(i+1 , recipe_name,jacc_dict[recipe_name] )
+        #THIS PRINTS TOP TEN CORRECTLY IF UNCOMMENTED
+        #print(i+1 , recipe_name, "\t\tJaccard score:",round(jacc_dict[recipe_name],2), "\tIngredients in common:", ingreds_common_dict[recipe_name])
+    #print("HERE",list_sort)
     return list_sort
 
 def main():
@@ -196,20 +204,20 @@ def main():
     
     ### collect lists of all recipes and ingredients ###
     ### create dictionary containing recipe names and list of ingredients ###
-    drinks_list, ingredients_list, recipe_dict = build_recipe_dict(data, num_recipes)
-    print(len(drinks_list), len(ingredients_list))
+    drinks_list, all_ingredients_list, recipe_dict = build_recipe_dict(data, num_recipes)
+    print("len drinks list:", len(drinks_list), "len all ingredients list:", len(all_ingredients_list))
     ### build dictionary of ingredients to recipes ###
     ingredients_dict = build_ingredients_dict(recipe_dict)
-    query = ("oranges", "mint")
+    query = ("lemon juice", "mint")
     jaccardDict = makeJaccard(query, recipe_dict)
     # print(jaccardDict)
     # print(ingredients_dict["Lemon Juice"])
 
-    indexTermDicts = indexDict(ingredients_list)
-    print('vanilla syrup' in ingredients_list)
+    indexTermDicts = indexDict(all_ingredients_list)
+    print('vanilla syrup' in all_ingredients_list)
 
     ### build co-occurrence matrix ###
-    co_oc = makeCoOccurrence(recipe_dict, len(ingredients_list), indexTermDicts[1])
+    co_oc = makeCoOccurrence(recipe_dict, len(all_ingredients_list), indexTermDicts[1])
     # pf_index = indexTermDicts[1]['passion fruit yellow syrup']
     # vanilla = indexTermDicts[1]['vanilla syrup']
     # print(strawberries_index, vanilla)
