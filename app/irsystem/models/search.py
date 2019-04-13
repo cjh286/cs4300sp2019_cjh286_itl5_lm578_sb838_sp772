@@ -4,6 +4,7 @@ from pprint import pprint
 import os
 from collections import defaultdict
 import numpy as np
+import sys
 
 def setup(data, num):
     """ Print some basic information about the json file being parsed
@@ -24,7 +25,7 @@ def setup(data, num):
     print("--------------------------")
 
     
-def build_recipe_dict(data, num):
+def build_recipe_dict():
     """ Create dictionary from recipe data of recipe names and 
         corresponding list of ingredients
         Create lists of all recipes and all ingredients.
@@ -62,7 +63,16 @@ def build_recipe_dict(data, num):
        }
 
     """
+    script_path = os.path.abspath(__file__) 
+    path_list = script_path.split(os.sep)
+    script_directory = path_list[0:len(path_list)-4]
+    rel_path = 'scraped_data/uk_output.json'
+    path = "/".join(script_directory) + "/" + rel_path
     
+    with open(path) as f:
+        data = json.loads(f.readlines()[0])
+    num = len(data)
+
     recipe_dict = defaultdict(list)
     all_recipes = []
     all_ingredients = []
@@ -120,22 +130,28 @@ def termDocMatrix(input_dict):
 
 def makeCoOccurrence(input_dict, n_ingredients, index_dict):
     #n x n matrix -> ingredient by ingredient matrix
-    matrix = [[0]*n_ingredients]*n_ingredients
-    matrix2 = np.zeros((n_ingredients, n_ingredients))
+    matrix = np.zeros((n_ingredients, n_ingredients))
+    tupleDict = {}
     
     for x in input_dict:
         #x is each recipe
+        # print(x)
         # print(input_dict[x])
-        for ingredient1 in input_dict[x]:
-            for ingredient2 in input_dict[x]:
+        for i1 in range(0, len(input_dict[x])):
+            for i2 in range(i1, len(input_dict[x])):
+                ingredient1 = input_dict[x][i1]
+                ingredient2 = input_dict[x][i2]
                 index1 = index_dict[ingredient1]
                 index2 = index_dict[ingredient2]
-                if (matrix[index1][index2] == 0):
-                    matrix[index2][index2] = set([x])
-                    matrix[index1][index2] = set([x])
-                else:
-                    matrix[index1][index2].add(x)
-                matrix2[index1][index2] += 1
+                if (index1 != index2):
+                    matrix[index1][index2] += 1
+                    matrix[index2][index1] += 1
+                    if ((ingredient1, ingredient2) not in tupleDict):
+                        tupleDict[(ingredient1, ingredient2)] = set([x])
+                        tupleDict[(ingredient2, ingredient1)] = set([x])
+                    else:
+                        tupleDict[(ingredient1, ingredient2)].add(x)
+                        tupleDict[(ingredient2, ingredient1)].add(x)
     
     return matrix
 
@@ -150,6 +166,28 @@ def indexDict(input_list):
     
     return indexToTerm, termToIndex
 
+
+def complementRanking(query, co_oc_matrix, input_term_to_index, input_index_to_term):
+    ranking = []
+    if (len(query) == 1):
+        if (query[0] in input_term_to_index):
+            q_index = input_term_to_index[query[0]]
+            q_column = co_oc_matrix[q_index]
+
+            score = sys.maxsize
+            numResults = 1
+            while ((score > 0) and (numResults < 11)):
+                result = np.argmax(q_column)
+                score = q_column[result]
+                if (score != 0):
+                    rankeditem = str(numResults) + ". " + input_index_to_term[result] + " (score: " + str(score) + ")"
+                    ranking.append(rankeditem)
+                    q_column[result] = 0
+                numResults += 1
+        else:
+            ranking.append("query not found")
+    
+    return ranking
 
 
 def makeJaccard(input_query, input_dict):
@@ -204,25 +242,22 @@ def main():
     
     ### collect lists of all recipes and ingredients ###
     ### create dictionary containing recipe names and list of ingredients ###
-    drinks_list, all_ingredients_list, recipe_dict = build_recipe_dict(data, num_recipes)
+    drinks_list, all_ingredients_list, recipe_dict = build_recipe_dict()
     print("len drinks list:", len(drinks_list), "len all ingredients list:", len(all_ingredients_list))
     ### build dictionary of ingredients to recipes ###
     ingredients_dict = build_ingredients_dict(recipe_dict)
-    query = ("lemon juice", "mint")
-    jaccardDict = makeJaccard(query, recipe_dict)
+    # query = ("lemon juice", "mint")
+    # jaccardDict = makeJaccard(query, recipe_dict)
     # print(jaccardDict)
-    # print(ingredients_dict["Lemon Juice"])
 
-    indexTermDicts = indexDict(all_ingredients_list)
-    print('vanilla syrup' in all_ingredients_list)
-
+    indexTermDict = indexDict(all_ingredients_list)
+    
     ### build co-occurrence matrix ###
-    co_oc = makeCoOccurrence(recipe_dict, len(all_ingredients_list), indexTermDicts[1])
-    # pf_index = indexTermDicts[1]['passion fruit yellow syrup']
-    # vanilla = indexTermDicts[1]['vanilla syrup']
-    # print(strawberries_index, vanilla)
-    # print(co_oc)
+    co_oc = makeCoOccurrence(recipe_dict, len(all_ingredients_list), indexTermDict[1])
 
+    query = ['orange juice']
+    rankings = complementRanking(query, co_oc, indexTermDict[0], indexTermDict)
+    print(rankings)
 
 # for testing only
 if __name__ == "__main__":
