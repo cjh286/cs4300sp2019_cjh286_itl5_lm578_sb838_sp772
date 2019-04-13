@@ -120,7 +120,19 @@ h2{
     border-radius: 50%;
   }
 
-  .resultsButtons {
+  #addToDrink {
     margin-top: 10px;
-    margin-left: 10px
+    margin-left: 10px;
+    padding: 0px;
+    border: none;
+    background: none;
+    font-size: 18px;
+  }
+
+  .fa-plus-circle{
+    color: #88a629;
+  }
+
+  .fa-plus-circle:hover{
+    color: #82a7ca;
   }
