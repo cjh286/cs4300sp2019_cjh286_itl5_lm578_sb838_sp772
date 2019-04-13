@@ -7,7 +7,7 @@
         <link href="https://fonts.googleapis.com/css?family=Cuprum" rel="stylesheet">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     </head>
-    
+
     <body>
         <div class="topcorner">
             <p>Project Name: {{ name }}</p>
@@ -24,11 +24,9 @@
             </div>
             <h2>Shopping List</h2>
             {% if data %}
-            {% for d in data %}  
+            {% for d in data %}
                 <br>
                 <p>{{d}}</p>
-                <p>Button goes here</p>
-                <!-- <button type="button">Click Me!</button> -->
             {% endfor %}
         {% endif %}
         </div>
@@ -36,11 +34,11 @@
         <form class="form-inline global-search">
             <img class='dnm' src="/static/images/dnm.jpg" width='80px'><br>
             <h1 style="font-size: 55px; font-family:Futura; color: #82a7ca">
-                DrinkUp! 
+                DrinkUp!
             </h1>
-            
+
             <br><br>
-            
+
             <div class="form-group">
                 <!-- Rounded switch -->
                 <label class="switch">
@@ -57,9 +55,10 @@
         <form class="form-inline global-search">
         {% if data %}
             <h2>{{output_message}}</h2>
-            {% for d in data %}  
+            {% for d in data %}
                 <br>
                 <p>{{d}}</p>
+                <button class="resultsButtons" type="button" name={{d}}>Add to cart</button>
             {% endfor %}
         {% endif %}
         </form>
@@ -80,4 +79,3 @@
     </script>
 
 </html>
-

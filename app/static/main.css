@@ -119,3 +119,8 @@ h2{
   .slider.round:before {
     border-radius: 50%;
   }
+
+  .resultsButtons {
+    margin-top: 10px;
+    margin-left: 10px
+  }
