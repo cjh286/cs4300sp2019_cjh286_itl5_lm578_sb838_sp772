@@ -2,7 +2,7 @@
     <head>
         <link rel="stylesheet" href="/static/bootstrap.min.css">
         <link rel="stylesheet" href="/static/main.css">
-        <link rel="stylesheet" href="/static/shoppinglist.css">
+        <link rel="stylesheet" href="/static/cocktail.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <link href="https://fonts.googleapis.com/css?family=Cuprum" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css?family=Fascinate+Inline" rel="stylesheet">
@@ -23,13 +23,20 @@
             <div class='close-btn'>
                 <button id='close-cart'><i class="fa fa-close"></i></button>
             </div>
-            <h2>Your Cocktail</h2>
-            {% if dlist %}
-            {% for d in dlist %}
+            <div class='cocktail-title-div'>
+                <h2>Your Cocktail</h2>
+            </div>
+            {% if cocktail %}
+            {% for c in cocktail %}
                 <br>
-                <p>{{d}}</p>
+                <p>{{c}}</p>
             {% endfor %}
-        {% endif %}
+        {% endif %}<br>
+            <form>
+                <div class='clear-btn-div'>
+                    <button class='clear-btn' name='clear-cocktail' value='clear'><i class="fa fa-trash-o" aria-hidden="true"></i> clear</button>
+                </div>
+            </form>
         </div>
 
         <form class="form-inline global-search">
@@ -61,7 +68,7 @@
             {% for d in data %}
                 <br>
                 <p>{{d}}</p>
-                <button class='addToDrink'><i class="fa fa-plus-circle" aria-hidden="true"></i></button>
+                <button class='addToDrink' name='add_to_cocktail' value="{{d}}"><i class="fa fa-plus-circle" aria-hidden="true"></i></button>
             {% endfor %}
         {% endif %}
         </div>

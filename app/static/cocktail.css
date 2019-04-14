@@ -34,6 +34,10 @@
     background-color: #82a7ca;
 }
 
+.cocktail-title-div{
+    text-align: center;
+}
+
 /* shopping list div */
 #shopping-list{
     background-color: white;
@@ -44,4 +48,21 @@
     z-index: 99;
     padding: 10px;
     display: none;
+    width: 300px;
 }
+
+
+  .clear-btn-div{
+    text-align: center;
+  }
+
+  .clear-btn{
+    border: none;
+    background-color: #88a629;
+    color: white;
+    border-radius: 24px;
+  }
+
+  .clear-btn:hover{
+    background-color: #82a7ca;
+  }
