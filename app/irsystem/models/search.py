@@ -256,7 +256,7 @@ def main():
     co_oc = makeCoOccurrence(recipe_dict, len(all_ingredients_list), indexTermDict[1])
 
     query = ['orange juice']
-    rankings = complementRanking(query, co_oc, indexTermDict[0], indexTermDict)
+    rankings = complementRanking(query, co_oc, indexTermDict[0], indexTermDict[1])
     print(rankings)
 
 # for testing only
