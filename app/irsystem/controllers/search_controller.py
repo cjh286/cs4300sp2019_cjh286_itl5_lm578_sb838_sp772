@@ -25,8 +25,9 @@ def search():
 		output_message = "Nothing"
 		
 	else:
-		output_message = "Your Search: " + ingredients
+		# output_message = "Your Search: " + ingredients
 		query = ingredients.split(',')
+		output_message = query
 		rankings = complementRanking(query, co_oc, indexTermDict[1], indexTermDict[0], lower_to_upper_i)
 
 	if addToCocktail:

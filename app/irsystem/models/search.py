@@ -185,18 +185,18 @@ def complementRanking(query, co_oc_matrix, input_term_to_index, input_index_to_t
             #all_q_cols = list()
 
             q_col_sum = np.zeros(len(input_term_to_index))
-            for i in range (0, len(query)):
+            for i in range (len(query)):
                 if (query[i] in input_term_to_index):
                     q_index = input_term_to_index[query[i]]
                     q_column = co_oc_matrix[q_index]
                     #all_q_cols[i] = q_column
-                    q_col_sum += q_column
+                    q_col_sum += np.add(q_col_sum, q_column)
 
             #make another column in matrix for index
             #sort whole matrix by first column (the scores)
             #return all scores over zero
 
-            idx = np.argsort(-q_col_sum)
+            # idx = np.argsort(-q_col_sum)
 
             #idx gives you indexes where the lowest indexes are the highest
             
@@ -205,13 +205,13 @@ def complementRanking(query, co_oc_matrix, input_term_to_index, input_index_to_t
             numResults = 1
             while (score > 0):
                 #print(q_col_sum[numResults])
-                result = idx[numResults-1] #gets index
+                result = np.argmax(q_col_sum) #gets index
                 score = q_col_sum[result]
                 if (score != 0):
                     display_name = lower_to_upper[input_index_to_term[result]]
                     rankeditem = str(numResults) + ". " + display_name + " (score: " + str(score) + ")"
                     ranking.append(rankeditem)
-                    q_column[result] = 0
+                    q_col_sum[result] = 0
                 numResults += 1
     else:
         ranking.append("query not found")
@@ -294,8 +294,11 @@ def main():
     co_oc = makeCoOccurrence(recipe_dict, len(all_ingredients_list), indexTermDict[1])
 
     query = ['orange juice', 'cranberry juice']
-    rankings = complementRanking(query, co_oc, indexTermDict[1], indexTermDict[0], lower_to_upper_i)
-    print(rankings)
+    query2 = ['orange juice']
+    rankings1 = complementRanking(query, co_oc, indexTermDict[1], indexTermDict[0], lower_to_upper_i)
+    rankings2 = complementRanking(query2, co_oc, indexTermDict[1], indexTermDict[0], lower_to_upper_i)
+    print(rankings1[:10])
+    print(rankings2[:10])
 
 # for testing only
 if __name__ == "__main__":
