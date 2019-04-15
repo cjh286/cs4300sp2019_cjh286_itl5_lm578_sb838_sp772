@@ -163,7 +163,7 @@ def indexDict(input_list):
     return indexToTerm, termToIndex
 
 
-def complementRanking(query, co_oc_matrix, input_term_to_index, input_index_to_term):
+def complementRanking(query, co_oc_matrix, input_term_to_index, input_index_to_term, lower_to_upper):
     ranking = []
     if (len(query) == 1):
         if (query[0] in input_term_to_index):
@@ -176,7 +176,8 @@ def complementRanking(query, co_oc_matrix, input_term_to_index, input_index_to_t
                 result = np.argmax(q_column)
                 score = q_column[result]
                 if (score != 0):
-                    rankeditem = str(numResults) + ". " + input_index_to_term[result] + " (score: " + str(score) + ")"
+                    display_name = lower_to_upper[input_index_to_term[result]]
+                    rankeditem = str(numResults) + ". " + display_name + " (score: " + str(score) + ")"
                     ranking.append(rankeditem)
                     q_column[result] = 0
                 numResults += 1
@@ -263,8 +264,7 @@ def main():
     co_oc = makeCoOccurrence(recipe_dict, len(all_ingredients_list), indexTermDict[1])
 
     query = ['orange juice']
-    rankings = complementRanking(query, co_oc, indexTermDict[1], indexTermDict[0])
-    print(getNameFromRanking("fjeiow"))
+    rankings = complementRanking(query, co_oc, indexTermDict[1], indexTermDict[0], lower_to_upper_i)
 
 # for testing only
 if __name__ == "__main__":
