@@ -215,14 +215,6 @@ def complementRanking(query, co_oc_matrix, input_term_to_index, input_index_to_t
                 numResults += 1
     else:
         ranking.append("query not found")
-                
-    if not ranking:
-        ranking.append(query)
-        ranking.append(type(query))
-        ranking.append(len(query))
-        ranking.append("ranking is empty")
-    else:
-        ranking.append("ranking is not empty")     
     
     return ranking
 
