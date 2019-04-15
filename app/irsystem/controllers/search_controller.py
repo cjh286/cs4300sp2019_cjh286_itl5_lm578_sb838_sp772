@@ -12,7 +12,7 @@ cocktail = []
 def search():
 	global cocktail
 	ingredients = request.args.get('ingredients')
-	addToCocktail = request.args.get('add_to_cocktail')
+	addToCocktail = request.args.get('add-to-cocktail')
 	clearCocktail = request.args.get('clear-cocktail')
 
 	if not ingredients:
@@ -30,7 +30,7 @@ def search():
 
 	if addToCocktail:
 		addIngredient = getNameFromRanking(addToCocktail)
-		if addIngredient not in cocktail:
+		if (addIngredient not in cocktail) and (addIngredient != None):
 			cocktail.append(addIngredient)
 	
 	if clearCocktail:

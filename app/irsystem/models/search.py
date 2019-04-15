@@ -186,6 +186,8 @@ def complementRanking(query, co_oc_matrix, input_term_to_index, input_index_to_t
                 numResults += 1
         else:
             ranking.append("query not found")
+    else:
+        pass
     
     return ranking
 
@@ -193,7 +195,10 @@ def complementRanking(query, co_oc_matrix, input_term_to_index, input_index_to_t
 def getNameFromRanking(rankedInput):
     periodIndex = rankedInput.find('.')
     paranIndex = rankedInput.find('(')
-    name = rankedInput[periodIndex+2:paranIndex-1]
+    if (periodIndex != -1) and (paranIndex != -1):
+        name = rankedInput[periodIndex+2:paranIndex-1]
+    else: 
+        name = None
     return name
 
 
@@ -264,6 +269,7 @@ def main():
 
     query = ['orange juice']
     rankings = complementRanking(query, co_oc, indexTermDict[1], indexTermDict[0])
+    print(getNameFromRanking("fjeiow"))
 
 # for testing only
 if __name__ == "__main__":
