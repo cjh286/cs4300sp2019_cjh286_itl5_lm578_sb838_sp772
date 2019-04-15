@@ -33,15 +33,7 @@ def build_recipe_dict():
         NOTE: should we cast all information to lowercase? -- 
               dictionaries go to lowercase, recipe and ingredient list
               are still uppercase
-    
-    Arguments
-    =========
-    
-    data: list of dicts
-        Each entry (dictionary) contains the same set of fields
-    num: int
-        The number of recipes contained within the data
-        
+
     Returns
     =======
     
@@ -52,6 +44,8 @@ def build_recipe_dict():
     recipe_dict: dict
         Each entry to the dictionary consists of a key (recipe name)
         and a list of ingredients as the corresponding value
+    lower_to_upper_i: dict
+        Associates lower and uppercase of each ingredient
         
     Format
     ======
@@ -76,6 +70,7 @@ def build_recipe_dict():
     recipe_dict = defaultdict(list)
     all_recipes = []
     all_ingredients = []
+    lower_to_upper_i = {}
     
     for index in range(num): #this loops through each recipe
         drink_name = data[index].get('name')
@@ -83,6 +78,7 @@ def build_recipe_dict():
         ingredient_list = []
         for i in ingredients:
             ingred = i.get('ingredient')
+            lower_to_upper_i[ingred.lower()] = ingred
             ingredient_list.append(ingred.lower())
             all_ingredients.append(ingred.lower()) #this is the list of ingredients with duplicates
         
@@ -93,7 +89,7 @@ def build_recipe_dict():
     # print(len(all_ingredients))
     # print(len(all_ingredients2))
 
-    return all_recipes, all_ingredients2, recipe_dict 
+    return all_recipes, all_ingredients2, recipe_dict, lower_to_upper_i 
 
 def build_ingredients_dict(input_dict):
     """ build term-frequency of ingredients to recipes
@@ -234,29 +230,28 @@ def makeJaccard(input_query, input_dict):
     return list_sort
 
 def main():
-    script_path = os.path.abspath(__file__) 
-    path_list = script_path.split(os.sep)
-    script_directory = path_list[0:len(path_list)-4]
-    rel_path = 'scraped_data/uk_output.json'
-    path = "/".join(script_directory) + "/" + rel_path
-    with open(path) as f:
-        data = json.loads(f.readlines()[0])
-    num_recipes = len(data)
-    print(type(data))
+    # script_path = os.path.abspath(__file__) 
+    # path_list = script_path.split(os.sep)
+    # script_directory = path_list[0:len(path_list)-4]
+    # rel_path = 'scraped_data/uk_output.json'
+    # path = "/".join(script_directory) + "/" + rel_path
+    # with open(path) as f:
+    #     data = json.loads(f.readlines()[0])
+    # num_recipes = len(data)
+    # print(type(data))
     
-    ### print some information about the json file ###
-    setup(data, num_recipes)
-    
+    # ### print some information about the json file ###
+    # setup(data, num_recipes)
+
     ### collect lists of all recipes and ingredients ###
-    ### create dictionary containing recipe names and list of ingredients ###
-    drinks_list, all_ingredients_list, recipe_dict = build_recipe_dict()
+    ### create dictionary containing recipe names and list of ingredients and lowercase-uppercase associations dictionary ###
+    drinks_list, all_ingredients_list, recipe_dict, lower_to_upper_i = build_recipe_dict()
     print("len drinks list:", len(drinks_list), "len all ingredients list:", len(all_ingredients_list))
+
     ### build dictionary of ingredients to recipes ###
     ingredients_dict = build_ingredients_dict(recipe_dict)
-    # query = ("lemon juice", "mint")
-    # jaccardDict = makeJaccard(query, recipe_dict)
-    # print(jaccardDict)
 
+    
     indexTermDict = indexDict(all_ingredients_list)
     
     ### build co-occurrence matrix ###
