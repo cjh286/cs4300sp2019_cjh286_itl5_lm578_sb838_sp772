@@ -181,10 +181,48 @@ def complementRanking(query, co_oc_matrix, input_term_to_index, input_index_to_t
                     ranking.append(rankeditem)
                     q_column[result] = 0
                 numResults += 1
-        else:
-            ranking.append("query not found")
+    elif (len(query) > 1):
+            #all_q_cols = list()
+
+            q_col_sum = np.zeros(len(input_term_to_index))
+            for i in range (0, len(query)):
+                if (query[i] in input_term_to_index):
+                    q_index = input_term_to_index[query[i]]
+                    q_column = co_oc_matrix[q_index]
+                    #all_q_cols[i] = q_column
+                    q_col_sum += q_column
+
+            #make another column in matrix for index
+            #sort whole matrix by first column (the scores)
+            #return all scores over zero
+
+            idx = np.argsort(-q_col_sum)
+
+            #idx gives you indexes where the lowest indexes are the highest
+            
+
+            score = sys.maxsize
+            numResults = 1
+            while (score > 0):
+                #print(q_col_sum[numResults])
+                result = idx[numResults-1] #gets index
+                score = q_col_sum[result]
+                if (score != 0):
+                    display_name = lower_to_upper[input_index_to_term[result]]
+                    rankeditem = str(numResults) + ". " + display_name + " (score: " + str(score) + ")"
+                    ranking.append(rankeditem)
+                    q_column[result] = 0
+                numResults += 1
     else:
-        pass
+        ranking.append("query not found")
+                
+    if not ranking:
+        ranking.append(query)
+        ranking.append(type(query))
+        ranking.append(len(query))
+        ranking.append("ranking is empty")
+    else:
+        ranking.append("ranking is not empty")     
     
     return ranking
 
@@ -263,8 +301,9 @@ def main():
     ### build co-occurrence matrix ###
     co_oc = makeCoOccurrence(recipe_dict, len(all_ingredients_list), indexTermDict[1])
 
-    query = ['orange juice']
+    query = ['orange juice', 'cranberry juice']
     rankings = complementRanking(query, co_oc, indexTermDict[1], indexTermDict[0], lower_to_upper_i)
+    print(rankings)
 
 # for testing only
 if __name__ == "__main__":
