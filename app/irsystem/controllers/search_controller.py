@@ -29,8 +29,9 @@ def search():
 		rankings = complementRanking(query, co_oc, indexTermDict[1], indexTermDict[0])
 
 	if addToCocktail:
-		if addToCocktail not in cocktail:
-			cocktail.append(addToCocktail)
+		addIngredient = getNameFromRanking(addToCocktail)
+		if addIngredient not in cocktail:
+			cocktail.append(addIngredient)
 	
 	if clearCocktail:
 		cocktail = []

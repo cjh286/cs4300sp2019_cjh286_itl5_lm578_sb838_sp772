@@ -190,6 +190,13 @@ def complementRanking(query, co_oc_matrix, input_term_to_index, input_index_to_t
     return ranking
 
 
+def getNameFromRanking(rankedInput):
+    periodIndex = rankedInput.find('.')
+    paranIndex = rankedInput.find('(')
+    name = rankedInput[periodIndex+2:paranIndex-1]
+    return name
+
+
 def makeJaccard(input_query, input_dict):
     #######
     query = list()
@@ -257,7 +264,6 @@ def main():
 
     query = ['orange juice']
     rankings = complementRanking(query, co_oc, indexTermDict[1], indexTermDict[0])
-    print(rankings)
 
 # for testing only
 if __name__ == "__main__":
