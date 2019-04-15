@@ -176,7 +176,7 @@ def complementRanking(query, co_oc_matrix, input_term_to_index, input_index_to_t
 
             score = sys.maxsize
             numResults = 1
-            while ((score > 0) and (numResults < 11)):
+            while (score > 0):
                 result = np.argmax(q_column)
                 score = q_column[result]
                 if (score != 0):
