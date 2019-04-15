@@ -186,8 +186,9 @@ def complementRanking(query, co_oc_matrix, input_term_to_index, input_index_to_t
 
             q_col_sum = np.zeros(len(input_term_to_index))
             for i in range (len(query)):
-                if (query[i] in input_term_to_index):
-                    q_index = input_term_to_index[query[i]]
+                query_at_i = query[i].strip()
+                if (query_at_i in input_term_to_index):
+                    q_index = input_term_to_index[query_at_i]
                     q_column = co_oc_matrix[q_index]
                     #all_q_cols[i] = q_column
                     q_col_sum += np.add(q_col_sum, q_column)
@@ -293,12 +294,12 @@ def main():
     ### build co-occurrence matrix ###
     co_oc = makeCoOccurrence(recipe_dict, len(all_ingredients_list), indexTermDict[1])
 
-    query = ['orange juice', 'cranberry juice']
+    query = ['orange juice', 'lemon juice']
     query2 = ['orange juice']
     rankings1 = complementRanking(query, co_oc, indexTermDict[1], indexTermDict[0], lower_to_upper_i)
     rankings2 = complementRanking(query2, co_oc, indexTermDict[1], indexTermDict[0], lower_to_upper_i)
-    print(rankings1[:10])
-    print(rankings2[:10])
+    print(rankings1[:1])
+    print(rankings2[:1])
 
 # for testing only
 if __name__ == "__main__":
