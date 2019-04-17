@@ -29,7 +29,8 @@
             {% if cocktail %}
             {% for c in cocktail %}
                 <br>
-                <p>{{c}}</p>
+                <p class="cocktailIngredient">{{c}}</p>
+                <button class='removeFromCocktail' name='remove-from-cocktail' value="{{c}}"><i class="fa fa-minus-circle" aria-hidden="true"></i></button>
             {% endfor %}
         {% endif %}<br>
             <form>
@@ -61,7 +62,7 @@
         </form>
 
         <form class="form-inline global-search">
-       
+
         {% if data %}
             <h2>{{output_message}}</h2><br>
             <div class='ranked_list'>

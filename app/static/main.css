@@ -67,22 +67,22 @@ h2{
 }
 
 /* The switch - the box around the slider */
-.switch {
+/* .switch {
     position: relative;
     display: inline-block;
     width: 60px;
     height: 34px;
-  }
-  
+  } */
+
   /* Hide default HTML checkbox */
-  .switch input {
+  /* .switch input {
     opacity: 0;
     width: 0;
     height: 0;
-  }
-  
+  } */
+
   /* The slider */
-  .slider {
+  /* .slider {
     position: absolute;
     cursor: pointer;
     top: 0;
@@ -93,7 +93,7 @@ h2{
     -webkit-transition: .4s;
     transition: .4s;
   }
-  
+
   .slider:before {
     position: absolute;
     content: "";
@@ -105,28 +105,32 @@ h2{
     -webkit-transition: .4s;
     transition: .4s;
   }
-  
+
   input:checked + .slider {
     background-color: #2196F3;
   }
-  
+
   input:focus + .slider {
     box-shadow: 0 0 1px #2196F3;
   }
-  
+
   input:checked + .slider:before {
     -webkit-transform: translateX(26px);
     -ms-transform: translateX(26px);
     transform: translateX(26px);
   }
-  
+
   /* Rounded sliders */
-  .slider.round {
+  /* .slider.round {
     border-radius: 34px;
   }
-  
+
   .slider.round:before {
     border-radius: 50%;
+  } */
+
+  .cocktailIngredient {
+    display: inline;
   }
 
   .addToDrink {
@@ -135,7 +139,7 @@ h2{
     padding: 0px;
     border: none;
     background: none;
-    font-size: 18px;
+    font-size: 14px;
   }
 
   .fa-plus-circle{
@@ -144,6 +148,24 @@ h2{
 
   .fa-plus-circle:hover{
     color: #82a7ca;
+  }
+
+  .removeFromCocktail {
+    padding: 0px;
+    border: none;
+    background: none;
+    font-size: 14px;
+    display: inline;
+  }
+
+  .fa-minus-circle {
+    color: red;
+    margin-left: 10px;
+    margin-bottom: 10px;
+  }
+
+  .fa-minus-circle:hover {
+    color: #FFCC01;
   }
 
   .ranked_list{
