@@ -155,13 +155,12 @@ h2{
     border: none;
     background: none;
     font-size: 14px;
-    display: inline;
+    margin-left: 10px;
+    margin-bottom: 10px;
   }
 
   .fa-minus-circle {
     color: red;
-    margin-left: 10px;
-    margin-bottom: 10px;
   }
 
   .fa-minus-circle:hover {
