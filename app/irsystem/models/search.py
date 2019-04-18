@@ -333,11 +333,13 @@ def main():
     rankings1 = complementRanking(query, co_oc, indexTermDict[1], indexTermDict[0], lower_to_upper_i)
     rankings2 = complementRanking(query2, co_oc, indexTermDict[1], indexTermDict[0], lower_to_upper_i)
     rankings3 = complementRanking(query3, co_oc, indexTermDict[1], indexTermDict[0], lower_to_upper_i)
-    print(rankings1[:10])
-    print("")
-    print(rankings2[:10])
-    print("")
-    print(rankings3[:10])
+    # print(rankings1[:10])
+    # print("")
+    # print(rankings2[:10])
+    # print("")
+    # print(rankings3[:10])
+
+    print(all_ingredients_list)
 
 if __name__ == "__main__":
     main()

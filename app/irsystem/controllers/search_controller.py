@@ -46,4 +46,4 @@ def search():
 		cocktail.remove(removeFromCocktail)
 
 
-	return render_template('search.html', name=project_name, netid=net_id, output_message=output_message, data=rankings, cocktail=cocktail)
+	return render_template('search.html', name=project_name, netid=net_id, complete_ingredients=all_ingredients_list, output_message=output_message, data=rankings, cocktail=cocktail)
