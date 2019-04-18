@@ -1,4 +1,4 @@
-from . import *  
+from . import *
 from app.irsystem.models.helpers import *
 from app.irsystem.models.helpers import NumpyEncoder as NumpyEncoder
 from app.irsystem.models.search import *
@@ -14,6 +14,7 @@ def search():
 	ingredients = request.args.get('ingredients')
 	addToCocktail = request.args.get('add-to-cocktail')
 	clearCocktail = request.args.get('clear-cocktail')
+	removeFromCocktail = request.args.get('remove-from-cocktail')
 
 	# set up - build all necessary datasets
 	drinks_list, all_ingredients_list, recipe_dict, lower_to_upper_i = build_recipe_dict()
@@ -35,10 +36,14 @@ def search():
 		addIngredient = getNameFromRanking(addToCocktail)
 		if (addIngredient not in cocktail) and (addIngredient != None):
 			cocktail.append(addIngredient)
-	
+
 	# user wants to clear the cocktail list
 	if clearCocktail:
 		cocktail = []
-	
-	
+
+	# user wants to remove an item from the cocktail list
+	if removeFromCocktail:
+		cocktail.remove(removeFromCocktail)
+
+
 	return render_template('search.html', name=project_name, netid=net_id, output_message=output_message, data=rankings, cocktail=cocktail)

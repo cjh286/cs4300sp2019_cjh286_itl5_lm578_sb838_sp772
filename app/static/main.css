@@ -32,6 +32,10 @@ it's not super pretty tho, so I would prefer to change.... */
         display:inline-block;
         margin-bottom:0;
     }
+
+    #removeForm {
+      text-align: left;
+    }
 }
 
 .topcorner{

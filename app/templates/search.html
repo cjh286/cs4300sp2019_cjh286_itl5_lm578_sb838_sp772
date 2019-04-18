@@ -26,13 +26,18 @@
             <div class='cocktail-title-div'>
                 <h2>Your Cocktail</h2>
             </div>
-            {% if cocktail %}
-            {% for c in cocktail %}
-                <br>
-                <p class="cocktailIngredient">{{c}}</p>
-                <button class='removeFromCocktail' name='remove-from-cocktail' value="{{c}}"><i class="fa fa-minus-circle" aria-hidden="true"></i></button>
-            {% endfor %}
-        {% endif %}<br>
+
+            <form class="form-inline global-search" id="removeForm">
+
+              {% if cocktail %}
+              {% for c in cocktail %}
+                  <br>
+                  <p class="cocktailIngredient">{{c}}</p>
+                  <button class='removeFromCocktail' name='remove-from-cocktail' value="{{c}}"><i class="fa fa-minus-circle" aria-hidden="true"></i></button>
+              {% endfor %}
+              {% endif %}<br>
+            </form>
+
             <form>
                 <div class='clear-btn-div'>
                     <button class='clear-btn' name='clear-cocktail' value='clear'><i class="fa fa-trash-o" aria-hidden="true"></i> clear</button>
