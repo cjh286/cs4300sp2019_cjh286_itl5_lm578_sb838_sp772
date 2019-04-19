@@ -21,6 +21,7 @@ def search():
 	ingredients_dict = build_ingredients_dict(recipe_dict)
 	indexTermDict = indexDict(all_ingredients_list)
 	co_oc = makeCoOccurrence(recipe_dict, len(all_ingredients_list), indexTermDict[1])
+	auto_ingredients_list = autoCompleteList(all_ingredients_list)
 
 	# user searched ingredients
 	if not ingredients:
@@ -46,4 +47,4 @@ def search():
 		cocktail.remove(removeFromCocktail)
 
 
-	return render_template('search.html', name=project_name, netid=net_id, complete_ingredients=all_ingredients_list, output_message=output_message, data=rankings, cocktail=cocktail)
+	return render_template('search.html', name=project_name, netid=net_id, complete_ingredients=json.dumps(auto_ingredients_list), output_message=output_message, data=rankings, cocktail=cocktail)

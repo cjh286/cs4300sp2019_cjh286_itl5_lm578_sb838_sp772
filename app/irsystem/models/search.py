@@ -91,7 +91,15 @@ def build_recipe_dict():
     # print(len(all_ingredients))
     # print(len(all_ingredients2))
 
-    return all_recipes, all_ingredients2, recipe_dict, lower_to_upper_i 
+    return all_recipes, list(all_ingredients2), recipe_dict, lower_to_upper_i 
+
+
+def autoCompleteList(ingredients_list):
+    for x in range(len(ingredients_list)):
+        string = ingredients_list[x]
+        ingredients_list[x] = string.replace("'", "&#39;")
+    
+    return (ingredients_list)
 
 
 def build_ingredients_dict(input_dict):
@@ -339,7 +347,7 @@ def main():
     # print("")
     # print(rankings3[:10])
 
-    print(all_ingredients_list)
+    # print(all_ingredients_list)
 
 if __name__ == "__main__":
     main()

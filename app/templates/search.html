@@ -54,16 +54,9 @@
             <br><br>
 
             <div class="form-group" autocomplete="off">
-                <!-- Rounded switch -->
-                <!-- <label class="switch">
-                    <input type="checkbox">
-                    <span class="slider round"></span>
-                </label>
-                <br><br> -->
                 <div class="autocomplete">
                     <input id="ingredient_input" type="text" name="ingredients" class="form-control" placeholder="ingredients">
                 </div>
-                <br><br>
                 <button type="submit" class="btn btn-info">search</button>
             </div>
         </form>
@@ -95,9 +88,11 @@
 
     </script>
     <script>
+        // autocomplete
         // source : https://www.w3schools.com/howto/howto_js_autocomplete.asp
 
-        var allIngredients = ["hi", 'abc', 'few', 'efg']
+        var allIngredients = JSON.parse('{{ complete_ingredients|safe }}');
+        console.log(allIngredients);
 
         function autocomplete(inp, arr) {
             var currentFocus;
