@@ -4,9 +4,11 @@
         <link rel="stylesheet" href="/static/main.css">
         <link rel="stylesheet" href="/static/cocktail.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-        <link href="https://fonts.googleapis.com/css?family=Cuprum" rel="stylesheet">
-        <link href="https://fonts.googleapis.com/css?family=Fascinate+Inline" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Cuprum|Fascinate+Inline" rel="stylesheet">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+        <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     </head>
 
     <body>
@@ -86,23 +88,17 @@
             $("#cart").fadeIn();
         });
 
-    </script>
-    <script>
         // autocomplete
         // source : https://www.w3schools.com/howto/howto_js_autocomplete.asp
 
         var allIngredients = JSON.parse('{{ complete_ingredients|safe }}');
         console.log(allIngredients);
-
         function autocomplete(inp, arr) {
             var currentFocus;
-
             inp.addEventListener("input", function(e) {
                 var a, b, i, val = this.value;
                 closeAllLists();
-
                 if (!val) { return false;}
-
                 currentFocus = -1;
                 a = document.createElement("DIV");
                 a.setAttribute("id", this.id + "autocomplete-list");
@@ -163,12 +159,46 @@
                 closeAllLists(e.target);
             });
         }
-
+        
         var typed = document.getElementById("ingredient_input");
         console.log(typed);
         if (typed){
             autocomplete(document.getElementById("ingredient_input"), allIngredients);
         }
+
+        // autocomplete: wildcard - less nice styling
+        // source: http://jqueryui.com/autocomplete/
+
+        // $(function() {
+        //     var allIngredients = JSON.parse('{{ complete_ingredients|safe }}');
+        //     $( "#ingredient_input" ).autocomplete({
+        //         source: allIngredients
+        //     });
+        // });
+
+        // autocomplete: doesn't work...
+        // source: http://jsfiddle.net/wyVJW/894/
+        // $(document).ready(function() {
+        //     var termTemplate = "<span class='ui-autocomplete-term'>%s</span>";
+        //     var allIngredients = JSON.parse('{{ complete_ingredients|safe }}');
+        //     $('#search').autocomplete({
+        //         source: allIngredients,
+        //         open: function(e,ui) {
+        //             var
+        //                 acData = $(this).data('autocomplete'),
+        //                 styledTerm = termTemplate.replace('%s', acData.term);
+
+        //             acData
+        //                 .menu
+        //                 .element
+        //                 .find('a')
+        //                 .each(function() {
+        //                     var me = $(this);
+        //                     me.html( me.text().replace(acData.term, styledTerm) );
+        //                 });
+        //         }
+        //     });
+        // });
     </script>
 
 </html>

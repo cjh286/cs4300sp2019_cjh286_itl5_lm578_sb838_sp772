@@ -120,6 +120,8 @@ input[type=submit] {
   color: #ffffff; 
 }
 
+.ui-autocomplete-term { font-weight: bold; color: blue; }
+
 /* The switch - the box around the slider */
 /* .switch {
     position: relative;
