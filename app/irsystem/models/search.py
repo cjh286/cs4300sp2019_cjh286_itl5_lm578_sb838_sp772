@@ -281,6 +281,19 @@ def getNameFromRanking(rankedInput):
 
 
 # misc functions
+def queryReformulation(input_query, input_ingred_list):
+    new_query = []
+    for q in input_query:
+        if q in input_ingred_list:
+            new_query.append(q)
+        else:
+            # wildcard search - generic to find all brands
+            for ingredient in input_ingred_list:
+                pass
+            
+
+    return new_query
+
 def makeJaccard(input_query, input_dict):
     #######
     query = list()
