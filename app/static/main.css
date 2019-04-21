@@ -73,6 +73,17 @@ h2{
     color: #82a7ca;
 }
 
+footer{
+  position: fixed;
+  background-color: #3A3637;
+  color: white;
+  text-align: center;
+  bottom: 0%;
+  width: 100%;
+  padding-top: 3px;
+  font-family: 'Cuprum', sans-serif;
+}
+
 a{
   color: #3A3637;
   text-decoration: underline;
