@@ -1,6 +1,7 @@
 from collections import defaultdict 
 import csv
 import re
+import openpyxl
 
 def tokenize(text): 
     """ Taken from class code A1
@@ -19,9 +20,6 @@ def tokenize(text):
         x[y] = char
     return x
 
-
-
-
 alc_dict = {} #store alc names and review text
 with open('../../../scraped_data/alc reviews.csv', encoding="utf8") as csv_file:
     csv_reader = csv.reader(csv_file, delimiter=',')
@@ -32,7 +30,23 @@ with open('../../../scraped_data/alc reviews.csv', encoding="utf8") as csv_file:
     	else:
     		alc_dict[row[13]].extend(tokenize(row[23]))
 
+# read in excel data as set
+tastes = []
+
+book = openpyxl.load_workbook('../../../scraped_data/taste_words.xlsx')
+sheet = book.get_sheet_by_name('Sheet1')
+for i in range(1, sheet.max_row+1):
+    tastes.append(sheet.cell(row=i, column=1).value)
+
+tasteset = set(tastes)
 
 
-print(alc_dict['1000 Stories174 Zinfandel - 750ml Bottle'])
-print(len(alc_dict.keys()))
+drink_flavors_dict = {}
+
+for drink in alc_dict.keys():
+    reviewset = set(alc_dict.get(drink))
+    overlapping_flavors = reviewset.intersection(tasteset)
+
+    drink_flavors_dict[drink] = list(overlapping_flavors)
+
+print(drink_flavors_dict['1000 Stories174 Zinfandel - 750ml Bottle'])
