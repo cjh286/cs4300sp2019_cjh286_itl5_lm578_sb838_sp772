@@ -1,21 +1,21 @@
 /* buttons */
 
-/* open shopping cart button */
-.shopping-cart-btn{
-    position: absolute;
+/* open cocktail cart button */
+.cocktail-cart-btn{
+    position: fixed;
     top: 2%;
-    right: 2%;
+    left: 2%;
 }
 
 #cart{
-    background-color:#88a629;
+    background-color:#FDD20A;
     border-radius: 15px;
     padding: 5px 10px;
 
 }
 
 #cart:hover{
-    background-color: #82a7ca;
+    background-color: #ad8e06;
 }
 
 /* close shopping cart button */
@@ -24,45 +24,81 @@
 }
 
 #close-cart{
-    background-color: #88a629;
+    background-color: #FDD20A;
     color: white;
     padding: 10px;
     border-radius: 12px;
 }
 
 #close-cart:hover{
-    background-color: #82a7ca;
+    background-color: #ad8e06;
 }
 
 .cocktail-title-div{
     text-align: center;
 }
 
-/* shopping list div */
-#shopping-list{
-    background-color: white;
-    border: 1px solid black;
-    position: absolute;
-    top: 2%;
-    right: 1%;
+
+/* cocktail list div */
+#cocktail-list{
+    position: fixed;
+    background-color: #3A3637;
+    padding: 1em;
+    border-right: 16px solid transparent;
+	border-image: 16 repeating-linear-gradient(45deg, #F0EAEA 0, #F0EAEA 10px, transparent 0, transparent 20px);
+	max-width: 20em;
+    top: 0%;
+    left: 0%;
     z-index: 99;
     padding: 10px;
     /* display: none; */
     width: 300px;
+    height: 100%;
+    color: #F0EAEA;
+    overflow: auto;
 }
 
+.cocktail-title{
+    color: #FDD20A;
+}
 
-  .clear-btn-div{
-    text-align: center;
-  }
+.cocktail-banner{
+    width: 250px;
+}
 
-  .clear-btn{
-    border: none;
-    background-color: #88a629;
-    color: white;
-    border-radius: 24px;
-  }
+.clear-btn-div{
+text-align: center;
+}
 
-  .clear-btn:hover{
-    background-color: #82a7ca;
-  }
+.clear-btn{
+border: none;
+background-color: #ef4a4a;
+color: white;
+border-radius: 24px;
+}
+
+.clear-btn:hover{
+background-color: #910404;
+}
+
+.cocktailIngredient{
+    font-family: 'Cuprum', sans-serif;
+    font-size: 20px;
+}
+
+.removeFromCocktail {
+  padding: 0px;
+  border: none;
+  background: none;
+  font-size: 14px;
+  margin-left: 10px;
+  margin-bottom: 10px;
+}
+
+.fa-minus-circle {
+  color: #ef4a4a;
+}
+
+.fa-minus-circle:hover {
+  color: #910404;
+}
