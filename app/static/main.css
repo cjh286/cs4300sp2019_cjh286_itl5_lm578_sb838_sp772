@@ -73,6 +73,19 @@ h2{
     color: #82a7ca;
 }
 
+a{
+  color: #3A3637;
+  text-decoration: underline;
+}
+
+a:active{
+  color: #FDD20A;
+}
+
+a:hover{
+  color: #ad8e06;
+}
+
 
 .cocktailIngredient {
   display: inline;
