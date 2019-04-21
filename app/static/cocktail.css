@@ -86,6 +86,17 @@ border-radius: 24px;
 background-color: #910404;
 }
 
+.done-btn{
+    border: none;
+    background-color: #88a629;
+    color: white;
+    border-radius: 24px;
+}
+
+.done-btn:hover{
+    background-color: #5f741a;
+}
+
 .cocktailIngredient{
     font-family: 'Cuprum', sans-serif;
     font-size: 20px;
