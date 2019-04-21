@@ -64,9 +64,13 @@
                     <button type="submit" class="btn btn-info">search</button>
                 </div>
             </form>
-            
+
             <div class='ranked-results'>
-                <h2 class='ranked-results-title'>{{output_message}}</h2><br>
+                <h2 class='ranked-results-title'>{{output_message}}</h2>
+                <form>
+                  <button class='addToDrink' name='add-query-to-cocktail' value="{{searched}}"><i class="fa fa-plus-circle" aria-hidden="true"></i></button>
+                </form>
+                <br>
                 <div class='ranked_list'>
                 {% for d in data %}
                     <form>
@@ -94,16 +98,16 @@
                 </div>
             </form>
         {% endif %}
-    
+
     <!-- <footer>
         <p>Project Name: {{ name }}</p>
         <p>Student Name: ({{ netid }})</p>
     </footer> -->
-    
+
     <div class='bird'>
         <img class='bird-img' src='/static/images/cocktail-bird.png'>
     </div>
-        
+
 
     </body>
 

@@ -13,6 +13,7 @@ def search():
 	global cocktail
 	ingredients = request.args.get('ingredients')
 	addToCocktail = request.args.get('add-to-cocktail')
+	addQueryToCocktail = request.args.get('add-query-to-cocktail')
 	clearCocktail = request.args.get('clear-cocktail')
 	removeFromCocktail = request.args.get('remove-from-cocktail')
 
@@ -31,6 +32,12 @@ def search():
 		output_message = "Your Search: " + ingredients
 		query = ingredients.split(', ')
 		rankings = complementRanking(query, co_oc, indexTermDict[1], indexTermDict[0], lower_to_upper_i)
+
+	# user wants to add the item they queried to the cocktail
+	if addQueryToCocktail:
+		addSearchedIngredient = lower_to_upper_i[addQueryToCocktail]
+		if (addSearchedIngredient not in cocktail) and (addSearchedIngredient != None):
+			cocktail.append(addSearchedIngredient)
 
 	# user wants to add item to cocktail
 	if addToCocktail:
