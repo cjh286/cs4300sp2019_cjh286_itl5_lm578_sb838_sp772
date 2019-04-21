@@ -138,7 +138,7 @@ a:hover{
 
 .results-search{
   display: inline;
-  vertical-align: bottom;
+  vertical-align: middle;
   margin: 10px;
   margin-top: -20px;
 }
@@ -156,6 +156,63 @@ a:hover{
 .ranked_list{
   font-family: 'Cuprum', sans-serif;
   font-size: 20px;
+}
+
+.advanced-search-btn-div{
+  width: 100%;
+  text-align: center;
+  margin-top: 0px;
+  padding: 0px;
+}
+
+#advanced-search{
+  background: none;
+  border: none;
+  text-decoration: underline;
+  color: #3A3637;
+}
+
+#advanced-search:hover{
+  color: #FDD20A;
+  cursor: pointer;
+}
+
+#advanced-search:active{
+  color: #ad8e06;
+}
+
+#advanced-search-settings{
+  display: none;
+  position: absolute;
+  top: 20%;
+  left: 35%;
+  background-color: #F0EAEA;
+  width: 400px;
+  height: 400px;
+  border: solid 1px #3A3637;
+}
+
+.close-settings-div{
+  width: 100%;
+  text-align: right;
+}
+
+#close-settings{
+    background-color: #FDD20A;
+    color: white;
+    padding: 10px;
+    border-radius: 12px;
+    margin: 10px;
+}
+
+#close-settings:hover{
+    background-color: #ad8e06;
+}
+
+.seach-settings-title{
+  width: 100%;
+  text-align: center;
+  padding: 50x;
 }
 
 .bird{

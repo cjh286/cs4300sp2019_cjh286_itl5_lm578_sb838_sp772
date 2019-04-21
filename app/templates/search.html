@@ -45,6 +45,7 @@
 
             <form>
                 <div class='clear-btn-div'>
+                    <button class='done-btn' name='done-cocktail' value='done'><i class="fa fa-check" aria-hidden="true"></i> done</button>
                     <button class='clear-btn' name='clear-cocktail' value='clear'><i class="fa fa-trash-o" aria-hidden="true"></i> clear</button>
                 </div>
             </form>
@@ -93,12 +94,24 @@
                     <button type="submit" class="btn btn-info">search</button>
                 </div>
             </form>
+            <div class='advanced-search-btn-div'>
+                <button id='advanced-search'>Advanced Search</button>
+            </div>
         {% endif %}
     
     <!-- <footer>
         <p>Project Name: {{ name }}</p>
         <p>Student Name: ({{ netid }})</p>
     </footer> -->
+    <div id='advanced-search-settings'>
+        <div class='close-settings-div'>
+            <button id='close-settings'><i class="fa fa-close"></i></button>
+        </div>
+        <div class='seach-settings-title'>
+            <h2>Search Settings</h2>
+        </div>
+        <p>Label Filters will Go Here</p>
+    </div>
     
     <div class='bird'>
         <img class='bird-img' src='/static/images/cocktail-bird.png'>
@@ -115,6 +128,15 @@
         $("#close-cart").click(function(){
             $("#cocktail-list").fadeOut();
             $("#cart").fadeIn();
+        });
+
+        $("#advanced-search").click(function(){
+            $("#advanced-search-settings").fadeIn();
+            console.log("here");
+        });
+
+        $("#close-settings").click(function(){
+            $("#advanced-search-settings").fadeOut();
         });
 
 
