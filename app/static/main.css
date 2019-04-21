@@ -147,6 +147,19 @@ a:hover{
   margin-top: -10px;
 }
 
+.ranked-results-title {
+  display: inline-block;
+}
+
+#queryAdd {
+  display: inline-block;
+  /* font-size: 30px; */
+}
+
+#queryAddButton {
+  font-size: 22px;
+}
+
 .ranked-results{
   margin-top: -90px;
   margin-left: 300px;
