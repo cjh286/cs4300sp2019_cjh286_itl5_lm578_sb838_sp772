@@ -157,3 +157,13 @@ a:hover{
   font-family: 'Cuprum', sans-serif;
   font-size: 20px;
 }
+
+.bird{
+  position: fixed;
+  right: 0%;
+  bottom: 0%;
+}
+
+.bird-img{
+  width: 300px;
+}

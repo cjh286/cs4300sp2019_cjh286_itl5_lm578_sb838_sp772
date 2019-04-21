@@ -34,6 +34,11 @@
     background-color: #ad8e06;
 }
 
+.drink-images{
+    width: 250px;
+    margin-top: 10px;
+}
+
 .cocktail-title-div{
     text-align: center;
 }
