@@ -44,9 +44,37 @@ tasteset = set(tastes)
 drink_flavors_dict = {}
 
 for drink in alc_dict.keys():
+    list_to_grab_negation = alc_dict[drink]
+    # no_terms = [w for i,w in list_to_grab_negation if i and (list_to_grab_negation[i-1] in ["no"])]
+    # not_terms = [w for i,w in list_to_grab_negation if i and (list_to_grab_negation[i-1] in ["not"])]
+    # never_terms = [w for i,w in list_to_grab_negation if i and (list_to_grab_negation[i-1] in ["never"])]
+
+    to_remove_from_set = []
+    get_negative_phrase = {}
+    for w in range(len(list_to_grab_negation)-1):
+        if list_to_grab_negation[w] == 'no' or list_to_grab_negation[w] == 'not' or list_to_grab_negation[w] == 'never':
+            to_remove_from_set.append(list_to_grab_negation[w+1])
+            get_negative_phrase[list_to_grab_negation[w+1]] = list_to_grab_negation[w] + " " + list_to_grab_negation[w+1]
+
+    negative_terms = set(to_remove_from_set)
+
     reviewset = set(alc_dict.get(drink))
+    for word in negative_terms:
+        reviewset.remove(word)
+
     overlapping_flavors = reviewset.intersection(tasteset)
 
-    drink_flavors_dict[drink] = list(overlapping_flavors)
 
-print(drink_flavors_dict['1000 Stories174 Zinfandel - 750ml Bottle'])
+    drink_flavors_dict[drink] = list(overlapping_flavors) #list of positive descriptive words
+
+    #check if any of the negative terms like 'flavorful' from 'not flavorful' are in the tasteset
+    overlapping_negative_flavors = negative_terms.intersection(tasteset)
+    for word in overlapping_negative_flavors: 
+        drink_flavors_dict[drink].append(get_negative_phrase[word]) #word is 'flavorful' so add 'not flavorful' to the dictionary
+
+
+
+
+
+
+print(drink_flavors_dict)
