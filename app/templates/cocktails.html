@@ -20,7 +20,7 @@
                 <button id='close-cart'><i class="fa fa-close"></i></button>
             </div> -->
             <div class='cocktail-title-div'>
-                <img class='drink-images' src='/static/images/drinks.png'>
+                <img class='drink-images-final' src='/static/images/shaker.png'>
                 <h2 class='cocktail-title'>Final Recipe</h2>
                 <img class='cocktail-banner' src='/static/images/ribbon.png'>
             </div>
@@ -82,4 +82,15 @@
             </div>
         </div>
     </body>
+
+    <script>
+        $("#cart").click(function(){
+            $("#cocktail-list").fadeIn();
+            $("#cart").fadeOut();
+        });
+        $("#close-cart").click(function(){
+            $("#cocktail-list").fadeOut();
+            $("#cart").fadeIn();
+        });
+    </script>
 </html>
