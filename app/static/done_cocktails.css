@@ -65,6 +65,7 @@ li{
     text-align: center;
     display: inline-block;
     margin: 20px;
+    vertical-align: top;
 }
 
 .cocktail-img{
