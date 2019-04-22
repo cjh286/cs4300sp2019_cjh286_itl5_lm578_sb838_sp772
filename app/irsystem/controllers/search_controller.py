@@ -24,12 +24,9 @@ def search():
 	addQueryToCocktail = request.args.get('add-query-to-cocktail')
 	clearCocktail = request.args.get('clear-cocktail')
 	removeFromCocktail = request.args.get('remove-from-cocktail')
-<<<<<<< HEAD
 	about = request.args.get('about')
-=======
 	searchBy = request.args.get('search-label')
 	done = request.args.get('done-cocktail')
->>>>>>> a9d65fa8b882c5d9fe14111770197f4c562a6f8f
 
 	# set up - build all necessary datasets
 	drinks_list, all_ingredients_list, recipe_dict, lower_to_upper_i = build_recipe_dict()
