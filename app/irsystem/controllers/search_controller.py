@@ -24,6 +24,8 @@ def search():
 	addQueryToCocktail = request.args.get('add-query-to-cocktail')
 	clearCocktail = request.args.get('clear-cocktail')
 	removeFromCocktail = request.args.get('remove-from-cocktail')
+	searchBy = request.args.get('search-label')
+	done = request.args.get('done-cocktail')
 
 	# set up - build all necessary datasets
 	drinks_list, all_ingredients_list, recipe_dict, lower_to_upper_i = build_recipe_dict()
@@ -31,6 +33,7 @@ def search():
 	indexTermDict = indexDict(all_ingredients_list)
 	co_oc = makeCoOccurrence(recipe_dict, len(all_ingredients_list), indexTermDict[1])
 	auto_ingredients_list = autoCompleteList(all_ingredients_list)
+	labeled_dict = do_ml(all_ingredients_list)
 
 	# user searched ingredients
 	if not ingredients:
@@ -39,7 +42,8 @@ def search():
 	else:
 		output_message = "Your Search: " + ingredients
 		query = ingredients.split(', ')
-		rankings = complementRanking(query, co_oc, indexTermDict[1], indexTermDict[0], lower_to_upper_i)
+		initial_rank = complementRanking(query, co_oc, indexTermDict[1], indexTermDict[0])
+		rankings = displayRanking(initial_rank, lower_to_upper_i, labeled_dict)
 
 	# user wants to add the item they queried to the cocktail
 	if addQueryToCocktail:
@@ -49,9 +53,9 @@ def search():
 
 	# user wants to add item to cocktail
 	if addToCocktail:
-		addIngredient = getNameFromRanking(addToCocktail)
-		if (addIngredient not in cocktail) and (addIngredient != None):
-			cocktail.append(addIngredient)
+		# addIngredient = getNameFromRanking(addToCocktail)
+		if (addToCocktail not in cocktail) and (addToCocktail != None):
+			cocktail.append(addToCocktail)
 
 	# user wants to clear the cocktail list
 	if clearCocktail:
@@ -60,6 +64,9 @@ def search():
 	# user wants to remove an item from the cocktail list
 	if removeFromCocktail:
 		cocktail.remove(removeFromCocktail)
+	
+	# if done:
+	# 	return render_template('cocktails.html', cocktails=cocktail)
 
 
 	return render_template('search.html', name=project_name, netid=net_id, complete_ingredients=json.dumps(auto_ingredients_list), output_message=output_message, data=rankings, cocktail=cocktail, searched=ingredients)

@@ -194,7 +194,7 @@ def makeCoOccurrence(input_dict, n_ingredients, index_dict):
     return matrix
 
 
-def complementRanking(query, co_oc, input_term_to_index, input_index_to_term, lower_to_upper):
+def complementRanking(query, co_oc, input_term_to_index, input_index_to_term):
     """
     Create ranking of complements based on query
     Inputs:
@@ -230,8 +230,7 @@ def complementRanking(query, co_oc, input_term_to_index, input_index_to_term, lo
         result = np.argmax(q_col_sum) #gets index
         score = q_col_sum[result]
         if (score != 0):
-            display_name = lower_to_upper[input_index_to_term[result]]
-            rankeditem = str(numResults) + ". " + display_name + " (score: " + str(round(score,2)) + ")"
+            rankeditem = {'rank': numResults, 'item': input_index_to_term[result], 'score': score}
             ranking.append(rankeditem)
             q_col_sum[result] = 0
         numResults += 1
@@ -240,6 +239,22 @@ def complementRanking(query, co_oc, input_term_to_index, input_index_to_term, lo
         return "query not found"
 
     return ranking
+
+
+def displayRanking(input_rankings, lower_to_upper, labeled_dict):
+    rankings = []
+
+    for x in input_rankings:
+        print(x)
+        if (x['item'] in labeled_dict):
+            label = labeled_dict[x['item']]
+        else:
+            label = 'n/a'
+        rankeditem = {'rank': x['rank'], 'name': lower_to_upper[x['item']], 'score': round(x['score'], 2), 'label': label}
+        rankings.append(rankeditem)
+
+    return rankings
+
 
 
 # making cocktail list functions
@@ -418,8 +433,8 @@ def do_ml(all_ingredients):
         'alcohol','garnish','alcohol','garnish','mixer','mixer','mixer','mixer','alcohol','mixer','alcohol','mixer','mixer','mixer','mixer','alcohol',
         'mixer','garnish','alcohol','garnish','mixer','garnish','alcohol','garnish','alcohol','mixer','alcohol','mixer','mixer','garnish','garnish',
         'alcohol','mixer','garnish','garnish','garnish','mixer','mixer','alcohol','mixer','mixer','mixer','garnish','garnish','mixer','garnish',
-        'garnish','garnish','garnish','acohol','garnish','garnish','mixer','acohol','garnish','garnish','mixer','mixer','mixer','mixer','garnish',
-        'mixer','garnish','garnish','acohol','garnish','acohol','mixer','garnish','mixer','garnish','mixer','garnish','garnish','garnish','alcohol',
+        'garnish','garnish','garnish','alcohol','garnish','garnish','mixer','acohol','garnish','garnish','mixer','mixer','mixer','mixer','garnish',
+        'mixer','garnish','garnish','alcohol','garnish','alcohol','mixer','garnish','mixer','garnish','mixer','garnish','garnish','garnish','alcohol',
         'garnish','mixer','mixer','alcohol','mixer','garnish'])
 
     #make features for the pre-labled ingredients
@@ -508,9 +523,9 @@ def main():
     query = ['orange juice']
     query2 = ['cranberry juice']
     query3 = ['cranberry juice', 'orange juice']
-    rankings1 = complementRanking(query, co_oc, indexTermDict[1], indexTermDict[0], lower_to_upper_i)
-    rankings2 = complementRanking(query2, co_oc, indexTermDict[1], indexTermDict[0], lower_to_upper_i)
-    rankings3 = complementRanking(query3, co_oc, indexTermDict[1], indexTermDict[0], lower_to_upper_i)
+    rankings1 = complementRanking(query, co_oc, indexTermDict[1], indexTermDict[0])
+    rankings2 = complementRanking(query2, co_oc, indexTermDict[1], indexTermDict[0])
+    rankings3 = complementRanking(query3, co_oc, indexTermDict[1], indexTermDict[0])
     # print(rankings1[:10])
     # print("")
     # print(rankings2[:10])
@@ -518,6 +533,10 @@ def main():
     # print(rankings3[:10])
 
     # print(all_ingredients_list)
+    # print(rankings1)
+
+    display = displayRanking(rankings1, lower_to_upper_i, labeled_dict)
+    print(display)
 
 if __name__ == "__main__":
     main()

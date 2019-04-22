@@ -38,7 +38,7 @@ it's not super pretty tho, so I would prefer to change.... */
     }
 }
 
-
+/* initial css (given) */
 .topcorner{
     position:absolute;
     top:2%;
@@ -61,6 +61,7 @@ it's not super pretty tho, so I would prefer to change.... */
 }
 
 
+/* main css */
 h1{
   font-family: 'Cuprum', sans-serif;
   color: #3A3637;
@@ -73,6 +74,8 @@ h2{
     color: #82a7ca;
 }
 
+
+/* footer: unused */
 footer{
   position: fixed;
   background-color: #3A3637;
@@ -84,6 +87,8 @@ footer{
   font-family: 'Cuprum', sans-serif;
 }
 
+
+/* links */
 a{
   color: #3A3637;
   text-decoration: underline;
@@ -98,10 +103,12 @@ a:hover{
 }
 
 
+/* ingredients search */
 .cocktailIngredient {
   display: inline;
 }
 
+/* add to drink buttons */
 .addToDrink {
   margin-top: 10px;
   margin-left: 10px;
@@ -119,6 +126,8 @@ a:hover{
   color: #495815;
 }
 
+
+/* search bar with results */
 .with-results{
   position: fixed;
   top: 0%;
@@ -166,9 +175,30 @@ a:hover{
   text-align: left;
 }
 
-.ranked_list{
+.ranked-list{
   font-family: 'Cuprum', sans-serif;
   font-size: 20px;
+}
+
+.ranked-div{
+  margin-bottom: 10px;
+}
+
+.ranked-form{
+  margin-bottom: 0px;
+}
+
+.ranked-name{
+  font-size: 22px;
+  margin: 5px;
+  margin-bottom: 0px;
+  /* text-decoration: underline; */
+}
+
+.ranked-info{
+  font-size: 19px;
+  margin: 0px;
+  padding-left: 30px;
 }
 
 .advanced-search-btn-div{
@@ -197,11 +227,11 @@ a:hover{
 #advanced-search-settings{
   display: none;
   position: absolute;
-  top: 20%;
+  top: 30%;
   left: 35%;
   background-color: #F0EAEA;
   width: 400px;
-  height: 400px;
+  height: 200px;
   border: solid 1px #3A3637;
 }
 
@@ -227,6 +257,27 @@ a:hover{
   text-align: center;
   padding: 50x;
 }
+
+.search-settings-form{
+  text-align: center;
+}
+
+select{
+  margin: 10px;
+  width: 120px;
+  height: 25px;
+}
+
+.search-settings-btn{
+  background-color: #FDD20A;
+  color: white;
+  border-radius: 12px;
+}
+
+.search-settings-btn:hover{
+  background-color: #ad8e06;
+}
+
 
 .bird{
   position: fixed;

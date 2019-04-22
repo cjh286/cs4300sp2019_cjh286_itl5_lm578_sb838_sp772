@@ -43,12 +43,14 @@
               {% endif %}<br>
             </form>
 
-            <form>
-                <div class='clear-btn-div'>
+            <div class='clear-btn-div'>
+                <form class='cocktail-btns'>
                     <button class='done-btn' name='done-cocktail' value='done'><i class="fa fa-check" aria-hidden="true"></i> done</button>
+                </form>
+                <form class='cocktail-btns'>
                     <button class='clear-btn' name='clear-cocktail' value='clear'><i class="fa fa-trash-o" aria-hidden="true"></i> clear</button>
-                </div>
-            </form>
+                </form>
+            </div>
         </div>
 
 
@@ -72,15 +74,20 @@
                   <button id="queryAddButton" class='addToDrink' name='add-query-to-cocktail' value="{{searched}}"><i class="fa fa-plus-circle" aria-hidden="true"></i></button>
                 </form>
                 <br>
-                <div class='ranked_list'>
+                <div class='ranked-list'>
                 {% if (data == "query not found") %}
                     {{data}}
                 {% else %}
                     {% for d in data %}
-                        <form>
-                            {{d}}
-                            <button class='addToDrink' name='add-to-cocktail' value="{{d}}"><i class="fa fa-plus-circle" aria-hidden="true"></i></button>
-                        </form>
+                        <div class='ranked-div'>
+                            <form class='ranked-form'>
+                                <p class='ranked-name'>
+                                    {{d['rank']}}. {{d['name']}}<button class='addToDrink' name='add-to-cocktail' value='{{d["name"]}}'><i class="fa fa-plus-circle" aria-hidden="true"></i></button>
+                                </p>
+                            </form>
+                            <p class='ranked-info'>score: {{d['score']}}</p>
+                            <p class='ranked-info'>type: {{d['label']}}</p>
+                        </div>
                     {% endfor %}
                 {% endif %}
                 </div>
@@ -118,7 +125,15 @@
         <div class='seach-settings-title'>
             <h2>Search Settings</h2>
         </div>
-        <p>Label Filters will Go Here</p>
+        <form class='search-settings-form'>
+            Search For: <select name="search-label">
+                <option disable selected value>all</option>
+                <option value="alcohol">alcohol</option>
+                <option value="mixer">mixer</option>
+                <option value="garnish">garnish</option>
+            </select>
+            <input class='search-settings-btn' type="submit" name="search_by" value="search">
+        </form>
     </div>
     
     <div class='bird'>
