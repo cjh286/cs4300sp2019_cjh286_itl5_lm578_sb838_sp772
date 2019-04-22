@@ -408,9 +408,9 @@ def do_ml(all_ingredients):
         'smirnoff® vanilla flavoured vodka','ice','ground cinnamon','orange bitters','angostura bitters','agave nectar','orange',
         'dark chocolate','demerara sugar syrup','gordon’s london dry gin','oreo cookies','diet tonic water','rosemary','sprig of dill',
         'apple','lime','elderflower syrup','olive brine','strawberry','elderflower','milk','olive','pickle vinegar','passion fruit juice',
-        'mincemeat','egg yolk','chocolate popping candy','boiling water','grated nutmeg','gordon\'s® london dry gin','calvados','candy cane',
+        'mincemeat','egg yolk','chocolate popping candy','boiling water','grated nutmeg','calvados','candy cane',
         'mint to garnish','lime twist','cracked black pepper','ruby port','streaky bacon','crushed biscuit','dry vermouth','cola',
-        'gordon\'s® with a spot of elderflower','asperol','mango pureé','elderflower cordial','ginger beer','tanqueray® london dry gin',
+        'asperol','mango pureé','elderflower cordial','ginger beer','tanqueray® london dry gin',
         'johnnie walker® platinum blended scotch whisky','lavender','smoked salt','smirnoff® espresso flavoured vodka','coffee bean',
         'j&b rare® blended scotch whisky','hundreds-and-thousands','cranberry jelly','ginger juice','watermelon juice','cucumber water',
         'captain morgan® original spiced rum','tomato juice','raspberry liqueur','beets and veg juice','soda','apple cider','sour syrup',
@@ -425,18 +425,21 @@ def do_ml(all_ingredients):
         'hot milk','marigold flower','honey syrup','sage leaves','dark chocolate ganache','sweet violets','baileys original (0.8 units)',
         'banana','raw apple cider vinegar','distilled vinegar','campari','cherry syrup','lemon wedge'])
 
+    #print("here",ingred_np_train[49], ingred_np_train[60])
+
     #labels for training set
     labels_list_train = np.array(['garnish','garnish','garnish','alcohol','alcohol','alcohol','alcohol','alcohol','alcohol','mixer','alcohol',
         'garnish','mixer','alcohol','mixer','mixer','garnish','alcohol','garnish','alcohol','alcohol','garnish','garnish','alcohol','alcohol',
         'mixer','garnish','garnish','mixer','alcohol','garnish','mixer','garnish','garnish','garnish','garnish','mixer','mixer','garnish','garnish',
-        'mixer','garnish','mixer','mixer','garnish','mixer','garnish','mixer','garnish','alcohol','alcohol','garnish','garnish','garnish','garnish',
-        'alcohol','garnish','garnish','alcohol','mixer','alcohol','alcohol','mixer','alcohol','alcohol','alcohol','alcohol','garnish','garnish',
+        'mixer','garnish','mixer','mixer','garnish','mixer','garnish','mixer','garnish','alcohol','garnish','garnish','garnish','garnish',
+        'alcohol','garnish','garnish','alcohol','mixer','alcohol','mixer','alcohol','alcohol','alcohol','alcohol','garnish','garnish',
         'alcohol','garnish','alcohol','garnish','mixer','mixer','mixer','mixer','alcohol','mixer','alcohol','mixer','mixer','mixer','mixer','alcohol',
         'mixer','garnish','alcohol','garnish','mixer','garnish','alcohol','garnish','alcohol','mixer','alcohol','mixer','mixer','garnish','garnish',
         'alcohol','mixer','garnish','garnish','garnish','mixer','mixer','alcohol','mixer','mixer','mixer','garnish','garnish','mixer','garnish',
         'garnish','garnish','garnish','alcohol','garnish','garnish','mixer','acohol','garnish','garnish','mixer','mixer','mixer','mixer','garnish',
         'mixer','garnish','garnish','alcohol','garnish','alcohol','mixer','garnish','mixer','garnish','mixer','garnish','garnish','garnish','alcohol',
         'garnish','mixer','mixer','alcohol','mixer','garnish'])
+
 
     #make features for the pre-labled ingredients
     list_training_ingreds = ingred_np_train.tolist()
