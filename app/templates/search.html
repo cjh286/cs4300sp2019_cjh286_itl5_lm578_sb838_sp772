@@ -1,10 +1,15 @@
 <html>
     <head>
+        <!-- stylesheets/css -->
         <link rel="stylesheet" href="/static/bootstrap.min.css">
         <link rel="stylesheet" href="/static/main.css">
         <link rel="stylesheet" href="/static/cocktail.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        
+        <!-- google fonts -->
         <link href="https://fonts.googleapis.com/css?family=Cuprum|Hind+Siliguri" rel="stylesheet">
+        
+        <!-- jquery/javascript libraries -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <link rel="stylesheet" href="/static/jquery-ui.css">
         <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
@@ -82,39 +87,48 @@
 
             <!-- displaying the results -->
             <div class='ranked-results'>
+                <!-- display the output message (the user's query) -->
                 <h2 class='ranked-results-title'>{{output_message}}</h2>
+                
+                <!-- form and buttons to add the query to the cocktail -->
                 <form id="queryAdd">
                   <button id="queryAddButton" class='addToDrink' name='add-query-to-cocktail' value="{{searched}}"><i class="fa fa-plus-circle" aria-hidden="true"></i></button>
                 </form>
                 <br>
+
+                <!-- show the results -->
                 <div class='ranked-list'>
-                {% if (data == "query not found") %}
-                    {{data}}
-                {% else %}
-                    {% for d in data %}
-                        <div class='ranked-div'>
-                            <form class='ranked-form'>
-                                <p class='ranked-name'>
-                                    {{d['rank']}}. {{d['name']}}<button class='addToDrink' name='add-to-cocktail' value='{{d["name"]}}'><i class="fa fa-plus-circle" aria-hidden="true"></i></button>
-                                </p>
-                            </form>
-                            <p class='ranked-info'>score: {{d['score']}}</p>
-                            <p class='ranked-info'>type: {{d['label']}}</p>
-                        </div>
-                    {% endfor %}
-                {% endif %}
+                    <!-- if the result is "query not found" then just display that -->
+                    {% if (data == "query not found") %}
+                        {{data}}
+                    <!-- if the result is not "query not found" -->
+                    {% else %}
+                        <!-- loop through the data and display the results -->
+                        {% for d in data %}
+                            <div class='ranked-div'>
+                                <form class='ranked-form'>
+                                    <!-- display the rank and name with buttons to add to cocktail -->
+                                    <p class='ranked-name'>
+                                        {{d['rank']}}. {{d['name']}}<button class='addToDrink' name='add-to-cocktail' value='{{d["name"]}}'><i class="fa fa-plus-circle" aria-hidden="true"></i></button>
+                                    </p>
+                                </form>
+                                <!-- display the information about each ingredient -->
+                                <p class='ranked-info'>score: {{d['score']}}</p>
+                                <p class='ranked-info'>type: {{d['label']}}</p>
+                            </div>
+                        {% endfor %}
+                    {% endif %}
                 </div>
             </div>
         {% endif %}
 
+        <!-- if there are no results to show (bigger search bar) -->
         {% if not data %}
             <form class="form-inline global-search">
-                <h1>
-                    DrinkUp
-                </h1>
-
+                <!-- the title -->
+                <h1>DrinkUp</h1>
                 <br><br>
-
+                <!-- the search bar -->
                 <div class="form-group" autocomplete="off">
                     <div class="autocomplete">
                         <input id="ingredient_input" type="text" name="ingredients" class="form-control" placeholder="ingredients">
@@ -122,22 +136,29 @@
                     <button type="submit" class="btn btn-info">search</button>
                 </div>
             </form>
+            <!-- the link/btn for changing the search settings -->
             <div class='advanced-search-btn-div'>
                 <button id='advanced-search'>Advanced Search</button>
             </div>
         {% endif %}
 
+    <!-- the footer (unused) -->
     <!-- <footer>
         <p>Project Name: {{ name }}</p>
         <p>Student Name: ({{ netid }})</p>
     </footer> -->
+
+    <!-- the div for advanced search settings -->
     <div id='advanced-search-settings'>
+        <!-- the btn to close the settings -->
         <div class='close-settings-div'>
             <button id='close-settings'><i class="fa fa-close"></i></button>
         </div>
+        <!-- the title -->
         <div class='search-settings-title'>
             <h2>Search Settings</h2>
         </div>
+        <!-- the form to set it -->
         <form class='search-settings-form'>
             Search For: <select name="search-label">
                 <option disable selected value>all</option>
@@ -149,14 +170,14 @@
         </form>
     </div>
     
+    <!-- decorative bird image -->
     <div class='bird'>
         <img class='bird-img' src='/static/images/cocktail-bird.png'>
     </div>
-
-
     </body>
 
     <script>
+        // the functions to close and open cocktail list
         $("#cart").click(function(){
             $("#cocktail-list").fadeIn();
             $("#cart").fadeOut();
@@ -166,6 +187,7 @@
             $("#cart").fadeIn();
         });
 
+        // the functions to display and hide advanced search settings
         $("#advanced-search").click(function(){
             $("#advanced-search-settings").fadeIn();
             console.log("here");
@@ -178,7 +200,6 @@
 
         // autocomplete: wildcard - less nice styling
         // source: http://jqueryui.com/autocomplete/
-
         $(function() {
             var termTemplate = "<span class='ui-autocomplete-term'>%s</span>";
             var allIngredients = JSON.parse('{{ complete_ingredients|safe }}');
@@ -201,29 +222,6 @@
             });
         });
 
-        // autocomplete: doesn't work...
-        // source: http://jsfiddle.net/wyVJW/894/
-        // $(document).ready(function() {
-        //     var termTemplate = "<span class='ui-autocomplete-term'>%s</span>";
-        //     var allIngredients = JSON.parse('{{ complete_ingredients|safe }}');
-        //     $('#search').autocomplete({
-        //         source: allIngredients,
-        //         open: function(e,ui) {
-        //             var
-        //                 acData = $(this).data('autocomplete'),
-        //                 styledTerm = termTemplate.replace('%s', acData.term);
-
-        //             acData
-        //                 .menu
-        //                 .element
-        //                 .find('a')
-        //                 .each(function() {
-        //                     var me = $(this);
-        //                     me.html( me.text().replace(acData.term, styledTerm) );
-        //                 });
-        //         }
-        //     });
-        // });
     </script>
 
 </html>
