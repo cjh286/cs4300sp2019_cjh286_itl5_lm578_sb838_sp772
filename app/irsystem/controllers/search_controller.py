@@ -65,8 +65,8 @@ def search():
 	if removeFromCocktail:
 		cocktail.remove(removeFromCocktail)
 	
-	# if done:
-	# 	return render_template('cocktails.html', cocktails=cocktail)
+	if done:
+		return render_template('cocktails.html', cocktails=cocktail)
 
 
 	return render_template('search.html', name=project_name, netid=net_id, complete_ingredients=json.dumps(auto_ingredients_list), output_message=output_message, data=rankings, cocktail=cocktail, searched=ingredients)
