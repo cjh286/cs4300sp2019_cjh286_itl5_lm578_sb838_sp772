@@ -12,41 +12,47 @@
     </head>
 
     <body>
-        <!-- <div class="topcorner">
-            <p>Project Name: {{ name }}</p>
-            <p>Student Name: ({{ netid }})</p>
-        </div> -->
-
+        <!-- button for showing the cart -->
         <div class="cocktail-cart-btn">
             <button id="cart"><img width='25px' src="/static/images/cocktail.png"></button>
-            <!-- <button id="about"><img width='25px' src="/static/images/about.png"></button> -->
         </div>
 
+        <!-- the cocktail recipe list -->
         <div id='cocktail-list'>
+
+            <!-- close btn -->
             <div class='close-btn'>
                 <button id='close-cart'><i class="fa fa-close"></i></button>
             </div>
+
+            <!-- the "your recipe" title -->
             <div class='cocktail-title-div'>
                 <img class='drink-images' src='/static/images/drinks.png'>
                 <h2 class='cocktail-title'>Your Recipe</h2>
                 <img class='cocktail-banner' src='/static/images/ribbon.png'>
             </div>
 
+            <!-- display the ingredients and the buttons -->
             <form class="form-inline global-search" id="removeForm">
-
+              <!-- if there is a list of ingredients -->
               {% if cocktail %}
               {% for c in cocktail %}
                   <br>
+                  <!-- display the name of the ingredient -->
                   <p class="cocktailIngredient">{{c}}</p>
+                  <!-- show the remove button -->
                   <button class='removeFromCocktail' name='remove-from-cocktail' value="{{c}}"><i class="fa fa-minus-circle" aria-hidden="true"></i></button>
               {% endfor %}
               {% endif %}<br>
             </form>
 
+            <!-- done and clear btns -->
             <div class='clear-btn-div'>
+                <!-- form for done button -->
                 <form class='cocktail-btns'>
                     <button class='done-btn' name='done-cocktail' value='done'><i class="fa fa-check" aria-hidden="true"></i> done</button>
                 </form>
+                <!-- form for clear button -->
                 <form class='cocktail-btns'>
                     <button class='clear-btn' name='clear-cocktail' value='clear'><i class="fa fa-trash-o" aria-hidden="true"></i> clear</button>
                 </form>
@@ -54,20 +60,27 @@
         </div>
 
 
+        <!-- if there is results to be displayed -->
         {% if data %}
+            <!-- the smaller version of the search bar -->
              <form class="form-inline global-search with-results">
+                 <!-- the drink up logo -->
                 <div class='results-title-div results-search'>
+                    <!-- logo is a link that leads to main page -->
                     <h1 class='with-results-title'><a href='/?ingredients='>DrinkUp</a></h1>
                 </div>
 
+                <!-- the search bar -->
                 <div class="form-group search-bar results-search" autocomplete="off">
                     <div class="autocomplete">
                         <input id="ingredient_input" type="text" name="ingredients" class="form-control" placeholder="ingredients" value="{{searched}}">
                     </div>
+                    <!-- the search btn -->
                     <button type="submit" class="btn btn-info">search</button>
                 </div>
             </form>
 
+            <!-- displaying the results -->
             <div class='ranked-results'>
                 <h2 class='ranked-results-title'>{{output_message}}</h2>
                 <form id="queryAdd">
@@ -122,7 +135,7 @@
         <div class='close-settings-div'>
             <button id='close-settings'><i class="fa fa-close"></i></button>
         </div>
-        <div class='seach-settings-title'>
+        <div class='search-settings-title'>
             <h2>Search Settings</h2>
         </div>
         <form class='search-settings-form'>

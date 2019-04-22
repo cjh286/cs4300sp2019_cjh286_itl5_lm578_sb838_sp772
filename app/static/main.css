@@ -1,6 +1,11 @@
-/* tentative color palette: https://colorpalettes.net/color-palette-1404/
-it's not super pretty tho, so I would prefer to change.... */
+/* basic color scheme: 
+  beige/white: #F0EAEA
+  gray: #3A3637
+  yellow: #FDD20A 
+*/
 
+
+/* given css */
 @media (min-width: 1200px) {
     .container {
         max-width: 970px;
@@ -46,6 +51,8 @@ it's not super pretty tho, so I would prefer to change.... */
     text-align: right;
 }
 
+
+/* search btn styling */
 .btn{
     background-color: #FDD20A;
     color: #3A3637;
@@ -62,6 +69,8 @@ it's not super pretty tho, so I would prefer to change.... */
 
 
 /* main css */
+
+/* header/title */
 h1{
   font-family: 'Cuprum', sans-serif;
   color: #3A3637;
@@ -73,7 +82,6 @@ h2{
     font-family: 'Cuprum', sans-serif;
     color: #82a7ca;
 }
-
 
 /* footer: unused */
 footer{
@@ -102,8 +110,46 @@ a:hover{
   color: #ad8e06;
 }
 
+/* === styling for after search results are displayed === */
+/* search bar with results */
 
-/* ingredients search */
+/* with results: form */
+.with-results{
+  position: fixed;
+  top: 0%;
+  margin-left: 300px;
+  background-color: #F0EAEA;
+  border-bottom: solid 1px #3A3637;
+}
+
+/* displaying the title (drinkup) */
+.results-title-div{
+  text-align: left;
+}
+
+.with-results-title{
+  text-align: left;
+  font-size: 40px;
+}
+
+.results-search{
+  display: inline;
+  vertical-align: middle;
+  margin: 10px;
+  margin-top: -20px;
+}
+
+.search-bar{
+  margin-top: -10px;
+}
+
+/* title of the search */
+.ranked-results-title {
+  display: inline-block;
+}
+
+
+/* ingredients list after search */
 .cocktailIngredient {
   display: inline;
 }
@@ -127,39 +173,6 @@ a:hover{
 }
 
 
-/* search bar with results */
-.with-results{
-  position: fixed;
-  top: 0%;
-  margin-left: 300px;
-  background-color: #F0EAEA;
-  border-bottom: solid 1px #3A3637;
-}
-
-.results-title-div{
-  text-align: left;
-}
-
-.with-results-title{
-  text-align: left;
-  font-size: 40px;
-}
-
-.results-search{
-  display: inline;
-  vertical-align: middle;
-  margin: 10px;
-  margin-top: -20px;
-}
-
-.search-bar{
-  margin-top: -10px;
-}
-
-.ranked-results-title {
-  display: inline-block;
-}
-
 #queryAdd {
   display: inline-block;
   /* font-size: 30px; */
@@ -169,6 +182,7 @@ a:hover{
   font-size: 22px;
 }
 
+/* actual results display */
 .ranked-results{
   margin-top: -90px;
   margin-left: 300px;
@@ -201,6 +215,11 @@ a:hover{
   padding-left: 30px;
 }
 
+
+/* === search bar styling without results === */
+
+/* advanced search */
+/* link/btn styling */
 .advanced-search-btn-div{
   width: 100%;
   text-align: center;
@@ -224,6 +243,7 @@ a:hover{
   color: #ad8e06;
 }
 
+/* actual settings div styling */
 #advanced-search-settings{
   display: none;
   position: absolute;
@@ -235,6 +255,7 @@ a:hover{
   border: solid 1px #3A3637;
 }
 
+/* close settings btn styling */
 .close-settings-div{
   width: 100%;
   text-align: right;
@@ -252,22 +273,26 @@ a:hover{
     background-color: #ad8e06;
 }
 
-.seach-settings-title{
+/* title styling */
+.search-settings-title{
   width: 100%;
   text-align: center;
   padding: 50x;
 }
 
+/* form styling */
 .search-settings-form{
   text-align: center;
 }
 
+/* styling the select option */
 select{
   margin: 10px;
   width: 120px;
   height: 25px;
 }
 
+/* set search settings btn styling */
 .search-settings-btn{
   background-color: #FDD20A;
   color: white;
@@ -279,6 +304,7 @@ select{
 }
 
 
+/* decorative bird image styling */
 .bird{
   position: fixed;
   right: 0%;

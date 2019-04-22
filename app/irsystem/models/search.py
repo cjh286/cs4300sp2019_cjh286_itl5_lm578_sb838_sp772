@@ -535,8 +535,8 @@ def main():
     # print(all_ingredients_list)
     # print(rankings1)
 
-    display = displayRanking(rankings1, lower_to_upper_i, labeled_dict)
-    print(display)
+    # display = displayRanking(rankings1, lower_to_upper_i, labeled_dict)
+    # print(display)
 
 if __name__ == "__main__":
     main()
