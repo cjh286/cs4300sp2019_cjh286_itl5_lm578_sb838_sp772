@@ -24,6 +24,7 @@ def search():
 	addQueryToCocktail = request.args.get('add-query-to-cocktail')
 	clearCocktail = request.args.get('clear-cocktail')
 	removeFromCocktail = request.args.get('remove-from-cocktail')
+	about = request.args.get('about')
 
 	# set up - build all necessary datasets
 	drinks_list, all_ingredients_list, recipe_dict, lower_to_upper_i = build_recipe_dict()
@@ -61,5 +62,8 @@ def search():
 	if removeFromCocktail:
 		cocktail.remove(removeFromCocktail)
 
+	# takes the user to the about page
+	if about:
+		return render_template('about.html', name=project_name, netid=net_id)
 
 	return render_template('search.html', name=project_name, netid=net_id, complete_ingredients=json.dumps(auto_ingredients_list), output_message=output_message, data=rankings, cocktail=cocktail, searched=ingredients)

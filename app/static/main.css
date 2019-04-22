@@ -38,8 +38,16 @@ it's not super pretty tho, so I would prefer to change.... */
     }
 }
 
+#aboutBody {
+  padding-top: 0%;
+  text-align: center;
+}
 
-.topcorner{
+#aboutNetID {
+  color: black;
+}
+
+.topcorner, #aboutForm {
     position:absolute;
     top:2%;
     right:2%;
