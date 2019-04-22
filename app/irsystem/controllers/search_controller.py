@@ -7,11 +7,19 @@ import os
 project_name = "Drink Up!"
 net_id = "cjh286, itl5, lm578, sb838, sp772"
 cocktail = []
+rankings = []
+output_message = ""
+ingredients = None
 
 @irsystem.route('/', methods=['GET'])
 def search():
 	global cocktail
-	ingredients = request.args.get('ingredients')
+	global rankings
+	global output_message
+	global ingredients
+
+	if (request.args.get('ingredients') != None):
+		ingredients = request.args.get('ingredients')
 	addToCocktail = request.args.get('add-to-cocktail')
 	addQueryToCocktail = request.args.get('add-query-to-cocktail')
 	clearCocktail = request.args.get('clear-cocktail')
@@ -27,7 +35,7 @@ def search():
 	# user searched ingredients
 	if not ingredients:
 		rankings = []
-		output_message = "Nothing"
+		output_message = ""
 	else:
 		output_message = "Your Search: " + ingredients
 		query = ingredients.split(', ')
