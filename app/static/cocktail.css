@@ -18,32 +18,7 @@
     background-color: #ad8e06;
 }
 
-/* close shopping cart button */
-.close-btn{
-    text-align: right;
-}
-
-#close-cart{
-    background-color: #FDD20A;
-    color: white;
-    padding: 10px;
-    border-radius: 12px;
-}
-
-#close-cart:hover{
-    background-color: #ad8e06;
-}
-
-.drink-images{
-    width: 250px;
-    margin-top: 10px;
-}
-
-.cocktail-title-div{
-    text-align: center;
-}
-
-
+/* === inside the cocktail list div === */
 /* cocktail list div */
 #cocktail-list{
     position: fixed;
@@ -63,45 +38,51 @@
     overflow: auto;
 }
 
+/* close cocktail cart button */
+.close-btn{
+    text-align: right;
+}
+
+#close-cart{
+    background-color: #FDD20A;
+    color: white;
+    padding: 10px;
+    border-radius: 12px;
+}
+
+#close-cart:hover{
+    background-color: #ad8e06;
+}
+
+/* decorative images */
+.drink-images{
+    width: 250px;
+    margin-top: 10px;
+}
+
+
+/* "your recipe" title */
+.cocktail-title-div{
+    text-align: center;
+}
+
 .cocktail-title{
     color: #FDD20A;
 }
 
+
+/* decorative text banner */
 .cocktail-banner{
     width: 250px;
 }
 
-.clear-btn-div{
-text-align: center;
-}
-
-.clear-btn{
-border: none;
-background-color: #ef4a4a;
-color: white;
-border-radius: 24px;
-}
-
-.clear-btn:hover{
-background-color: #910404;
-}
-
-.done-btn{
-    border: none;
-    background-color: #88a629;
-    color: white;
-    border-radius: 24px;
-}
-
-.done-btn:hover{
-    background-color: #5f741a;
-}
-
+/* ingredients inside the cocktail */
 .cocktailIngredient{
     font-family: 'Cuprum', sans-serif;
     font-size: 20px;
 }
 
+/* remove ingredients from cocktail btns */
 .removeFromCocktail {
   padding: 0px;
   border: none;
@@ -117,4 +98,39 @@ background-color: #910404;
 
 .fa-minus-circle:hover {
   color: #910404;
+}
+
+/* cocktail div buttons */
+.cocktail-btns{
+    display: inline-block;
+}
+
+
+/* clear btns */
+.clear-btn-div{
+text-align: center;
+}
+
+.clear-btn{
+border: none;
+background-color: #ef4a4a;
+color: white;
+border-radius: 24px;
+}
+
+.clear-btn:hover{
+background-color: #910404;
+}
+
+
+/* done btns */
+.done-btn{
+    border: none;
+    background-color: #88a629;
+    color: white;
+    border-radius: 24px;
+}
+
+.done-btn:hover{
+    background-color: #5f741a;
 }

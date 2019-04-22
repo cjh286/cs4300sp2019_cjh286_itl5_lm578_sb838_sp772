@@ -1,6 +1,11 @@
-/* tentative color palette: https://colorpalettes.net/color-palette-1404/
-it's not super pretty tho, so I would prefer to change.... */
+/* basic color scheme: 
+  beige/white: #F0EAEA
+  gray: #3A3637
+  yellow: #FDD20A 
+*/
 
+
+/* given css */
 @media (min-width: 1200px) {
     .container {
         max-width: 970px;
@@ -38,6 +43,7 @@ it's not super pretty tho, so I would prefer to change.... */
     }
 }
 
+<<<<<<< HEAD
 #aboutBody {
   padding-top: 0%;
   text-align: center;
@@ -48,12 +54,18 @@ it's not super pretty tho, so I would prefer to change.... */
 }
 
 .topcorner, #aboutForm {
+=======
+/* initial css (given) */
+.topcorner{
+>>>>>>> a9d65fa8b882c5d9fe14111770197f4c562a6f8f
     position:absolute;
     top:2%;
     right:2%;
     text-align: right;
 }
 
+
+/* search btn styling */
 .btn{
     background-color: #FDD20A;
     color: #3A3637;
@@ -69,6 +81,9 @@ it's not super pretty tho, so I would prefer to change.... */
 }
 
 
+/* main css */
+
+/* header/title */
 h1{
   font-family: 'Cuprum', sans-serif;
   color: #3A3637;
@@ -81,6 +96,7 @@ h2{
     color: #82a7ca;
 }
 
+/* footer: unused */
 footer{
   position: fixed;
   background-color: #3A3637;
@@ -92,6 +108,8 @@ footer{
   font-family: 'Cuprum', sans-serif;
 }
 
+
+/* links */
 a{
   color: #3A3637;
   text-decoration: underline;
@@ -105,28 +123,10 @@ a:hover{
   color: #ad8e06;
 }
 
+/* === styling for after search results are displayed === */
+/* search bar with results */
 
-.cocktailIngredient {
-  display: inline;
-}
-
-.addToDrink {
-  margin-top: 10px;
-  margin-left: 10px;
-  padding: 0px;
-  border: none;
-  background: none;
-  font-size: 14px;
-}
-
-.fa-plus-circle{
-  color: #88a629;
-}
-
-.fa-plus-circle:hover{
-  color: #495815;
-}
-
+/* with results: form */
 .with-results{
   position: fixed;
   top: 0%;
@@ -135,6 +135,7 @@ a:hover{
   border-bottom: solid 1px #3A3637;
 }
 
+/* displaying the title (drinkup) */
 .results-title-div{
   text-align: left;
 }
@@ -155,9 +156,35 @@ a:hover{
   margin-top: -10px;
 }
 
+/* title of the search */
 .ranked-results-title {
   display: inline-block;
 }
+
+
+/* ingredients list after search */
+.cocktailIngredient {
+  display: inline;
+}
+
+/* add to drink buttons */
+.addToDrink {
+  margin-top: 10px;
+  margin-left: 10px;
+  padding: 0px;
+  border: none;
+  background: none;
+  font-size: 14px;
+}
+
+.fa-plus-circle{
+  color: #88a629;
+}
+
+.fa-plus-circle:hover{
+  color: #495815;
+}
+
 
 #queryAdd {
   display: inline-block;
@@ -168,17 +195,44 @@ a:hover{
   font-size: 22px;
 }
 
+/* actual results display */
 .ranked-results{
   margin-top: -90px;
   margin-left: 300px;
   text-align: left;
 }
 
-.ranked_list{
+.ranked-list{
   font-family: 'Cuprum', sans-serif;
   font-size: 20px;
 }
 
+.ranked-div{
+  margin-bottom: 10px;
+}
+
+.ranked-form{
+  margin-bottom: 0px;
+}
+
+.ranked-name{
+  font-size: 22px;
+  margin: 5px;
+  margin-bottom: 0px;
+  /* text-decoration: underline; */
+}
+
+.ranked-info{
+  font-size: 19px;
+  margin: 0px;
+  padding-left: 30px;
+}
+
+
+/* === search bar styling without results === */
+
+/* advanced search */
+/* link/btn styling */
 .advanced-search-btn-div{
   width: 100%;
   text-align: center;
@@ -202,17 +256,19 @@ a:hover{
   color: #ad8e06;
 }
 
+/* actual settings div styling */
 #advanced-search-settings{
   display: none;
   position: absolute;
-  top: 20%;
+  top: 30%;
   left: 35%;
   background-color: #F0EAEA;
   width: 400px;
-  height: 400px;
+  height: 200px;
   border: solid 1px #3A3637;
 }
 
+/* close settings btn styling */
 .close-settings-div{
   width: 100%;
   text-align: right;
@@ -230,12 +286,38 @@ a:hover{
     background-color: #ad8e06;
 }
 
-.seach-settings-title{
+/* title styling */
+.search-settings-title{
   width: 100%;
   text-align: center;
   padding: 50x;
 }
 
+/* form styling */
+.search-settings-form{
+  text-align: center;
+}
+
+/* styling the select option */
+select{
+  margin: 10px;
+  width: 120px;
+  height: 25px;
+}
+
+/* set search settings btn styling */
+.search-settings-btn{
+  background-color: #FDD20A;
+  color: white;
+  border-radius: 12px;
+}
+
+.search-settings-btn:hover{
+  background-color: #ad8e06;
+}
+
+
+/* decorative bird image styling */
 .bird{
   position: fixed;
   right: 0%;

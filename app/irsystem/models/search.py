@@ -194,8 +194,7 @@ def makeCoOccurrence(input_dict, n_ingredients, index_dict):
     return matrix
 
 
-# TODO: combine this so that len(query) == 1 is still the same function
-def complementRanking(query, co_oc, input_term_to_index, input_index_to_term, lower_to_upper):
+def complementRanking(query, co_oc, input_term_to_index, input_index_to_term):
     """
     Create ranking of complements based on query
     Inputs:
@@ -210,59 +209,52 @@ def complementRanking(query, co_oc, input_term_to_index, input_index_to_term, lo
 
     co_oc_matrix = copy.deepcopy(co_oc)
     ranking = []
-    if (len(query) == 1):
-        if (query[0] in input_term_to_index):
-            q_index = input_term_to_index[query[0]]
+
+    q_col_sum = np.zeros(len(input_term_to_index))
+    q__col_normed_list = list()
+    q_col_averaged = np.zeros(len(input_term_to_index))
+    for i in range (len(query)):
+        query_at_i = query[i].strip()
+        if (query_at_i in input_term_to_index):
+            q_index = input_term_to_index[query_at_i]
             q_column = co_oc_matrix[q_index]
-            q_column_normed = q_column/(co_oc_matrix[q_index][q_index])
-            #print("norm_test", q_column_normed[q_index+2])
+            q__col_normed_list.append(q_column/(co_oc_matrix[q_index][q_index]))
+            #all_q_cols[i] = q_column
+    for r in range(0,len(q__col_normed_list)):
+        q_col_sum = np.add(q_col_sum, q__col_normed_list[i])
+    q_col_normed_avg = q_col_sum/len(q__col_normed_list)
 
-            score = sys.maxsize
-            numResults = 1
-            while (score > 0):
-                result = np.argmax(q_column_normed) #result is the index of the top score
-                if result == q_index: #sets the score of query ingredient with itself to zero
-                    q_column_normed[result] = 0
-                else: #if the result is not the query that was searched
-                    score = q_column_normed[result]
-                    if (score != 0): #only prints ingredients with scores greater than zero
-                        display_name = lower_to_upper[input_index_to_term[result]]
-                        rankeditem = str(numResults) + ". " + display_name + " (score: " + str(round(score,2)) + ")"
-                        ranking.append(rankeditem)
-                        q_column_normed[result] = 0 #sets the score to be zero so it doesn't return this again
-                    numResults += 1
-    elif (len(query) > 1): #for queries longer than 1 ingredient
+    score = sys.maxsize
+    numResults = 1
+    while (score > 0):
+        result = np.argmax(q_col_sum) #gets index
+        score = q_col_sum[result]
+        if (score != 0):
+            rankeditem = {'rank': numResults, 'item': input_index_to_term[result], 'score': score}
+            ranking.append(rankeditem)
+            q_col_sum[result] = 0
+        numResults += 1
+  
+    if (len(ranking) == 0):
+        return "query not found"
 
-
-            q_col_sum = np.zeros(len(input_term_to_index))
-            q__col_normed_list = list()
-            q_col_averaged = np.zeros(len(input_term_to_index))
-            for i in range (len(query)):
-                query_at_i = query[i].strip()
-                if (query_at_i in input_term_to_index):
-                    q_index = input_term_to_index[query_at_i]
-                    q_column = co_oc_matrix[q_index]
-                    q__col_normed_list.append(q_column/(co_oc_matrix[q_index][q_index]))
-                    #all_q_cols[i] = q_column
-            for r in range(0,len(q__col_normed_list)):
-                q_col_sum = np.add(q_col_sum, q__col_normed_list[i])
-            q_col_normed_avg = q_col_sum/len(q__col_normed_list)
-
-            score = sys.maxsize
-            numResults = 1
-            while (score > 0):
-                result = np.argmax(q_col_sum) #gets index
-                score = q_col_sum[result]
-                if (score != 0):
-                    display_name = lower_to_upper[input_index_to_term[result]]
-                    rankeditem = str(numResults) + ". " + display_name + " (score: " + str(round(score,2)) + ")"
-                    ranking.append(rankeditem)
-                    q_col_sum[result] = 0
-                numResults += 1
-    else:
-        ranking.append("query not found")
-    
     return ranking
+
+
+def displayRanking(input_rankings, lower_to_upper, labeled_dict):
+    rankings = []
+
+    for x in input_rankings:
+        print(x)
+        if (x['item'] in labeled_dict):
+            label = labeled_dict[x['item']]
+        else:
+            label = 'n/a'
+        rankeditem = {'rank': x['rank'], 'name': lower_to_upper[x['item']], 'score': round(x['score'], 2), 'label': label}
+        rankings.append(rankeditem)
+
+    return rankings
+
 
 
 # making cocktail list functions
@@ -408,6 +400,7 @@ def make_features(ingred_list):
 def do_ml(all_ingredients):
 
     all_list1 = all_ingredients
+    all_list2 = copy.deepcopy(all_ingredients)
 
     ingred_np_train = np.array(['orchid','cinnamon powder','lemon zest','peach bitters','pimm’s® strawberry with a hint of mint',
         'angostura aromatic bitters','pimento dram','sweet vermouth','original bitters','tonic water','baileys® coffee irish cream liqueur',
@@ -415,9 +408,9 @@ def do_ml(all_ingredients):
         'smirnoff® vanilla flavoured vodka','ice','ground cinnamon','orange bitters','angostura bitters','agave nectar','orange',
         'dark chocolate','demerara sugar syrup','gordon’s london dry gin','oreo cookies','diet tonic water','rosemary','sprig of dill',
         'apple','lime','elderflower syrup','olive brine','strawberry','elderflower','milk','olive','pickle vinegar','passion fruit juice',
-        'mincemeat','egg yolk','chocolate popping candy','boiling water','grated nutmeg','gordon\'s® london dry gin','calvados','candy cane',
+        'mincemeat','egg yolk','chocolate popping candy','boiling water','grated nutmeg','calvados','candy cane',
         'mint to garnish','lime twist','cracked black pepper','ruby port','streaky bacon','crushed biscuit','dry vermouth','cola',
-        'gordon\'s® with a spot of elderflower','asperol','mango pureé','elderflower cordial','ginger beer','tanqueray® london dry gin',
+        'asperol','mango pureé','elderflower cordial','ginger beer','tanqueray® london dry gin',
         'johnnie walker® platinum blended scotch whisky','lavender','smoked salt','smirnoff® espresso flavoured vodka','coffee bean',
         'j&b rare® blended scotch whisky','hundreds-and-thousands','cranberry jelly','ginger juice','watermelon juice','cucumber water',
         'captain morgan® original spiced rum','tomato juice','raspberry liqueur','beets and veg juice','soda','apple cider','sour syrup',
@@ -432,18 +425,21 @@ def do_ml(all_ingredients):
         'hot milk','marigold flower','honey syrup','sage leaves','dark chocolate ganache','sweet violets','baileys original (0.8 units)',
         'banana','raw apple cider vinegar','distilled vinegar','campari','cherry syrup','lemon wedge'])
 
+    #print("here",ingred_np_train[49], ingred_np_train[60])
+
     #labels for training set
     labels_list_train = np.array(['garnish','garnish','garnish','alcohol','alcohol','alcohol','alcohol','alcohol','alcohol','mixer','alcohol',
         'garnish','mixer','alcohol','mixer','mixer','garnish','alcohol','garnish','alcohol','alcohol','garnish','garnish','alcohol','alcohol',
         'mixer','garnish','garnish','mixer','alcohol','garnish','mixer','garnish','garnish','garnish','garnish','mixer','mixer','garnish','garnish',
-        'mixer','garnish','mixer','mixer','garnish','mixer','garnish','mixer','garnish','alcohol','alcohol','garnish','garnish','garnish','garnish',
-        'alcohol','garnish','garnish','alcohol','mixer','alcohol','alcohol','mixer','alcohol','alcohol','alcohol','alcohol','garnish','garnish',
+        'mixer','garnish','mixer','mixer','garnish','mixer','garnish','mixer','garnish','alcohol','garnish','garnish','garnish','garnish',
+        'alcohol','garnish','garnish','alcohol','mixer','alcohol','mixer','alcohol','alcohol','alcohol','alcohol','garnish','garnish',
         'alcohol','garnish','alcohol','garnish','mixer','mixer','mixer','mixer','alcohol','mixer','alcohol','mixer','mixer','mixer','mixer','alcohol',
         'mixer','garnish','alcohol','garnish','mixer','garnish','alcohol','garnish','alcohol','mixer','alcohol','mixer','mixer','garnish','garnish',
         'alcohol','mixer','garnish','garnish','garnish','mixer','mixer','alcohol','mixer','mixer','mixer','garnish','garnish','mixer','garnish',
-        'garnish','garnish','garnish','acohol','garnish','garnish','mixer','acohol','garnish','garnish','mixer','mixer','mixer','mixer','garnish',
-        'mixer','garnish','garnish','acohol','garnish','acohol','mixer','garnish','mixer','garnish','mixer','garnish','garnish','garnish','alcohol',
+        'garnish','garnish','garnish','alcohol','garnish','garnish','mixer','acohol','garnish','garnish','mixer','mixer','mixer','mixer','garnish',
+        'mixer','garnish','garnish','alcohol','garnish','alcohol','mixer','garnish','mixer','garnish','mixer','garnish','garnish','garnish','alcohol',
         'garnish','mixer','mixer','alcohol','mixer','garnish'])
+
 
     #make features for the pre-labled ingredients
     list_training_ingreds = ingred_np_train.tolist()
@@ -487,6 +483,7 @@ def do_ml(all_ingredients):
             print(x, "an unlabled ingredient was found") 
             #this is to make sure all the names match so if a trained name is not found in all ingredients it will print the name
     untrained_ingreds = all_list1
+    untrained_ingreds_np = np.asarray(all_list1)
     #print("len untrained", len(untrained_ingreds)) #check that this is 339
 
     features_untrained = make_features(untrained_ingreds)
@@ -495,13 +492,17 @@ def do_ml(all_ingredients):
 
     #return a dictionary
     label_dic = dict()
-    for i in range(0,len(all_ingredients)):
-        if all_ingredients[i] in ingred_np_train:
-            label_dic[all_ingredients[i]] = labels_list_train[i]
-        elif all_ingredients[i] in untrained_ingreds:
-            label_dic[all_ingredients[i]] = dtree_predictions2[i]
+    for i in range(0,len(all_list2)):
+        if all_list2[i] in ingred_np_train:
+            #print(all_list2[i])
+            idx = np.argwhere(ingred_np_train == all_list2[i])
+            label_dic[all_list2[i]] = labels_list_train[idx[0][0]]
+        elif all_list2[i] in untrained_ingreds:
+            idx = np.argwhere(untrained_ingreds_np == all_list2[i])
+            label_dic[all_list2[i]] = dtree_predictions2[idx[0][0]]
         else:
             print(all_ingredients[i], "has no label, something has gone wrong")
+
 
     return label_dic
 
@@ -531,9 +532,9 @@ def main():
     query = ['orange juice']
     query2 = ['cranberry juice']
     query3 = ['cranberry juice', 'orange juice']
-    rankings1 = complementRanking(query, co_oc, indexTermDict[1], indexTermDict[0], lower_to_upper_i)
-    rankings2 = complementRanking(query2, co_oc, indexTermDict[1], indexTermDict[0], lower_to_upper_i)
-    rankings3 = complementRanking(query3, co_oc, indexTermDict[1], indexTermDict[0], lower_to_upper_i)
+    rankings1 = complementRanking(query, co_oc, indexTermDict[1], indexTermDict[0])
+    rankings2 = complementRanking(query2, co_oc, indexTermDict[1], indexTermDict[0])
+    rankings3 = complementRanking(query3, co_oc, indexTermDict[1], indexTermDict[0])
     # print(rankings1[:10])
     # print("")
     # print(rankings2[:10])
@@ -541,6 +542,10 @@ def main():
     # print(rankings3[:10])
 
     # print(all_ingredients_list)
+    # print(rankings1)
+
+    # display = displayRanking(rankings1, lower_to_upper_i, labeled_dict)
+    # print(display)
 
 if __name__ == "__main__":
     main()
