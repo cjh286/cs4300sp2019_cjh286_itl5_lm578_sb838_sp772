@@ -43,7 +43,6 @@
     }
 }
 
-<<<<<<< HEAD
 #aboutBody {
   padding-top: 0%;
   text-align: center;
@@ -53,11 +52,8 @@
   color: black;
 }
 
-.topcorner, #aboutForm {
-=======
 /* initial css (given) */
-.topcorner{
->>>>>>> a9d65fa8b882c5d9fe14111770197f4c562a6f8f
+.topcorner, #aboutForm {
     position:absolute;
     top:2%;
     right:2%;
