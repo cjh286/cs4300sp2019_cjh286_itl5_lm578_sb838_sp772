@@ -73,12 +73,16 @@
                 </form>
                 <br>
                 <div class='ranked_list'>
-                {% for d in data %}
-                    <form>
-                        {{d}}
-                        <button class='addToDrink' name='add-to-cocktail' value="{{d}}"><i class="fa fa-plus-circle" aria-hidden="true"></i></button>
-                    </form>
-                {% endfor %}
+                {% if (data == "query not found") %}
+                    {{data}}
+                {% else %}
+                    {% for d in data %}
+                        <form>
+                            {{d}}
+                            <button class='addToDrink' name='add-to-cocktail' value="{{d}}"><i class="fa fa-plus-circle" aria-hidden="true"></i></button>
+                        </form>
+                    {% endfor %}
+                {% endif %}
                 </div>
             </div>
         {% endif %}

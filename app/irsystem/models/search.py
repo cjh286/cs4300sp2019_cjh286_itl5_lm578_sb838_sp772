@@ -194,7 +194,6 @@ def makeCoOccurrence(input_dict, n_ingredients, index_dict):
     return matrix
 
 
-# TODO: combine this so that len(query) == 1 is still the same function
 def complementRanking(query, co_oc, input_term_to_index, input_index_to_term, lower_to_upper):
     """
     Create ranking of complements based on query
@@ -210,58 +209,36 @@ def complementRanking(query, co_oc, input_term_to_index, input_index_to_term, lo
 
     co_oc_matrix = copy.deepcopy(co_oc)
     ranking = []
-    if (len(query) == 1):
-        if (query[0] in input_term_to_index):
-            q_index = input_term_to_index[query[0]]
+
+    q_col_sum = np.zeros(len(input_term_to_index))
+    q__col_normed_list = list()
+    q_col_averaged = np.zeros(len(input_term_to_index))
+    for i in range (len(query)):
+        query_at_i = query[i].strip()
+        if (query_at_i in input_term_to_index):
+            q_index = input_term_to_index[query_at_i]
             q_column = co_oc_matrix[q_index]
-            q_column_normed = q_column/(co_oc_matrix[q_index][q_index])
-            #print("norm_test", q_column_normed[q_index+2])
+            q__col_normed_list.append(q_column/(co_oc_matrix[q_index][q_index]))
+            #all_q_cols[i] = q_column
+    for r in range(0,len(q__col_normed_list)):
+        q_col_sum = np.add(q_col_sum, q__col_normed_list[i])
+    q_col_normed_avg = q_col_sum/len(q__col_normed_list)
 
-            score = sys.maxsize
-            numResults = 1
-            while (score > 0):
-                result = np.argmax(q_column_normed) #result is the index of the top score
-                if result == q_index: #sets the score of query ingredient with itself to zero
-                    q_column_normed[result] = 0
-                else: #if the result is not the query that was searched
-                    score = q_column_normed[result]
-                    if (score != 0): #only prints ingredients with scores greater than zero
-                        display_name = lower_to_upper[input_index_to_term[result]]
-                        rankeditem = str(numResults) + ". " + display_name + " (score: " + str(round(score,2)) + ")"
-                        ranking.append(rankeditem)
-                        q_column_normed[result] = 0 #sets the score to be zero so it doesn't return this again
-                    numResults += 1
-    elif (len(query) > 1): #for queries longer than 1 ingredient
+    score = sys.maxsize
+    numResults = 1
+    while (score > 0):
+        result = np.argmax(q_col_sum) #gets index
+        score = q_col_sum[result]
+        if (score != 0):
+            display_name = lower_to_upper[input_index_to_term[result]]
+            rankeditem = str(numResults) + ". " + display_name + " (score: " + str(round(score,2)) + ")"
+            ranking.append(rankeditem)
+            q_col_sum[result] = 0
+        numResults += 1
+  
+    if (len(ranking) == 0):
+        return "query not found"
 
-
-            q_col_sum = np.zeros(len(input_term_to_index))
-            q__col_normed_list = list()
-            q_col_averaged = np.zeros(len(input_term_to_index))
-            for i in range (len(query)):
-                query_at_i = query[i].strip()
-                if (query_at_i in input_term_to_index):
-                    q_index = input_term_to_index[query_at_i]
-                    q_column = co_oc_matrix[q_index]
-                    q__col_normed_list.append(q_column/(co_oc_matrix[q_index][q_index]))
-                    #all_q_cols[i] = q_column
-            for r in range(0,len(q__col_normed_list)):
-                q_col_sum = np.add(q_col_sum, q__col_normed_list[i])
-            q_col_normed_avg = q_col_sum/len(q__col_normed_list)
-
-            score = sys.maxsize
-            numResults = 1
-            while (score > 0):
-                result = np.argmax(q_col_sum) #gets index
-                score = q_col_sum[result]
-                if (score != 0):
-                    display_name = lower_to_upper[input_index_to_term[result]]
-                    rankeditem = str(numResults) + ". " + display_name + " (score: " + str(round(score,2)) + ")"
-                    ranking.append(rankeditem)
-                    q_col_sum[result] = 0
-                numResults += 1
-    else:
-        ranking.append("query not found")
-    
     return ranking
 
 
