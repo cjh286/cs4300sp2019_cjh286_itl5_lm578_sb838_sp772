@@ -400,6 +400,7 @@ def make_features(ingred_list):
 def do_ml(all_ingredients):
 
     all_list1 = all_ingredients
+    all_list2 = copy.deepcopy(all_ingredients)
 
     ingred_np_train = np.array(['orchid','cinnamon powder','lemon zest','peach bitters','pimm’s® strawberry with a hint of mint',
         'angostura aromatic bitters','pimento dram','sweet vermouth','original bitters','tonic water','baileys® coffee irish cream liqueur',
@@ -479,6 +480,7 @@ def do_ml(all_ingredients):
             print(x, "an unlabled ingredient was found") 
             #this is to make sure all the names match so if a trained name is not found in all ingredients it will print the name
     untrained_ingreds = all_list1
+    untrained_ingreds_np = np.asarray(all_list1)
     #print("len untrained", len(untrained_ingreds)) #check that this is 339
 
     features_untrained = make_features(untrained_ingreds)
@@ -487,13 +489,17 @@ def do_ml(all_ingredients):
 
     #return a dictionary
     label_dic = dict()
-    for i in range(0,len(all_ingredients)):
-        if all_ingredients[i] in ingred_np_train:
-            label_dic[all_ingredients[i]] = labels_list_train[i]
-        elif all_ingredients[i] in untrained_ingreds:
-            label_dic[all_ingredients[i]] = dtree_predictions2[i]
+    for i in range(0,len(all_list2)):
+        if all_list2[i] in ingred_np_train:
+            #print(all_list2[i])
+            idx = np.argwhere(ingred_np_train == all_list2[i])
+            label_dic[all_list2[i]] = labels_list_train[idx[0][0]]
+        elif all_list2[i] in untrained_ingreds:
+            idx = np.argwhere(untrained_ingreds_np == all_list2[i])
+            label_dic[all_list2[i]] = dtree_predictions2[idx[0][0]]
         else:
             print(all_ingredients[i], "has no label, something has gone wrong")
+
 
     return label_dic
 
