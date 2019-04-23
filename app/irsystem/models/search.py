@@ -266,7 +266,7 @@ def displayRanking(input_rankings, lower_to_upper, labeled_dict, flavor_dict, se
         generic_alcohols = ["brandy", "gin", "rum", "schnapps", "tequila", "vodka", "whisky", "bitters"]
         for alcohol in generic_alcohols: 
             if alcohol in x['item']:
-                if alcohol != "bitters"
+                if alcohol != "bitters":
                     if alcohol in flavor_dict:
                         flavor = flavor_dict[alcohol]
                     else: 
