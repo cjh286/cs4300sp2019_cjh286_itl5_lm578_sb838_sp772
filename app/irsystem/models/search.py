@@ -14,7 +14,7 @@ import copy
 # nlp = spacy.load('en_core_web_md')
 
 
-# preprocessing functions
+# ======================= Preprocessing Functions ========================
 def setup(data, num):
     """ Print some basic information about the json file being parsed
 
@@ -157,7 +157,7 @@ def indexDict(input_list):
     return indexToTerm, termToIndex
 
 
-# search functions
+# # ======================= IR System Functions For Ingredient Search ========================
 def termDocMatrix(input_dict):
     pass
 
@@ -274,7 +274,7 @@ def displayRanking(input_rankings, lower_to_upper, labeled_dict, search_by):
 
 
 
-# making cocktail list functions
+# # ======================= Cocktail List Display Functions ========================
 def getNameFromRanking(rankedInput):
     """
     Gets just the name of the ingredient from the ranking outputs
@@ -292,7 +292,7 @@ def getNameFromRanking(rankedInput):
     return name
 
 
-# misc functions
+# # ======================= Query Reformulation ========================
 def queryReformulation(input_query, input_ingred_list):
     new_query = []
     for q in input_query:
@@ -305,6 +305,9 @@ def queryReformulation(input_query, input_ingred_list):
             
 
     return new_query
+
+
+# ======================= IR System For Cocktail Search ========================
 
 def makeJaccard(input_query, input_dict):
     #######
