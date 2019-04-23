@@ -2,6 +2,7 @@ from collections import defaultdict
 import csv
 import re
 import openpyxl
+import os
 
 def tokenize(text): 
     """ Taken from class code A1
@@ -22,7 +23,12 @@ def tokenize(text):
 
 def create_flavor_dict():
     alc_dict = {} #store alc names and review text
-    with open('../../../scraped_data/alc reviews.csv', encoding="utf8") as csv_file:
+    script_path = os.path.abspath(__file__) 
+    path_list = script_path.split(os.sep)
+    script_directory = path_list[0:len(path_list)-4]
+    rel_path = 'scraped_data/alc_reviews.csv'
+    path = "/".join(script_directory) + "/" + rel_path
+    with open(path, encoding="utf8") as csv_file:
         csv_reader = csv.reader(csv_file, delimiter=',')
         line_count = 0
         for row in csv_reader:
@@ -34,7 +40,12 @@ def create_flavor_dict():
     # read in excel data as set
     tastes = []
 
-    book = openpyxl.load_workbook('../../../scraped_data/taste_words.xlsx')
+    script_path = os.path.abspath(__file__) 
+    path_list = script_path.split(os.sep)
+    script_directory = path_list[0:len(path_list)-4]
+    rel_path = 'scraped_data/taste_words.xlsx'
+    path = "/".join(script_directory) + "/" + rel_path
+    book = openpyxl.load_workbook(path)
     sheet = book.get_sheet_by_name('Sheet1')
     for i in range(1, sheet.max_row+1):
         tastes.append(sheet.cell(row=i, column=1).value)

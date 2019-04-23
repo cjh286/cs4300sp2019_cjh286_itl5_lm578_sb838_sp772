@@ -255,13 +255,14 @@ def displayRanking(input_rankings, lower_to_upper, labeled_dict, flavor_dict, se
 
     rankings = []
     for x in input_rankings:
-        print(x)
+        # print(x)
         if (x['item'] in labeled_dict):
             label = labeled_dict[x['item']]
         else:
             label = 'n/a'
         if (lower_to_upper[x['item']] in flavor_dict):
             flavor = flavor_dict[lower_to_upper[x['item']]]
+            # print(x['item'])
         else:
             flavor = 'n/a'
 

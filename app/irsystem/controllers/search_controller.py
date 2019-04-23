@@ -56,7 +56,7 @@ def search():
 		output_message = "Your Search: " + ingredients
 		query = ingredients.split(', ')
 		initial_rank = complementRanking(query, co_oc, indexTermDict[1], indexTermDict[0])
-		rankings = displayRanking(initial_rank, lower_to_upper_i, labeled_dict, searchBy)
+		rankings = displayRanking(initial_rank, lower_to_upper_i, labeled_dict, flavor_dict, searchBy)
 
 	# user wants to add the item they queried to the cocktail
 	if addQueryToCocktail:
