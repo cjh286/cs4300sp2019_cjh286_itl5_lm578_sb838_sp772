@@ -234,6 +234,8 @@ def complementRanking(query, co_oc, input_term_to_index, input_index_to_term):
     numResults = 1
     while (score > 0):
         result = np.argmax(q_col_sum) #gets index
+        # if result == q_index: #sets the score of query ingredient with itself to zero
+        #     q_col_sum[result] = 0
         score = q_col_sum[result]
         if (score != 0):
             rankeditem = {'rank': numResults, 'item': input_index_to_term[result], 'score': score}
