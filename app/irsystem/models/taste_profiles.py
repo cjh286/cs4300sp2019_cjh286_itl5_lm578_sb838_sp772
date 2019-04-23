@@ -54,17 +54,9 @@ def create_flavor_dict():
 
 
     drink_flavors_dict = {}
-
+    generic_alcohols = ["brandy", "gin", "rum", "schnapps", "tequila", "vodka", "whisky", "bitters"]
     for drink in alc_dict.keys():
         list_to_grab_negation = alc_dict[drink]
-        sep_dash = '-'
-        sep_comma = ','
-        if sep_dash in drink:
-            drink_without_amount = drink.split(sep_dash, 1)[0]
-        elif sep_comma in drink:
-            drink_without_amount = drink.split(sep_comma, 1)[0]
-        else:
-            drink_without_amount = drink #manually change some of these
         
 
         to_remove_from_set = []
@@ -81,14 +73,32 @@ def create_flavor_dict():
             reviewset.remove(word)
 
         overlapping_flavors = reviewset.intersection(tasteset)
-
-
-        drink_flavors_dict[drink_without_amount] = list(overlapping_flavors) #list of positive descriptive words
-
         #check if any of the negative terms like 'flavorful' from 'not flavorful' are in the tasteset
         overlapping_negative_flavors = negative_terms.intersection(tasteset)
-        for word in overlapping_negative_flavors: 
-            drink_flavors_dict[drink_without_amount].append(get_negative_phrase[word]) #word is 'flavorful' so add 'not flavorful' to the dictionary
+
+        drink_title = tokenize(drink)
+        for alcohol in generic_alcohols:
+            if alcohol in drink_title:
+                if alcohol != "bitters":
+                    drink_flavors_dict[alcohol] = list(overlapping_flavors) #list of positive descriptive words
+                    for word in overlapping_negative_flavors: 
+                        drink_flavors_dict[alcohol].append(get_negative_phrase[word]) #word is 'flavorful' so add 'not flavorful' to the dictionary
+                else: 
+                    sep_dash = '-'
+                    sep_comma = ','
+                    sep_amount = "oz"
+                    if sep_dash in drink:
+                        drink_without_amount = drink.split(sep_dash, 1)[0]
+                    elif sep_comma in drink:
+                        drink_without_amount = drink.split(sep_comma, 1)[0]
+                    elif sep_amount in drink:
+                        drink_without_amount = drink.split(sep_amount, 1)[1]
+                    else:
+                        drink_without_amount = drink #manually change some of these
+                    drink_flavors_dict[drink_without_amount] = list(overlapping_flavors) #list of positive descriptive words
+                    for word in overlapping_negative_flavors: 
+                        drink_flavors_dict[drink_without_amount].append(get_negative_phrase[word]) #word is 'flavorful' so add 'not flavorful' to the dictionary
+
     return drink_flavors_dict
 
 def main():
