@@ -2,6 +2,7 @@ from . import *
 from app.irsystem.models.helpers import *
 from app.irsystem.models.helpers import NumpyEncoder as NumpyEncoder
 from app.irsystem.models.search import *
+from app.irsystem.models.machine_learning import *
 import os
 
 project_name = "Drink Up!"
