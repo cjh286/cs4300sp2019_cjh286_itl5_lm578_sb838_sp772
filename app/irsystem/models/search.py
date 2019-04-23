@@ -249,7 +249,7 @@ def complementRanking(query, co_oc, input_term_to_index, input_index_to_term):
     return ranking
 
 
-def displayRanking(input_rankings, lower_to_upper, labeled_dict, search_by):
+def displayRanking(input_rankings, lower_to_upper, labeled_dict, flavor_dict, search_by):
     if (type(input_rankings) != list):
         return "query not found"
 
@@ -260,7 +260,13 @@ def displayRanking(input_rankings, lower_to_upper, labeled_dict, search_by):
             label = labeled_dict[x['item']]
         else:
             label = 'n/a'
-        rankeditem = {'rank': x['rank'], 'name': lower_to_upper[x['item']], 'score': round(x['score'], 2), 'label': label}
+        if (lower_to_upper[x['item']] in flavor_dict):
+            flavor = flavor_dict[lower_to_upper[x['item']]]
+        else:
+            flavor = 'n/a'
+
+        rankeditem = {'rank': x['rank'], 'name': lower_to_upper[x['item']], \
+            'score': round(x['score'], 2), 'label': label, 'flavor': flavor}
 
         if (search_by != "ingredients") and (search_by != None):
             if (search_by == label):

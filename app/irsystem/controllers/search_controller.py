@@ -3,6 +3,7 @@ from app.irsystem.models.helpers import *
 from app.irsystem.models.helpers import NumpyEncoder as NumpyEncoder
 from app.irsystem.models.search import *
 from app.irsystem.models.machine_learning import *
+from app.irsystem.models.taste_profiles import *
 import os
 
 # global variables - requires storage
@@ -41,6 +42,7 @@ def search():
 	co_oc = makeCoOccurrence(recipe_dict, len(all_ingredients_list), indexTermDict[1])
 	auto_ingredients_list = autoCompleteList(all_ingredients_list)
 	labeled_dict = do_ml(all_ingredients_list)
+	flavor_dict = create_flavor_dict()
 
 	# user wants to search by
 	if not searchBy:
