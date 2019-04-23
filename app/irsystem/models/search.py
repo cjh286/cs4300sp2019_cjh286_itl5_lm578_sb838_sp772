@@ -304,17 +304,19 @@ def getNameFromRanking(rankedInput):
 
 # # ======================= Query Reformulation ========================
 def queryReformulation(input_query, input_ingred_list):
-    new_query = []
+    new_query = set()
     for q in input_query:
         if q in input_ingred_list:
-            new_query.append(q)
+            new_query.add(q)
         else:
             # wildcard search - generic to find all brands
             for ingredient in input_ingred_list:
-                pass
-            
+                if q in ingredient:
+                    new_query.add(ingredient)
+                elif ingredient in q:
+                    new_query.add(ingredient)
 
-    return new_query
+    return list(new_query)
 
 
 # ======================= IR System For Cocktail Search ========================
@@ -411,12 +413,12 @@ def main():
 
     # display = displayRanking(rankings1, lower_to_upper_i, labeled_dict, "ingredients")
     # print(display)
-    query4 = ['cranberry juice', 'lemon juice', 'orange juice']
-    # print(makeCocktailRanks(query, makeJaccard, recipe_dict))
+    query4 = []
+    print(makeCocktailRanks(query, makeJaccard, recipe_dict))
 
-    print(len(all_ingredients_list))
-    auto_list = autoCompleteList(all_ingredients_list)
-    print(len(auto_list))
+    # print(len(all_ingredients_list))
+    # auto_list = autoCompleteList(all_ingredients_list)
+    # print(len(auto_list))
 
 
 if __name__ == "__main__":
