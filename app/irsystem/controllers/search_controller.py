@@ -58,7 +58,11 @@ def search():
 
 	# user wants to add the item they queried to the cocktail
 	if addQueryToCocktail:
-		addSearchedIngredient = lower_to_upper_i[addQueryToCocktail]
+		# TODO: there are some queries not in lower_to_upper_i b/c apostrophes => fix this
+		if (addQueryToCocktail in lower_to_upper_i):
+			addSearchedIngredient = lower_to_upper_i[addQueryToCocktail]
+		else:
+			addSearchedIngredient = addQueryToCocktail
 		if (addSearchedIngredient not in cocktail) and (addSearchedIngredient != None):
 			cocktail.append(addSearchedIngredient)
 

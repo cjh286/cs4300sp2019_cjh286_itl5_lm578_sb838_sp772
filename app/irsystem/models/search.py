@@ -248,8 +248,10 @@ def complementRanking(query, co_oc, input_term_to_index, input_index_to_term):
 
 
 def displayRanking(input_rankings, lower_to_upper, labeled_dict, search_by):
-    rankings = []
+    if (type(input_rankings) != list):
+        return "query not found"
 
+    rankings = []
     for x in input_rankings:
         print(x)
         if (x['item'] in labeled_dict):
@@ -360,7 +362,7 @@ def main():
 
 
     # test queries
-    query = ['orange juice']
+    query = ['pimm&#39;s no. 1®']
     query2 = ['cranberry juice']
     query3 = ['cranberry juice', 'orange juice']
     rankings1 = complementRanking(query, co_oc, indexTermDict[1], indexTermDict[0])
@@ -375,7 +377,7 @@ def main():
     # print(all_ingredients_list)
     # print(rankings1)
 
-    # display = displayRanking(rankings1, lower_to_upper_i, labeled_dict)
+    display = displayRanking(rankings1, lower_to_upper_i, labeled_dict, "ingredients")
     # print(display)
 
 if __name__ == "__main__":

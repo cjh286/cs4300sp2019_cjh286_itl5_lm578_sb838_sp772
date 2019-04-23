@@ -177,7 +177,8 @@ def do_ml(all_ingredients):
         if x in all_list1:
             all_list1.remove(x) #this removes from the list of all ingredients, the ones that were trained on
         else:
-            print(x, "an unlabled ingredient was found") 
+            pass
+            # print(x, "an unlabled ingredient was found") 
             #this is to make sure all the names match so if a trained name is not found in all ingredients it will print the name
     untrained_ingreds = all_list1
     untrained_ingreds_np = np.asarray(all_list1)
