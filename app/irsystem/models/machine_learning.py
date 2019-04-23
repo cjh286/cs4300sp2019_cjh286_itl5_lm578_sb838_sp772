@@ -1,6 +1,14 @@
+#!/usr/bin/python
+# -*- coding: iso-8859-15 -*-
 import numpy as np
 import copy
 from sklearn.model_selection import train_test_split 
+# import spacy
+
+# nlp = spacy.load('en_core_web_md')
+# # tokens = nlp(u'dog cat banana afskfsd')
+# # for token in tokens:
+# #     print(token.text, token.has_vector, token.vector_norm, token.is_oov)
 
 def make_features(ingred_list):
 
@@ -71,6 +79,10 @@ def make_features(ingred_list):
         feat_num = 20
         if "flo" in ingred_list[i]:
             feature_np[i][20] = 1
+        feat_num = 21
+        # token = nlp(u'ingred_list[i]')[0]
+        # if token.has_vector:
+        #     feature_np[i][21] = ingred_list.vector_norm
 
     return feature_np
 
@@ -152,6 +164,14 @@ def do_ml(all_ingredients):
             #print("got wrong:", ingred_np_train[j])
     print("dtree acc", right/len(y_test))
 
+    #naive bayes
+    from sklearn.naive_bayes import GaussianNB
+    clf = GaussianNB()
+    naive_bayes = clf.fit(X_train, y_train)
+    naive_predictions = naive_bayes.predict(X_test)
+    accuracy_nb = naive_bayes.score(X_test, y_test)
+    print("nb acc", accuracy_nb)
+
     #now that the model has been trained, run it on the remaining 339 ingredients to label them:
     for x in list_training_ingreds:
         if x in all_list1:
@@ -182,3 +202,5 @@ def do_ml(all_ingredients):
 
 
     return label_dic
+
+# labeled_dict = do_ml(all_ingredients_list)

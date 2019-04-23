@@ -6,6 +6,9 @@ import numpy as np
 import sys
 import copy
 from machine_learning import *
+# import spacy
+
+# nlp = spacy.load('en_core_web_md')
 
 
 # preprocessing functions
