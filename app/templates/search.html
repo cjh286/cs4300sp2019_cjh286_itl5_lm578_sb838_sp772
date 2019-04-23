@@ -194,7 +194,7 @@
         // the functions to display and hide advanced search settings
         $("#advanced-search").click(function(){
             $("#advanced-search-settings").fadeIn();
-            console.log("here");
+            // console.log("here");
         });
 
         $("#close-settings").click(function(){
@@ -207,6 +207,7 @@
         $(function() {
             var termTemplate = "<span class='ui-autocomplete-term'>%s</span>";
             var allIngredients = JSON.parse('{{ complete_ingredients|safe }}');
+            console.log(allIngredients);
             $("#ingredient_input").autocomplete({
                 source: allIngredients,
                 open: function(e,ui) {

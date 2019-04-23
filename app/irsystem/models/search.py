@@ -105,7 +105,7 @@ def build_recipe_dict():
 def autoCompleteList(ingredients_list):
     for x in range(len(ingredients_list)):
         string = ingredients_list[x]
-        ingredients_list[x] = string.replace("'", "&#39;")
+        ingredients_list[x] = string.replace("'", "`")
     
     return (ingredients_list)
 
@@ -222,6 +222,7 @@ def complementRanking(query, co_oc, input_term_to_index, input_index_to_term):
     q_col_averaged = np.zeros(len(input_term_to_index))
     for i in range (len(query)):
         query_at_i = query[i].strip()
+        query_at_i = query_at_i.replace("`", "'")
         if (query_at_i in input_term_to_index):
             q_index = input_term_to_index[query_at_i]
             q_column = co_oc_matrix[q_index]
