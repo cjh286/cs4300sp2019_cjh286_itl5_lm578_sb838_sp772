@@ -57,9 +57,15 @@ def create_flavor_dict():
 
     for drink in alc_dict.keys():
         list_to_grab_negation = alc_dict[drink]
-        # no_terms = [w for i,w in list_to_grab_negation if i and (list_to_grab_negation[i-1] in ["no"])]
-        # not_terms = [w for i,w in list_to_grab_negation if i and (list_to_grab_negation[i-1] in ["not"])]
-        # never_terms = [w for i,w in list_to_grab_negation if i and (list_to_grab_negation[i-1] in ["never"])]
+        sep_dash = '-'
+        sep_comma = ','
+        if sep_dash in drink:
+            drink_without_amount = drink.split(sep_dash, 1)[0]
+        elif sep_comma in drink:
+            drink_without_amount = drink.split(sep_comma, 1)[0]
+        else:
+            drink_without_amount = drink #manually change some of these
+        
 
         to_remove_from_set = []
         get_negative_phrase = {}
@@ -77,12 +83,12 @@ def create_flavor_dict():
         overlapping_flavors = reviewset.intersection(tasteset)
 
 
-        drink_flavors_dict[drink] = list(overlapping_flavors) #list of positive descriptive words
+        drink_flavors_dict[drink_without_amount] = list(overlapping_flavors) #list of positive descriptive words
 
         #check if any of the negative terms like 'flavorful' from 'not flavorful' are in the tasteset
         overlapping_negative_flavors = negative_terms.intersection(tasteset)
         for word in overlapping_negative_flavors: 
-            drink_flavors_dict[drink].append(get_negative_phrase[word]) #word is 'flavorful' so add 'not flavorful' to the dictionary
+            drink_flavors_dict[drink_without_amount].append(get_negative_phrase[word]) #word is 'flavorful' so add 'not flavorful' to the dictionary
     return drink_flavors_dict
 
 def main():
