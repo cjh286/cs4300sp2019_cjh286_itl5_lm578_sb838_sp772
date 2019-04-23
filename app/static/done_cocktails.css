@@ -61,11 +61,12 @@ li{
 
 .cocktail-display{
     border: 1px solid #3A3637;
-    width: 300px;
+    width: 350px;
     text-align: center;
     display: inline-block;
     margin: 20px;
     vertical-align: top;
+    padding: 10px;
 }
 
 .cocktail-img{

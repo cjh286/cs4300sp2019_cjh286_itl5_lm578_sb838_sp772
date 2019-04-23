@@ -84,7 +84,9 @@ def search():
 	
 	# user is done building recipe
 	if done:
-		return render_template('cocktails.html', cocktail=cocktail)
+		ingred_query = queriesForCocktail(cocktail)
+		cocktail_list = makeCocktailRanks(ingred_query, makeJaccard, recipe_dict)
+		return render_template('cocktails.html', cocktail=cocktail, cocktail_search = cocktail_list)
 
 	# takes the user to the about page
 	if about:

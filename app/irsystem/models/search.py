@@ -9,6 +9,7 @@ import copy
 # from sklearn.model_selection import train_test_split 
 # uncomment line below to test this file only
 # from machine_learning import *
+# from taste_profiles import *
 
 
 # nlp = spacy.load('en_core_web_md')
@@ -360,7 +361,14 @@ def makeJaccard(input_query, input_dict):
     return list_sort
 
 def makeCocktailRanks(input_query, input_jaccard, input_dict):
-    pass
+    finalRanks = []
+    cocktailRanks = input_jaccard(input_query, input_dict)
+
+    for x in cocktailRanks:
+        ingredients_list = input_dict[x]
+        finalRanks.append({'cocktail': x, 'ingredients': ingredients_list})
+
+    return finalRanks
 
 
 # testing
@@ -399,8 +407,11 @@ def main():
     # print(all_ingredients_list)
     # print(rankings1)
 
-    display = displayRanking(rankings1, lower_to_upper_i, labeled_dict, "ingredients")
+    # display = displayRanking(rankings1, lower_to_upper_i, labeled_dict, "ingredients")
     # print(display)
+    query4 = ['cranberry juice', 'lemon juice', 'orange juice']
+    print(makeCocktailRanks(query, makeJaccard, recipe_dict))
+
 
 if __name__ == "__main__":
     main()
