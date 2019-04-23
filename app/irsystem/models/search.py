@@ -263,11 +263,24 @@ def displayRanking(input_rankings, lower_to_upper, labeled_dict, flavor_dict, se
             label = labeled_dict[x['item']]
         else:
             label = 'n/a'
-        if (lower_to_upper[x['item']] in flavor_dict):
-            flavor = flavor_dict[lower_to_upper[x['item']]]
+        generic_alcohols = ["brandy", "gin", "rum", "schnapps", "tequila", "vodka", "whisky", "bitters"]
+        for alcohol in generic_alcohols: 
+            if alcohol in x['item']:
+                if alcohol != "bitters"
+                    if alcohol in flavor_dict:
+                        flavor = flavor_dict[alcohol]
+                    else: 
+                        flavor = 'n/a'
+                else:
+                    if x['item'] in flavor_dict:
+                        flavor = flavor_dict[x['item']]
+                    else:
+                        flavor = 'n/a'
+                break
+            else:
+                flavor = 'n/a'
             # print(x['item'])
-        else:
-            flavor = 'n/a'
+
 
         rankeditem = {'rank': x['rank'], 'name': lower_to_upper[x['item']], \
             'score': round(x['score'], 2), 'label': label, 'flavor': flavor}
