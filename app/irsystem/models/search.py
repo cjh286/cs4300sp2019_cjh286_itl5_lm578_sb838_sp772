@@ -308,6 +308,13 @@ def queryReformulation(input_query, input_ingred_list):
 
 
 # ======================= IR System For Cocktail Search ========================
+def queriesForCocktail(input_query):
+    new_queries = []
+
+    for q in input_query:
+        new_queries.append(q.lower())
+    
+    return new_queries
 
 def makeJaccard(input_query, input_dict):
     #######
@@ -344,6 +351,9 @@ def makeJaccard(input_query, input_dict):
         #print(i+1 , recipe_name, "\t\tJaccard score:",round(jacc_dict[recipe_name],2), "\tIngredients in common:", ingreds_common_dict[recipe_name])
     #print("HERE",list_sort)
     return list_sort
+
+def makeCocktailRanks(input_query, input_jaccard, input_dict):
+    pass
 
 
 # testing
