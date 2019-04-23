@@ -105,7 +105,8 @@ def build_recipe_dict():
 def autoCompleteList(ingredients_list):
     for x in range(len(ingredients_list)):
         string = ingredients_list[x]
-        ingredients_list[x] = string.replace("'", "`")
+        if ("'" in string):
+            ingredients_list[x] = string.replace("'", "`")
     
     return (ingredients_list)
 
@@ -411,7 +412,11 @@ def main():
     # display = displayRanking(rankings1, lower_to_upper_i, labeled_dict, "ingredients")
     # print(display)
     query4 = ['cranberry juice', 'lemon juice', 'orange juice']
-    print(makeCocktailRanks(query, makeJaccard, recipe_dict))
+    # print(makeCocktailRanks(query, makeJaccard, recipe_dict))
+
+    print(len(all_ingredients_list))
+    auto_list = autoCompleteList(all_ingredients_list)
+    print(len(auto_list))
 
 
 if __name__ == "__main__":

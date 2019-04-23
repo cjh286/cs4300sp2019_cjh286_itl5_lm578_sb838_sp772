@@ -207,7 +207,7 @@
         $(function() {
             var termTemplate = "<span class='ui-autocomplete-term'>%s</span>";
             var allIngredients = JSON.parse('{{ complete_ingredients|safe }}');
-            console.log(allIngredients);
+            console.log(allIngredients.length);
             $("#ingredient_input").autocomplete({
                 source: allIngredients,
                 open: function(e,ui) {
