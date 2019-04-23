@@ -5,19 +5,23 @@ from app.irsystem.models.search import *
 from app.irsystem.models.machine_learning import *
 import os
 
+# global variables - requires storage
 project_name = "Drink Up!"
 net_id = "cjh286, itl5, lm578, sb838, sp772"
 cocktail = []
 rankings = []
 output_message = ""
 ingredients = None
+searchBy = "ingredients"
 
 @irsystem.route('/', methods=['GET'])
 def search():
+	# define global variables
 	global cocktail
 	global rankings
 	global output_message
 	global ingredients
+	global searchBy
 
 	if (request.args.get('ingredients') != None):
 		ingredients = request.args.get('ingredients')
@@ -26,7 +30,8 @@ def search():
 	clearCocktail = request.args.get('clear-cocktail')
 	removeFromCocktail = request.args.get('remove-from-cocktail')
 	about = request.args.get('about')
-	searchBy = request.args.get('search-label')
+	if (request.args.get('search-label') != None):
+		searchBy = request.args.get('search-label')
 	done = request.args.get('done-cocktail')
 
 	# set up - build all necessary datasets
@@ -37,6 +42,10 @@ def search():
 	auto_ingredients_list = autoCompleteList(all_ingredients_list)
 	labeled_dict = do_ml(all_ingredients_list)
 
+	# user wants to search by
+	if not searchBy:
+		searchBy = "ingredients"
+
 	# user searched ingredients
 	if not ingredients:
 		rankings = []
@@ -45,7 +54,7 @@ def search():
 		output_message = "Your Search: " + ingredients
 		query = ingredients.split(', ')
 		initial_rank = complementRanking(query, co_oc, indexTermDict[1], indexTermDict[0])
-		rankings = displayRanking(initial_rank, lower_to_upper_i, labeled_dict)
+		rankings = displayRanking(initial_rank, lower_to_upper_i, labeled_dict, searchBy)
 
 	# user wants to add the item they queried to the cocktail
 	if addQueryToCocktail:
@@ -67,6 +76,7 @@ def search():
 	if removeFromCocktail:
 		cocktail.remove(removeFromCocktail)
 	
+	# user is done building recipe
 	if done:
 		return render_template('cocktails.html', cocktail=cocktail)
 
@@ -74,4 +84,7 @@ def search():
 	if about:
 		return render_template('about.html', name=project_name, netid=net_id)
 
-	return render_template('search.html', name=project_name, netid=net_id, complete_ingredients=json.dumps(auto_ingredients_list), output_message=output_message, data=rankings, cocktail=cocktail, searched=ingredients)
+	return render_template('search.html', name=project_name, netid=net_id, \
+		complete_ingredients=json.dumps(auto_ingredients_list), \
+			output_message=output_message, data=rankings, cocktail=cocktail, \
+				searched=ingredients, search_by = searchBy)

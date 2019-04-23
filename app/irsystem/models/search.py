@@ -247,7 +247,7 @@ def complementRanking(query, co_oc, input_term_to_index, input_index_to_term):
     return ranking
 
 
-def displayRanking(input_rankings, lower_to_upper, labeled_dict):
+def displayRanking(input_rankings, lower_to_upper, labeled_dict, search_by):
     rankings = []
 
     for x in input_rankings:
@@ -257,7 +257,14 @@ def displayRanking(input_rankings, lower_to_upper, labeled_dict):
         else:
             label = 'n/a'
         rankeditem = {'rank': x['rank'], 'name': lower_to_upper[x['item']], 'score': round(x['score'], 2), 'label': label}
-        rankings.append(rankeditem)
+
+        if (search_by != "ingredients") and (search_by != None):
+            if (search_by == label):
+                rankings.append(rankeditem)
+        else:
+            rankings.append(rankeditem)
+    if (len(rankings) == 0):
+        return "query not found"
 
     return rankings
 
