@@ -3,6 +3,7 @@ import csv
 import re
 import openpyxl
 import os
+import json
 
 def tokenize(text): 
     """ Taken from class code A1
@@ -20,6 +21,22 @@ def tokenize(text):
         char = x[y].lower()
         x[y] = char
     return x
+
+# def overlap():
+#     liquor_store_output_drinks = []
+#     script_path = os.path.abspath(__file__) 
+#     path_list = script_path.split(os.sep)
+#     script_directory = path_list[0:len(path_list)-4]
+#     rel_path = 'scraped_data/liquor_store_output.txt'
+#     path = "/".join(script_directory) + "/" + rel_path
+#     with open(path, encoding="utf8") as json_file:
+#         data = json.load(json_file)
+#         for p in data['liquor_info']:
+#             tokenized_drink_name = tokenize(p['name'])
+#             liquor_store_output_drinks.append(tokenized_drink_name)
+
+#     return liquor_store_output_drinks
+
 
 def create_flavor_dict():
     alc_dict = {} #store alc names and review text
@@ -105,6 +122,7 @@ def create_flavor_dict():
 def main():
     flavor_dict = create_flavor_dict()
     print(flavor_dict)
+    # print(overlap())
 
 if __name__ == "__main__":
     main()
