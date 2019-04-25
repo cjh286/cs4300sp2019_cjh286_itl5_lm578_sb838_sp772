@@ -1,7 +1,7 @@
-/* basic color scheme: 
+/* basic color scheme:
   beige/white: #F0EAEA
   gray: #3A3637
-  yellow: #FDD20A 
+  yellow: #FDD20A
 */
 
 
@@ -76,6 +76,25 @@
     color: #88a629;
 }
 
+#xableAdd{
+  background-color: #88a629;
+  color: white;
+  border: none;
+  padding: 4px;
+  border-radius: 4px;
+}
+
+#xableAdd:hover{
+  background-color: #495815;
+}
+
+#xableRemove{
+  margin-top: 10px;
+  margin-left: 0px;
+  padding: 0px;
+  border: none;
+  background: none;
+}
 
 /* main css */
 

@@ -14,6 +14,7 @@ rankings = []
 output_message = ""
 ingredients = None
 searchBy = "ingredients"
+xable = []
 
 @irsystem.route('/', methods=['GET'])
 def search():
@@ -23,6 +24,7 @@ def search():
 	global output_message
 	global ingredients
 	global searchBy
+	global xable
 
 	if (request.args.get('ingredients') != None):
 		ingredients = request.args.get('ingredients')
@@ -30,6 +32,7 @@ def search():
 	addQueryToCocktail = request.args.get('add-query-to-cocktail')
 	clearCocktail = request.args.get('clear-cocktail')
 	removeFromCocktail = request.args.get('remove-from-cocktail')
+	removeFromQuery = request.args.get('remove-from-query')
 	about = request.args.get('about')
 	if (request.args.get('search-label') != None):
 		searchBy = request.args.get('search-label')
@@ -56,8 +59,19 @@ def search():
 		output_message = "Your Search: " + ingredients
 		query = ingredients.split(', ')
 		query = queryReformulation(query, all_ingredients_list)
-		initial_rank = complementRanking(query, co_oc, indexTermDict[1], indexTermDict[0])
+		for q in query:
+			if q not in xable:
+				xable.append(q)
+		initial_rank = complementRanking(xable, co_oc, indexTermDict[1], indexTermDict[0])
 		rankings = displayRanking(initial_rank, lower_to_upper_i, labeled_dict, flavor_dict, searchBy)
+
+	# user wants to remove an item from their running query
+	if removeFromQuery:
+		if (removeFromQuery == 'clear'):
+			xable.clear()
+		else:
+			if xable:
+				xable.remove(removeFromQuery)
 
 	# user wants to add the item they queried to the cocktail
 	if addQueryToCocktail:
@@ -82,18 +96,26 @@ def search():
 	# user wants to remove an item from the cocktail list
 	if removeFromCocktail:
 		cocktail.remove(removeFromCocktail)
-	
+
 	# user is done building recipe
 	if done:
 		ingred_query = queriesForCocktail(cocktail)
 		cocktail_list = makeCocktailRanks(ingred_query, makeJaccard, recipe_dict)
 		return render_template('cocktails.html', cocktail=cocktail, cocktail_search = cocktail_list)
 
+	if xable:
+		initial_rank = complementRanking(xable, co_oc, indexTermDict[1], indexTermDict[0])
+		rankings = displayRanking(initial_rank, lower_to_upper_i, labeled_dict, flavor_dict, searchBy)
+	else:
+		rankings = []
+		output_message = ""
+
 	# takes the user to the about page
 	if about:
 		return render_template('about.html', name=project_name, netid=net_id)
 
+	# removed searched=ingredients for testing purposes
 	return render_template('search.html', name=project_name, netid=net_id, \
 		complete_ingredients=json.dumps(auto_ingredients_list), \
 			output_message=output_message, data=rankings, cocktail=cocktail, \
-				searched=ingredients, search_by = searchBy)
+				search_by = searchBy, xable=xable)

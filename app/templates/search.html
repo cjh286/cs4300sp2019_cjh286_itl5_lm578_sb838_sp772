@@ -5,10 +5,10 @@
         <link rel="stylesheet" href="/static/main.css">
         <link rel="stylesheet" href="/static/cocktail.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-        
+
         <!-- google fonts -->
         <link href="https://fonts.googleapis.com/css?family=Cuprum|Hind+Siliguri" rel="stylesheet">
-        
+
         <!-- jquery/javascript libraries -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <link rel="stylesheet" href="/static/jquery-ui.css">
@@ -71,7 +71,7 @@
                  <!-- the drink up logo -->
                 <div class='results-title-div results-search'>
                     <!-- logo is a link that leads to main page -->
-                    <h1 class='with-results-title'><a href='/?ingredients='>DrinkUp</a></h1>
+                    <h1 class='with-results-title'><a href='/?remove-from-query=clear'>DrinkUp</a></h1>
                 </div>
 
                 <!-- the search bar -->
@@ -87,12 +87,19 @@
             <!-- displaying the results -->
             <div class='ranked-results'>
                 <!-- display the output message (the user's query) -->
-                <h2 class='ranked-results-title'>{{output_message}}</h2>
-                
+                <!-- <h2 class='ranked-results-title'>{{output_message}}</h2> -->
+                <form>
+                 {% for x in xable %}
+                 <button class='addToDrink' id='xableAdd' name='add-to-cocktail' value='{{x}}'>{{x}}</button>
+                 <button class='removeFromQuery' id='xableRemove' name='remove-from-query' value='{{x}}'><i class="fa fa-minus-circle" aria-hidden="true"></i></button>
+                 {% endfor %}
+               </form>
+
+
                 <!-- form and buttons to add the query to the cocktail -->
-                <form id="queryAdd">
+                <!-- <form id="queryAdd">
                   <button id="queryAddButton" class='addToDrink' name='add-query-to-cocktail' value="{{searched}}"><i class="fa fa-plus-circle" aria-hidden="true"></i></button>
-                </form>
+                </form> -->
                 <br>
 
                 <!-- show the results -->
@@ -173,7 +180,7 @@
     <form id="aboutForm">
       <input type="submit" name="about" class="btn btn-info" value="About">
     </form>
-    
+
     <!-- decorative bird image -->
     <div class='bird'>
         <img class='bird-img' src='/static/images/cocktail-bird.png'>
