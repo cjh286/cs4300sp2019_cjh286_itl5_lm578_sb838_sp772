@@ -366,24 +366,28 @@ def makeJaccard(input_query, input_dict):
             jacc_dict[drink] = 0
 
     
-    list_sort = (sorted(jacc_dict, key=jacc_dict.get, reverse=True)[:10])
+    # list_sort = (sorted(jacc_dict, key=jacc_dict.get, reverse=True)[:10])
 
     #print first 10
     
-    for i in range(0,10):
-        recipe_name = list_sort[i]
+    # for i in range(0,10):
+    #     recipe_name = list_sort[i]
         #THIS PRINTS TOP TEN CORRECTLY IF UNCOMMENTED
         #print(i+1 , recipe_name, "\t\tJaccard score:",round(jacc_dict[recipe_name],2), "\tIngredients in common:", ingreds_common_dict[recipe_name])
     #print("HERE",list_sort)
-    return list_sort
+    print(jacc_dict)
+    return jacc_dict
 
 def makeCocktailRanks(input_query, input_jaccard, input_dict):
     finalRanks = []
-    cocktailRanks = input_jaccard(input_query, input_dict)
+    cocktailJacc = input_jaccard(input_query, input_dict)
+    cocktailRanks = sorted(cocktailJacc, key=cocktailJacc.get, reverse=True)
 
     for x in cocktailRanks:
         ingredients_list = input_dict[x]
-        finalRanks.append({'cocktail': x, 'ingredients': ingredients_list})
+        score = round(cocktailJacc[x], 2)
+        if (score != 0):
+            finalRanks.append({'cocktail': x, 'ingredients': ingredients_list, 'score': score})
 
     return finalRanks
 
@@ -426,8 +430,8 @@ def main():
 
     # display = displayRanking(rankings1, lower_to_upper_i, labeled_dict, "ingredients")
     # print(display)
-    query4 = []
-    print(makeCocktailRanks(query, makeJaccard, recipe_dict))
+    query4 = ['lemon juice']
+    makeCocktailRanks(query, makeJaccard, recipe_dict)
 
     # print(len(all_ingredients_list))
     # auto_list = autoCompleteList(all_ingredients_list)
