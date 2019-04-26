@@ -15,19 +15,19 @@ net_id = "cjh286, itl5, lm578, sb838, sp772"
 def search():
 	if ('cocktail' not in session):
 		session['cocktail'] = []
-	if (session['output_message'] == None):
+	if ('output_message' not in session):
 		session['output_message'] = ""
-	if (session['searchBy'] == None):
+	if ('searchBy' not in session):
 		session['searchBy'] = 'ingredients'
-	if (session['xable'] == None):
+	if ('xable' not in session):
 		session['xable'] = []
-	if (session['rankings'] == None):
+	if ('rankings' not in session):
 		session['rankings'] = []
 
 
 	ingredients = request.args.get('ingredients')
-	print(ingredients == "")
-	print(ingredients)
+	# print(ingredients == "")
+	# print(ingredients)
 	addToCocktail = request.args.get('add-to-cocktail')
 	addQueryToCocktail = request.args.get('add-query-to-cocktail')
 	clearCocktail = request.args.get('clear-cocktail')
