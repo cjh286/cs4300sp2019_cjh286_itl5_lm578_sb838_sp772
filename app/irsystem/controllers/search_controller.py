@@ -49,7 +49,7 @@ def search():
 
 	# user searched ingredients
 	if (ingredients == ""):
-		session['rankings'] = None
+		session['rankings'] = []
 		session['xable'] = []
 		session['output_message'] = ""
 		# session['ingredients'] = None
