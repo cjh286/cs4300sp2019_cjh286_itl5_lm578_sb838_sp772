@@ -76,59 +76,6 @@
     color: #88a629;
 }
 
-.xable-overall{
-  position: relative;
-  /* display: inline-block;
-  margin-left: 14px;
-  margin-right: 14px;
-  margin-bottom: 10px; */
-}
-
-.xable-div{
-  display: inline-block;
-  margin-left: 14px;
-  margin-right: 14px;
-  margin-bottom: 10px;
-   
-}
-
-.xableAdd{
-  background-color: #FDD20A;
-  color: #3A3637;
-  border: none;
-  padding: 2px 5px;
-  /* adding-right: 24px; */
-  border-top-left-radius: 24px;
-  border-bottom-left-radius: 24px;
-  font-size: 13px;
-  position: relative;
-  z-index: 2;
-}
-
-.xableAdd:hover{
-  background-color: #495815;
-  color: white;
-}
-
-
-.xableRemove{
-  position: absolute;
-  padding: 2px 7px;
-  border-radius: 24px;
-  border: none;
-  background-color: #FDD20A;
-  color: red;
-  font-size: 13px;
-  z-index: 1;
-  top: 0px;
-  left: 14px;
-}
-
-.xableRemove:hover{
-  background-color: #910404;
-  color: white;
-}
-
 /* #yourSearch{
   font-size: 20px;
 } */
@@ -217,6 +164,59 @@ a:hover{
   display: inline-block;
 }
 
+/* xable queries */
+.xable-overall{
+  position: relative;
+
+}
+
+.xable-div{
+  display: inline-block;
+  margin-left: 14px;
+  margin-right: 14px;
+  margin-bottom: 10px;
+   
+}
+
+.xableAdd{
+  background-color: #FDD20A;
+  color: #3A3637;
+  border: none;
+  padding: 2px 5px;
+  /* adding-right: 24px; */
+  border-top-left-radius: 24px;
+  border-bottom-left-radius: 24px;
+  font-size: 13px;
+  position: relative;
+  font-family: 'Cuprum', sans-serif;
+  z-index: 2;
+}
+
+.xableAdd:hover{
+  background-color: #495815;
+  color: white;
+}
+
+
+.xableRemove{
+  position: absolute;
+  padding: 2px 7px;
+  border-radius: 24px;
+  border: none;
+  background-color: #FDD20A;
+  color: red;
+  font-size: 13px;
+  z-index: 1;
+  top: 0px;
+  left: 14px;
+  font-family: 'Cuprum', sans-serif;
+}
+
+.xableRemove:hover{
+  background-color: #910404;
+  color: white;
+}
+
 
 /* ingredients list after search */
 .cocktailIngredient {
@@ -259,6 +259,7 @@ a:hover{
 }
 
 .ranked-list{
+  margin-top: -20px;
   font-family: 'Cuprum', sans-serif;
   font-size: 20px;
 }
