@@ -10,7 +10,7 @@ import os
 project_name = "Drink Up!"
 net_id = "cjh286, itl5, lm578, sb838, sp772"
 cocktail = []
-rankings = []
+rankings = None
 output_message = ""
 ingredients = None
 searchBy = "ingredients"
@@ -40,6 +40,7 @@ def search():
 
 	# set up - build all necessary datasets
 	drinks_list, all_ingredients_list, recipe_dict, lower_to_upper_i = build_recipe_dict()
+	ingred_len = len(all_ingredients_list)
 	ingredients_dict = build_ingredients_dict(recipe_dict)
 	indexTermDict = indexDict(all_ingredients_list)
 	co_oc = makeCoOccurrence(recipe_dict, len(all_ingredients_list), indexTermDict[1])
@@ -54,6 +55,7 @@ def search():
 	# user searched ingredients
 	if not ingredients:
 		rankings = []
+		xable = []
 		output_message = ""
 	else:
 		output_message = "Your Search: " + ingredients
@@ -106,9 +108,6 @@ def search():
 	if xable:
 		initial_rank = complementRanking(xable, co_oc, indexTermDict[1], indexTermDict[0])
 		rankings = displayRanking(initial_rank, lower_to_upper_i, labeled_dict, flavor_dict, searchBy)
-	else:
-		rankings = []
-		output_message = ""
 
 	# takes the user to the about page
 	if about:
@@ -118,4 +117,4 @@ def search():
 	return render_template('search.html', name=project_name, netid=net_id, \
 		complete_ingredients=json.dumps(auto_ingredients_list), \
 			output_message=output_message, data=rankings, cocktail=cocktail, \
-				search_by = searchBy, xable=xable)
+				search_by = searchBy, xable=xable, ingred_len = ingred_len)

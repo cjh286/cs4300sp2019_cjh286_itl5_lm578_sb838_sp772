@@ -17,6 +17,7 @@
     </head>
 
     <body>
+        {{ingred_len}}
         <!-- button for showing the cart -->
         <div class="cocktail-cart-btn">
             <button id="cart"><img width='25px' src="/static/images/cocktail.png"></button>
@@ -71,13 +72,13 @@
                  <!-- the drink up logo -->
                 <div class='results-title-div results-search'>
                     <!-- logo is a link that leads to main page -->
-                    <h1 class='with-results-title'><a href='/?remove-from-query=clear'>DrinkUp</a></h1>
+                    <h1 class='with-results-title'><a href='/?ingredients='>DrinkUp</a></h1>
                 </div>
 
                 <!-- the search bar -->
                 <div class="form-group search-bar results-search" autocomplete="off">
                     <div class="autocomplete">
-                        <input id="ingredient_input" type="text" name="ingredients" class="form-control" placeholder="{{search_by}}" value="{{searched}}">
+                        <input id="ingredient_input" type="text" name="ingredients" class="form-control" placeholder="{{search_by}}">
                     </div>
                     <!-- the search btn -->
                     <button type="submit" class="btn btn-info">search</button>
@@ -131,6 +132,7 @@
             </div>
         {% endif %}
 
+        {{data}}
         <!-- if there are no results to show (bigger search bar) -->
         {% if not data %}
             <form class="form-inline global-search">
