@@ -5,6 +5,7 @@ from app.irsystem.models.search import *
 from app.irsystem.models.machine_learning import *
 from app.irsystem.models.taste_profiles import *
 import os
+import copy
 
 # global variables - requires storage
 project_name = "Drink Up!"
@@ -40,12 +41,12 @@ def search():
 
 	# set up - build all necessary datasets
 	drinks_list, all_ingredients_list, recipe_dict, lower_to_upper_i = build_recipe_dict()
-	ingred_len = len(all_ingredients_list)
+	ml_ingred_list = copy.deepcopy(all_ingredients_list)
 	ingredients_dict = build_ingredients_dict(recipe_dict)
 	indexTermDict = indexDict(all_ingredients_list)
 	co_oc = makeCoOccurrence(recipe_dict, len(all_ingredients_list), indexTermDict[1])
 	auto_ingredients_list = autoCompleteList(all_ingredients_list)
-	labeled_dict = do_ml(all_ingredients_list)
+	labeled_dict = do_ml(ml_ingred_list)
 	flavor_dict = create_flavor_dict()
 
 	# user wants to search by
@@ -60,7 +61,7 @@ def search():
 	else:
 		output_message = "Your Search: " + ingredients
 		query = ingredients.split(', ')
-		query = queryReformulation(query, all_ingredients_list)
+		# query = queryReformulation(query, all_ingredients_list)
 		for q in query:
 			if q not in xable:
 				xable.append(q)
@@ -105,9 +106,9 @@ def search():
 		cocktail_list = makeCocktailRanks(ingred_query, makeJaccard, recipe_dict)
 		return render_template('cocktails.html', cocktail=cocktail, cocktail_search = cocktail_list)
 
-	if xable:
-		initial_rank = complementRanking(xable, co_oc, indexTermDict[1], indexTermDict[0])
-		rankings = displayRanking(initial_rank, lower_to_upper_i, labeled_dict, flavor_dict, searchBy)
+	# if xable:
+	# 	initial_rank = complementRanking(xable, co_oc, indexTermDict[1], indexTermDict[0])
+	# 	rankings = displayRanking(initial_rank, lower_to_upper_i, labeled_dict, flavor_dict, searchBy)
 
 	# takes the user to the about page
 	if about:
@@ -117,4 +118,4 @@ def search():
 	return render_template('search.html', name=project_name, netid=net_id, \
 		complete_ingredients=json.dumps(auto_ingredients_list), \
 			output_message=output_message, data=rankings, cocktail=cocktail, \
-				search_by = searchBy, xable=xable, ingred_len = ingred_len)
+				search_by=searchBy, xable=xable)

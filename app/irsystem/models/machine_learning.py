@@ -10,7 +10,9 @@ from sklearn.model_selection import train_test_split
 # # for token in tokens:
 # #     print(token.text, token.has_vector, token.vector_norm, token.is_oov)
 
-def make_features(ingred_list):
+def make_features(input_ingred_list):
+
+    ingred_list = copy.deepcopy(input_ingred_list)
 
     num_features = 21
     feature_np = np.zeros((len(ingred_list),num_features))

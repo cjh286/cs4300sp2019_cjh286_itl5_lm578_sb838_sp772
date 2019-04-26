@@ -321,17 +321,25 @@ def getNameFromRanking(rankedInput):
 
 # # ======================= Query Reformulation ========================
 def queryReformulation(input_query, input_ingred_list):
+    print(len(input_ingred_list))
     new_query = set()
     for q in input_query:
         if q in input_ingred_list:
             new_query.add(q)
+            input_query.remove(q)
         else:
             # wildcard search - generic to find all brands
             for ingredient in input_ingred_list:
                 if q in ingredient:
                     new_query.add(ingredient)
+                    input_query.remove(q)
                 elif ingredient in q:
                     new_query.add(ingredient)
+                    input_query.remove(q)
+    
+    for q in input_query:
+        if q not in new_query:
+            new_query.add(q)
 
     return list(new_query)
 
@@ -402,7 +410,7 @@ def main():
     ### create dictionary containing recipe names and list of ingredients and lowercase-uppercase associations dictionary ###
     drinks_list, all_ingredients_list, recipe_dict, lower_to_upper_i = build_recipe_dict()
     # print("len drinks list:", len(drinks_list), "len all ingredients list:", len(all_ingredients_list))
-    # print(len(all_ingredients_list))
+    print(len(all_ingredients_list))
 
     ### build dictionary of ingredients to recipes ###
     ingredients_dict = build_ingredients_dict(recipe_dict)
@@ -414,15 +422,18 @@ def main():
     co_oc = makeCoOccurrence(recipe_dict, len(all_ingredients_list), indexTermDict[1])
 
     #creates a labeled dictionary for alcohol/mixer/garnish where keys are ingredient names, values are labels
-    labeled_dict = do_ml(all_ingredients_list)
+    ingred_list_ml = copy.deepcopy(all_ingredients_list)
+    labeled_dict = do_ml(ingred_list_ml)
     flavor_dict = create_flavor_dict()
 
 
     # test queries
-    query = ['mincemeat']
+    query1 = ['mincemeat']
     query2 = ['cranberry juice']
     query3 = ['cranberry juice', 'orange juice']
     search_by = 'ingredients'
+    print(len(all_ingredients_list))
+    query = queryReformulation(query1, all_ingredients_list)
     rankings1 = complementRanking(query, co_oc, indexTermDict[1], indexTermDict[0])[:10]
     ranked = displayRanking(rankings1, lower_to_upper_i, labeled_dict, flavor_dict, search_by)
     print(rankings1)
