@@ -91,11 +91,15 @@
                 <!-- <h2 class='ranked-results-title'>{{output_message}}</h2> -->
 
                 <form>
-                 <label id="yourSearch">Your Search: </label>
-                 {% for x in xable %}
-                 <button class='addToDrink' id='xableAdd' name='add-to-cocktail' value='{{x}}'>{{x}}</button>
-                 <button class='removeFromQuery' id='xableRemove' name='remove-from-query' value='{{x}}'><i class="fa fa-minus-circle" aria-hidden="true"></i></button>
-                 {% endfor %}
+                    <h2>Your Search: </h2>
+                    <div class='xable-overall'>
+                        {% for x in xable %}
+                            <div class='xable-div'>
+                                <button class='xableAdd' name='add-to-cocktail' value='{{x}}'>{{x}}</button>
+                                <button class='removeFromQuery' id='xableRemove' name='remove-from-query' value='{{x}}'>{{x}}&nbsp  x</button>
+                            </div>
+                        {% endfor %}
+                        </div>
                </form>
 
 

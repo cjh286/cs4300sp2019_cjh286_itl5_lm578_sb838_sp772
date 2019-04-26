@@ -76,24 +76,51 @@
     color: #88a629;
 }
 
-#xableAdd{
+.xable-overall{
+  position: relative;
+}
+
+.xable-div{
+  /* position: relative; */
+  display: inline-block;
+  margin-left: 14px;
+  margin-right: 14px;
+   
+}
+
+.xableAdd{
   background-color: #88a629;
   color: white;
   border: none;
-  padding: 4px;
-  border-radius: 4px;
+  padding: 2px 5px;
+  /* adding-right: 24px; */
+  border-top-left-radius: 24px;
+  border-bottom-left-radius: 24px;
+  font-size: 13px;
+  position: relative;
+  z-index: 99;
 }
 
-#xableAdd:hover{
+.xableAdd:hover{
   background-color: #495815;
 }
 
+
 #xableRemove{
-  margin-top: 10px;
-  margin-left: 0px;
-  padding: 0px;
+  position: absolute;
+  padding: 2px 7px;
+  border-radius: 24px;
   border: none;
-  background: none;
+  background-color: #ef4a4a;
+  color: white;
+  font-size: 13px;
+  z-index: 1;
+  top: 0px;
+  
+}
+
+#xableRemove:hover{
+  background-color: #910404;
 }
 
 #yourSearch{
