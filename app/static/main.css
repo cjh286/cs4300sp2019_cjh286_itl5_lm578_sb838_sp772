@@ -93,8 +93,8 @@
 }
 
 .xableAdd{
-  background-color: #88a629;
-  color: white;
+  background-color: #FDD20A;
+  color: #3A3637;
   border: none;
   padding: 2px 5px;
   /* adding-right: 24px; */
@@ -107,6 +107,7 @@
 
 .xableAdd:hover{
   background-color: #495815;
+  color: white;
 }
 
 
@@ -115,8 +116,8 @@
   padding: 2px 7px;
   border-radius: 24px;
   border: none;
-  background-color: #ef4a4a;
-  color: white;
+  background-color: #FDD20A;
+  color: red;
   font-size: 13px;
   z-index: 1;
   top: 0px;
@@ -125,6 +126,7 @@
 
 .xableRemove:hover{
   background-color: #910404;
+  color: white;
 }
 
 /* #yourSearch{
