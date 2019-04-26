@@ -320,22 +320,22 @@ def getNameFromRanking(rankedInput):
 
 
 # # ======================= Query Reformulation ========================
-def queryReformulation(input_query, input_ingred_list):
-    print(len(input_ingred_list))
+def queryReformulation(og_input_query, input_ingred_list):
+    input_query = set(og_input_query)
     new_query = set()
-    for q in input_query:
+    for q in og_input_query:
         if q in input_ingred_list:
             new_query.add(q)
-            input_query.remove(q)
+            input_query.discard(q)
         else:
             # wildcard search - generic to find all brands
             for ingredient in input_ingred_list:
                 if q in ingredient:
                     new_query.add(ingredient)
-                    input_query.remove(q)
+                    input_query.discard(q)
                 elif ingredient in q:
                     new_query.add(ingredient)
-                    input_query.remove(q)
+                    input_query.discard(q)
     
     for q in input_query:
         if q not in new_query:
