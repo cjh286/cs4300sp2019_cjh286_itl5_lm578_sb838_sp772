@@ -13,7 +13,7 @@ net_id = "cjh286, itl5, lm578, sb838, sp772"
 
 @irsystem.route('/', methods=['GET'])
 def search():
-	if (session['cocktail'] == None):
+	if ('cocktail' not in session):
 		session['cocktail'] = []
 	if (session['output_message'] == None):
 		session['output_message'] = ""
@@ -26,6 +26,8 @@ def search():
 
 
 	ingredients = request.args.get('ingredients')
+	print(ingredients == "")
+	print(ingredients)
 	addToCocktail = request.args.get('add-to-cocktail')
 	addQueryToCocktail = request.args.get('add-query-to-cocktail')
 	clearCocktail = request.args.get('clear-cocktail')
