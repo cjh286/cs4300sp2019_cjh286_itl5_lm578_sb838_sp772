@@ -61,7 +61,7 @@ def search():
 	else:
 		output_message = "Your Search: " + ingredients
 		query = ingredients.split(', ')
-		# query = queryReformulation(query, all_ingredients_list)
+		query = queryReformulation(query, all_ingredients_list)
 		for q in query:
 			if q not in xable:
 				xable.append(q)

@@ -54,7 +54,7 @@
 
 /* initial css (given) */
 .topcorner, #aboutForm {
-    position:absolute;
+    position:fixed;
     top:2%;
     right:2%;
     text-align: right;
@@ -78,13 +78,17 @@
 
 .xable-overall{
   position: relative;
+  /* display: inline-block;
+  margin-left: 14px;
+  margin-right: 14px;
+  margin-bottom: 10px; */
 }
 
 .xable-div{
-  /* position: relative; */
   display: inline-block;
   margin-left: 14px;
   margin-right: 14px;
+  margin-bottom: 10px;
    
 }
 
@@ -98,7 +102,7 @@
   border-bottom-left-radius: 24px;
   font-size: 13px;
   position: relative;
-  z-index: 99;
+  z-index: 2;
 }
 
 .xableAdd:hover{
@@ -106,7 +110,7 @@
 }
 
 
-#xableRemove{
+.xableRemove{
   position: absolute;
   padding: 2px 7px;
   border-radius: 24px;
@@ -116,16 +120,16 @@
   font-size: 13px;
   z-index: 1;
   top: 0px;
-  
+  left: 14px;
 }
 
-#xableRemove:hover{
+.xableRemove:hover{
   background-color: #910404;
 }
 
-#yourSearch{
+/* #yourSearch{
   font-size: 20px;
-}
+} */
 
 /* main css */
 
@@ -179,6 +183,7 @@ a:hover{
   margin-left: 300px;
   background-color: #F0EAEA;
   border-bottom: solid 1px #3A3637;
+  z-index: 10;
 }
 
 /* displaying the title (drinkup) */
@@ -189,6 +194,7 @@ a:hover{
 .with-results-title{
   text-align: left;
   font-size: 40px;
+  z-index: 99;
 }
 
 .results-search{
@@ -196,10 +202,12 @@ a:hover{
   vertical-align: middle;
   margin: 10px;
   margin-top: -20px;
+  z-index: 99;
 }
 
 .search-bar{
   margin-top: -10px;
+  z-index: 99;
 }
 
 /* title of the search */

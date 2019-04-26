@@ -92,14 +92,15 @@
 
                 <form>
                     <h2>Your Search: </h2>
-                    <div class='xable-overall'>
                         {% for x in xable %}
+                        <div class='xable-overall'>
                             <div class='xable-div'>
                                 <button class='xableAdd' name='add-to-cocktail' value='{{x}}'>{{x}}</button>
-                                <button class='removeFromQuery' id='xableRemove' name='remove-from-query' value='{{x}}'>{{x}}&nbsp  x</button>
+                                <button class='xableRemove' name='remove-from-query' value='{{x}}'>{{x}}&nbsp  x</button>
+                            </div>
                             </div>
                         {% endfor %}
-                        </div>
+                        <!-- </div> -->
                </form>
 
 
