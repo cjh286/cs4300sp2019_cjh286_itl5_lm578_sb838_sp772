@@ -70,11 +70,8 @@ def search():
 
 	# user wants to remove an item from their running query
 	if removeFromQuery:
-		if (removeFromQuery == 'clear'):
-			xable.clear()
-		else:
-			if xable:
-				xable.remove(removeFromQuery)
+		if (removeFromQuery in xable):
+			xable.remove(removeFromQuery)
 
 	# user wants to add the item they queried to the cocktail
 	if addQueryToCocktail:
