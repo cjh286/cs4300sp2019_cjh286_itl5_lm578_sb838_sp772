@@ -6,13 +6,11 @@ import numpy as np
 import sys
 import copy
 import pickle
-import operator
-import time
 # import spacy
 # from sklearn.model_selection import train_test_split 
 # uncomment line below to test this file only
-# from machine_learning import *
-# from taste_profiles import *
+#from machine_learning import *
+#from taste_profiles import *
 
 
 # nlp = spacy.load('en_core_web_md')
@@ -59,8 +57,6 @@ def build_recipe_dict():
         and a list of ingredients as the corresponding value
     lower_to_upper_i: dict
         Associates lower and uppercase of each ingredient
-    amounts_dict: dict
-        Associates recipes with ingredient and amount (list of tuples)
         
     Format
     ======
@@ -86,24 +82,18 @@ def build_recipe_dict():
     all_recipes = []
     all_ingredients = []
     lower_to_upper_i = {}
-    amounts_dict = {}
     
     for index in range(num): #this loops through each recipe
         drink_name = data[index].get('name')
         ingredients = data[index].get('ingredients')
         ingredient_list = []
-        ingred_amount_list = []
         for i in ingredients:
             ingred = i.get('ingredient')
-            amount = i.get('amount')
             lower_to_upper_i[ingred.lower()] = ingred
             ingredient_list.append(ingred.lower())
             if (ingred.lower() not in all_ingredients):
                 all_ingredients.append(ingred.lower()) 
-
-            ingred_amount_list.append((ingred.lower(), amount))
-        amounts_dict[drink_name.lower()] = ingred_amount_list
-
+        
         # all_ingredients2 = set(all_ingredients) #this is now the list of ingredients without duplicates
         all_recipes.append(drink_name)
         recipe_dict[drink_name.lower()] = ingredient_list
@@ -111,10 +101,9 @@ def build_recipe_dict():
     # print(len(all_ingredients))
     # print(len(all_ingredients2))
 
-    return all_recipes, all_ingredients, recipe_dict, lower_to_upper_i, amounts_dict
+    return all_recipes, all_ingredients, recipe_dict, lower_to_upper_i 
 
 
-# create the list of all ingredients formatted for autocomplete
 def autoCompleteList(ingredients_list):
     for x in range(len(ingredients_list)):
         string = ingredients_list[x]
@@ -171,12 +160,12 @@ def indexDict(input_list):
     
     return indexToTerm, termToIndex
 
+
 # # ======================= IR System Functions For Ingredient Search ========================
 def termDocMatrix(input_dict):
     pass
 
 
-# create co-occurrence matrix for finding complementing ingredients
 def makeCoOccurrence(input_dict, n_ingredients, index_dict):
     print(n_ingredients)
     """
@@ -216,7 +205,6 @@ def makeCoOccurrence(input_dict, n_ingredients, index_dict):
     return matrix
 
 
-# TODO: combine complement ranking with display ranking to optimize code
 def complementRanking(query, co_oc, input_term_to_index, input_index_to_term):
     """
     Create ranking of complements based on query
@@ -267,8 +255,6 @@ def complementRanking(query, co_oc, input_term_to_index, input_index_to_term):
     return ranking
 
 
-# TODO: combine complement ranking with display ranking to optimize code
-# intakes a ranking and formats it in a displayable manner
 def displayRanking(input_rankings, lower_to_upper, labeled_dict, flavor_dict, search_by):
     if (type(input_rankings) != list):
         return "query not found"
@@ -281,7 +267,7 @@ def displayRanking(input_rankings, lower_to_upper, labeled_dict, flavor_dict, se
         else:
             label = 'n/a'
 
-        ingred_string = x['item']
+        ingred_string = "'{}'".format(x['item'])
         flavor = ''
         if ingred_string not in flavor_dict:
             flavor = 'n/a'
@@ -291,6 +277,13 @@ def displayRanking(input_rankings, lower_to_upper, labeled_dict, flavor_dict, se
                     flavor = flavor + ", " + taste_word
                 else:
                     flavor = taste_word
+        
+
+
+        # if x['item'] in flavor_dict:
+        #     flavor = 'hi'
+        # else:
+        #     flavor = 'n/a'
 
         rankeditem = {'rank': count, 'name': lower_to_upper[x['item']], \
             'score': round(x['score'], 2), 'label': label, 'flavor': flavor}
@@ -309,8 +302,8 @@ def displayRanking(input_rankings, lower_to_upper, labeled_dict, flavor_dict, se
     return rankings
 
 
-# ======================= Cocktail List Display Functions ========================
-# TODO: find out if unused and delete if needed
+
+# # ======================= Cocktail List Display Functions ========================
 def getNameFromRanking(rankedInput):
     """
     Gets just the name of the ingredient from the ranking outputs
@@ -328,9 +321,7 @@ def getNameFromRanking(rankedInput):
     return name
 
 
-# ======================= Query Reformulation ========================
-# does wildcard search on queries (so if someone types in vodka, it adds all
-# vodkas to the query)
+# # ======================= Query Reformulation ========================
 def queryReformulation(og_input_query, input_ingred_list):
     input_query = set(og_input_query)
     new_query = set()
@@ -356,7 +347,6 @@ def queryReformulation(og_input_query, input_ingred_list):
 
 
 # ======================= IR System For Cocktail Search ========================
-# formats queries for cocktail search
 def queriesForCocktail(input_query):
     new_queries = []
 
@@ -365,9 +355,8 @@ def queriesForCocktail(input_query):
     
     return new_queries
 
-
-# Jaccard used to find similar cocktails
 def makeJaccard(input_query, input_dict):
+    #######
     query = list()
     query.extend(input_query)
     query_set = set(query)
@@ -390,10 +379,19 @@ def makeJaccard(input_query, input_dict):
         else:
             jacc_dict[drink] = 0
 
+    
+    # list_sort = (sorted(jacc_dict, key=jacc_dict.get, reverse=True)[:10])
+
+    #print first 10
+    
+    # for i in range(0,10):
+    #     recipe_name = list_sort[i]
+        #THIS PRINTS TOP TEN CORRECTLY IF UNCOMMENTED
+        #print(i+1 , recipe_name, "\t\tJaccard score:",round(jacc_dict[recipe_name],2), "\tIngredients in common:", ingreds_common_dict[recipe_name])
+    #print("HERE",list_sort)
+    # print(jacc_dict)
     return jacc_dict
 
-
-# ranks cocktails based on Jaccard similarity
 def makeCocktailRanks(input_query, input_jaccard, input_dict):
     finalRanks = []
     cocktailJacc = input_jaccard(input_query, input_dict)
@@ -408,57 +406,78 @@ def makeCocktailRanks(input_query, input_jaccard, input_dict):
     return finalRanks
 
 
-# TODO: complete this
-# creates the flavor profile of cocktails
-def createCocktailFlavor(input_query, input_flavor_dict):
-    print(input_query)
-    cocktail_taste = {}
-    for ingred in input_query:
-        if ingred in input_flavor_dict:
-            flavor = input_flavor_dict[ingred]
-            print(flavor)
-            if flavor in cocktail_taste:
-                cocktail_taste =+ 1
-            else:
-                cocktail_taste[flavor] = 1
-        else:
-            print('not in flavor')
-            
-    print(cocktail_taste)
-    ranked = []
-    for flavors in cocktail_taste:
-        max_flavor = max(cocktail_taste.items(), key=operator.itemgetter(1))[0]
-        ranked.append(max_flavor)
-        flavors[max_flavor] = 0
-    
-    return ranked
-
-
 # testing
 def main():
-    # build dictionaries
-    drinks_list, all_ingredients_list, recipe_dict, lower_to_upper_i, amounts_dict = build_recipe_dict()
+    ### collect lists of all recipes and ingredients ###
+    ### create dictionary containing recipe names and list of ingredients and lowercase-uppercase associations dictionary ###
+    drinks_list, all_ingredients_list, recipe_dict, lower_to_upper_i = build_recipe_dict()
+   
+    # print("len drinks list:", len(drinks_list), "len all ingredients list:", len(all_ingredients_list))
+
+    print(len(all_ingredients_list))
+
+    ### build dictionary of ingredients to recipes ###
     ingredients_dict = build_ingredients_dict(recipe_dict)
+
+    # build dictionaries for indexes to terms
     indexTermDict = indexDict(all_ingredients_list)
+    
+    ### build co-occurrence matrix ###
     co_oc = makeCoOccurrence(recipe_dict, len(all_ingredients_list), indexTermDict[1])
+
     auto_ingredients_list = autoCompleteList(all_ingredients_list)
+    # with open(r"auto_ingredients_list.pickle", "wb") as output_file:
+    #     pickle.dump(auto_ingredients_list, output_file)
+
+    #creates a labeled dictionary for alcohol/mixer/garnish where keys are ingredient names, values are labels
     ingred_list_ml = copy.deepcopy(all_ingredients_list)
     labeled_dict = do_ml(ingred_list_ml)
     flavor_dict = create_flavor_dict()
-    
-    # pickle dump code
     # with open(r"flavor_dict.pickle", "wb") as output_file:
     #     pickle.dump(flavor_dict, output_file)
 
 
     # test queries
-    # query = ['mincemeat, cranberry juice, orange juice']
-    # search_by = 'ingredients'
-    # query = queryReformulation(query1, all_ingredients_list)
-    # rankings1 = complementRanking(query, co_oc, indexTermDict[1], indexTermDict[0])[:10]
-    # ranked = displayRanking(rankings1, lower_to_upper_i, labeled_dict, flavor_dict, search_by)
-    # print(ranked)
+    query1 = ['mincemeat']
+    query2 = ['cranberry juice']
+    query3 = ['cranberry juice', 'orange juice']
+    search_by = 'ingredients'
+    print(len(all_ingredients_list))
+    query = queryReformulation(query1, all_ingredients_list)
+    rankings1 = complementRanking(query, co_oc, indexTermDict[1], indexTermDict[0])[:10]
+    ranked = displayRanking(rankings1, lower_to_upper_i, labeled_dict, flavor_dict, search_by)
+    print(rankings1)
+    rankings2 = complementRanking(query2, co_oc, indexTermDict[1], indexTermDict[0])
+    rankings3 = complementRanking(query3, co_oc, indexTermDict[1], indexTermDict[0])
+    # print(rankings1[:10])
+    # print("")
+    # print(rankings2[:10])
+    # print("")
+    # print(rankings3[:10])
+
+    # print(all_ingredients_list)
+    # print(rankings1)
+
+    # display = displayRanking(rankings1, lower_to_upper_i, labeled_dict, "ingredients")
+    # print(display)
+    # query4 = ['mincemeat']
     # makeCocktailRanks(query, makeJaccard, recipe_dict)
+
+    # print(len(all_ingredients_list))
+    # auto_list = autoCompleteList(all_ingredients_list)
+    # print(len(auto_list))
+
+
+    # drinks_list, all_ingredients_list, recipe_dict, lower_to_upper_i = build_recipe_dict()
+	# ml_ingred_list = copy.deepcopy(all_ingredients_list)
+	# ingredients_dict = build_ingredients_dict(recipe_dict)
+	# indexTermDict = indexDict(all_ingredients_list)
+	# co_oc = makeCoOccurrence(recipe_dict, len(all_ingredients_list), indexTermDict[1])
+	# auto_ingredients_list = autoCompleteList(all_ingredients_list)
+	# labeled_dict = do_ml(ml_ingred_list)
+	# flavor_dict = create_flavor_dict()
+
+
 
 if __name__ == "__main__":
     main()
