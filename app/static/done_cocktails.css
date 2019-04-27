@@ -74,6 +74,8 @@ li{
     margin: 20px;
     vertical-align: top;
     padding: 10px;
+    height: 300px;
+    overflow-y: auto;
 }
 
 .cocktail-img{
