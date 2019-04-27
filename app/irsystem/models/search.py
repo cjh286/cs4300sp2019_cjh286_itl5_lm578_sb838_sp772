@@ -224,8 +224,8 @@ def complementRanking(query, co_oc, input_term_to_index, input_index_to_term):
     q__col_normed_list = list()
     q_col_averaged = np.zeros(len(input_term_to_index))
     for i in range (len(query)):
-        query_at_i = query[i].strip()
-        query_at_i = query_at_i.replace("`", "'")
+        query_at = query[i].strip()
+        query_at_i = query_at.replace("`", "'")
         if (query_at_i in input_term_to_index):
             q_index = input_term_to_index[query_at_i]
             q_column = co_oc_matrix[q_index]

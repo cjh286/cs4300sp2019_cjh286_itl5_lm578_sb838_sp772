@@ -82,6 +82,8 @@ def search():
 		xable = session.pop('xable', [])
 		if (removeFromQuery in xable):
 			xable.remove(removeFromQuery)
+			if (len(xable) == 0):
+				session['rankings'] = []
 			session['xable'] = xable
 
 

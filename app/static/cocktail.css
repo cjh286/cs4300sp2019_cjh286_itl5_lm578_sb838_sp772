@@ -116,6 +116,7 @@ border: none;
 background-color: #ef4a4a;
 color: white;
 border-radius: 24px;
+font-family: 'Cuprum', sans-serif;
 }
 
 .clear-btn:hover{
@@ -129,6 +130,7 @@ background-color: #910404;
     background-color: #88a629;
     color: white;
     border-radius: 24px;
+    font-family: 'Cuprum', sans-serif;
 }
 
 .done-btn:hover{
