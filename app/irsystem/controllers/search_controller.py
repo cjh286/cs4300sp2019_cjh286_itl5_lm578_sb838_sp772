@@ -64,6 +64,8 @@ def search():
 			recipe_dict = pickle.load(input_file)
 	with open(r'pickle/lower_to_upper_i.pickle', "rb") as input_file:
 		lower_to_upper_i = pickle.load(input_file)
+	with open(r'pickle/amounts_dict.pickle', "rb") as input_file:
+		amounts_dict = pickle.load(input_file)
 	with open(r'pickle/ingredients_dict.pickle', "rb") as input_file:
 		ingredients_dict = pickle.load(input_file)
 	with open(r'pickle/indexTermDict.pickle', "rb") as input_file:
@@ -153,7 +155,7 @@ def search():
 	if done:
 		ingred_query = queriesForCocktail(session['cocktail'])
 		cocktail_flavor = createCocktailFlavor(ingred_query, flavor_dict)
-		cocktail_list = makeCocktailRanks(ingred_query, makeJaccard, recipe_dict)
+		cocktail_list = makeCocktailRanks(ingred_query, makeJaccard, recipe_dict, amounts_dict)
 		return render_template('cocktails.html', cocktail=session['cocktail'], cocktail_search=cocktail_list,\
 			cocktail_flavor = cocktail_flavor)
 
