@@ -53,8 +53,6 @@ def search():
 			recipe_dict = pickle.load(input_file)
 	with open(r'pickle/lower_to_upper_i.pickle', "rb") as input_file:
 		lower_to_upper_i = pickle.load(input_file)
-	with open(r'pickle/lower_to_upper_i.pickle', "rb") as input_file:
-		ml_ingred_list = pickle.load(input_file)
 	with open(r'pickle/ingredients_dict.pickle', "rb") as input_file:
 		ingredients_dict = pickle.load(input_file)
 	with open(r'pickle/indexTermDict.pickle', "rb") as input_file:
@@ -102,7 +100,7 @@ def search():
 			else:
 				initial_rank = complementRanking(xable, co_oc, indexTermDict[1], indexTermDict[0])
 				rankings = displayRanking(initial_rank, lower_to_upper_i, labeled_dict, flavor_dict, session['searchBy'])[:50]
-				session['rankings'] = []
+				session['rankings'] = rankings
 			session['xable'] = xable
 
 

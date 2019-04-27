@@ -9,8 +9,8 @@ import pickle
 # import spacy
 # from sklearn.model_selection import train_test_split 
 # uncomment line below to test this file only
-from machine_learning import *
-from taste_profiles import *
+# from machine_learning import *
+# from taste_profiles import *
 
 
 # nlp = spacy.load('en_core_web_md')
