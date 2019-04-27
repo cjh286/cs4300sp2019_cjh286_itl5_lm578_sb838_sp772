@@ -59,6 +59,8 @@ def build_recipe_dict():
         and a list of ingredients as the corresponding value
     lower_to_upper_i: dict
         Associates lower and uppercase of each ingredient
+    amounts_dict: dict
+        Associates recipes with ingredient and amount (list of tuples)
         
     Format
     ======
@@ -84,18 +86,24 @@ def build_recipe_dict():
     all_recipes = []
     all_ingredients = []
     lower_to_upper_i = {}
+    amounts_dict = {}
     
     for index in range(num): #this loops through each recipe
         drink_name = data[index].get('name')
         ingredients = data[index].get('ingredients')
         ingredient_list = []
+        ingred_amount_list = []
         for i in ingredients:
             ingred = i.get('ingredient')
+            amount = i.get('amount')
             lower_to_upper_i[ingred.lower()] = ingred
             ingredient_list.append(ingred.lower())
             if (ingred.lower() not in all_ingredients):
                 all_ingredients.append(ingred.lower()) 
-        
+
+            ingred_amount_list.append((ingred.lower(), amount))
+        amounts_dict[drink_name.lower()] = ingred_amount_list
+
         # all_ingredients2 = set(all_ingredients) #this is now the list of ingredients without duplicates
         all_recipes.append(drink_name)
         recipe_dict[drink_name.lower()] = ingredient_list
@@ -103,7 +111,7 @@ def build_recipe_dict():
     # print(len(all_ingredients))
     # print(len(all_ingredients2))
 
-    return all_recipes, all_ingredients, recipe_dict, lower_to_upper_i 
+    return all_recipes, all_ingredients, recipe_dict, lower_to_upper_i, amounts_dict
 
 
 # create the list of all ingredients formatted for autocomplete
@@ -162,7 +170,6 @@ def indexDict(input_list):
         termToIndex[input_list[x]] = x
     
     return indexToTerm, termToIndex
-
 
 # # ======================= IR System Functions For Ingredient Search ========================
 def termDocMatrix(input_dict):
@@ -430,7 +437,7 @@ def createCocktailFlavor(input_query, input_flavor_dict):
 # testing
 def main():
     # build dictionaries
-    drinks_list, all_ingredients_list, recipe_dict, lower_to_upper_i = build_recipe_dict()
+    drinks_list, all_ingredients_list, recipe_dict, lower_to_upper_i, amounts_dict = build_recipe_dict()
     ingredients_dict = build_ingredients_dict(recipe_dict)
     indexTermDict = indexDict(all_ingredients_list)
     co_oc = makeCoOccurrence(recipe_dict, len(all_ingredients_list), indexTermDict[1])
