@@ -274,7 +274,7 @@ def displayRanking(input_rankings, lower_to_upper, labeled_dict, flavor_dict, se
         else:
             label = 'n/a'
 
-        ingred_string = "'{}'".format(x['item'])
+        ingred_string = x['item']
         flavor = ''
         if ingred_string not in flavor_dict:
             flavor = 'n/a'
