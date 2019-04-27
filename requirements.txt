@@ -7,6 +7,7 @@ certifi==2019.3.9
 cffi==1.12.2
 chardet==3.0.4
 Click==7.0
+et-xmlfile==1.0.1
 Flask==1.0.2
 Flask-Bcrypt==0.7.1
 Flask-HTTPAuth==3.2.4
@@ -15,6 +16,7 @@ flask-marshmallow==0.10.0
 Flask-Migrate==2.4.0
 Flask-RESTful==0.3.7
 Flask-Script==2.0.6
+Flask-Session==0.3.1
 Flask-SocketIO==3.3.2
 Flask-SQLAlchemy==2.3.2
 Flask-WTF==0.14.2
@@ -24,13 +26,16 @@ gunicorn==19.9.0
 hiredis==1.0.0
 idna==2.8
 itsdangerous==1.1.0
+jdcal==1.4.1
 Jinja2==2.10
 Mako==1.0.7
 MarkupSafe==1.1.1
 marshmallow==2.19.0
 marshmallow-sqlalchemy==0.16.1
+mysql-connector==2.1.6
 nltk==3.4
 numpy==1.16.2
+openpyxl==2.6.2
 packaging==19.0
 psycopg2==2.7.7
 pycparser==2.19
