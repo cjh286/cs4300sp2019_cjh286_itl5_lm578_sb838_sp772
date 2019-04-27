@@ -55,13 +55,18 @@ def search():
 		lower_to_upper_i = pickle.load(input_file)
 	with open(r'pickle/lower_to_upper_i.pickle', "rb") as input_file:
 		ml_ingred_list = pickle.load(input_file)
-	ingredients_dict = build_ingredients_dict(recipe_dict)
-	indexTermDict = indexDict(all_ingredients_list)
-	co_oc = makeCoOccurrence(recipe_dict, len(all_ingredients_list), indexTermDict[1])
-	auto_ingredients_list = autoCompleteList(all_ingredients_list)
-	labeled_dict = do_ml(ml_ingred_list)
-	flavor_dict = create_flavor_dict()
-
+	with open(r'pickle/ingredients_dict.pickle', "rb") as input_file:
+		ingredients_dict = pickle.load(input_file)
+	with open(r'pickle/indexTermDict.pickle', "rb") as input_file:
+		indexTermDict = pickle.load(input_file)
+	with open(r'pickle/co_oc.pickle', "rb") as input_file:
+		co_oc = pickle.load(input_file)
+	with open(r'pickle/auto_ingredients_list.pickle', "rb") as input_file:
+		auto_ingredients_list = pickle.load(input_file)
+	with open(r'pickle/labeled_dict.pickle', "rb") as input_file:
+		labeled_dict = pickle.load(input_file)
+	with open(r'pickle/flavor_dict.pickle', "rb") as input_file:
+		flavor_dict = pickle.load(input_file)
 
 	# user searched ingredients
 	if (ingredients == ""):

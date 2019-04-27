@@ -9,8 +9,8 @@ import pickle
 # import spacy
 # from sklearn.model_selection import train_test_split 
 # uncomment line below to test this file only
-# from machine_learning import *
-# from taste_profiles import *
+from machine_learning import *
+from taste_profiles import *
 
 
 # nlp = spacy.load('en_core_web_md')
@@ -411,8 +411,7 @@ def main():
     ### collect lists of all recipes and ingredients ###
     ### create dictionary containing recipe names and list of ingredients and lowercase-uppercase associations dictionary ###
     drinks_list, all_ingredients_list, recipe_dict, lower_to_upper_i = build_recipe_dict()
-    with open(r"lower_to_upper_i.pickle", "wb") as output_file:
-        pickle.dump(lower_to_upper_i, output_file)
+   
     # print("len drinks list:", len(drinks_list), "len all ingredients list:", len(all_ingredients_list))
 
     print(len(all_ingredients_list))
@@ -426,10 +425,16 @@ def main():
     ### build co-occurrence matrix ###
     co_oc = makeCoOccurrence(recipe_dict, len(all_ingredients_list), indexTermDict[1])
 
+    auto_ingredients_list = autoCompleteList(all_ingredients_list)
+    # with open(r"auto_ingredients_list.pickle", "wb") as output_file:
+    #     pickle.dump(auto_ingredients_list, output_file)
+
     #creates a labeled dictionary for alcohol/mixer/garnish where keys are ingredient names, values are labels
     ingred_list_ml = copy.deepcopy(all_ingredients_list)
     labeled_dict = do_ml(ingred_list_ml)
     flavor_dict = create_flavor_dict()
+    # with open(r"flavor_dict.pickle", "wb") as output_file:
+    #     pickle.dump(flavor_dict, output_file)
 
 
     # test queries
