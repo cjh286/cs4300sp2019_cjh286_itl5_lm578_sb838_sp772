@@ -7,6 +7,7 @@ from app.irsystem.models.taste_profiles import *
 import os
 import copy
 import pickle
+# import time
 
 # global variables - requires storage
 project_name = "Drink Up!"
@@ -15,6 +16,7 @@ search_by_options = ['alcohol', 'mixer', 'garnish']
 
 @irsystem.route('/', methods=['GET'])
 def search():
+	# start_time = time.time()
 	global search_by_options
 	if ('cocktail' not in session):
 		session['cocktail'] = []
@@ -43,6 +45,14 @@ def search():
 		session['searchBy'] = 'ingredients'
 	done = request.args.get('done-cocktail')
 
+	# drinks_list, all_ingredients_list, recipe_dict, lower_to_upper_i = build_recipe_dict()
+	# ingredients_dict = build_ingredients_dict(recipe_dict)
+	# indexTermDict = indexDict(all_ingredients_list)
+	# co_oc = makeCoOccurrence(recipe_dict, len(all_ingredients_list), indexTermDict[1])
+	# auto_ingredients_list = autoCompleteList(all_ingredients_list)
+	# ingred_list_ml = copy.deepcopy(all_ingredients_list)
+	# labeled_dict = do_ml(ingred_list_ml)
+	# flavor_dict = create_flavor_dict()
 	
 	# set up dictionaries
 	with open(r'pickle/drinks_list.pickle', "rb") as input_file:
@@ -151,6 +161,7 @@ def search():
 	if about:
 		return render_template('about.html', name=project_name, netid=net_id)
 
+	# print("--- %s seconds ---" % (time.time() - start_time))
 	# removed searched=ingredients for testing purposes
 	return render_template('search.html', name=project_name, netid=net_id, \
 		complete_ingredients=json.dumps(auto_ingredients_list), \
