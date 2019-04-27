@@ -43,17 +43,18 @@ def search():
 		session['searchBy'] = 'ingredients'
 	done = request.args.get('done-cocktail')
 
-	# set up - build all necessary datasets
-	abs_path = os.path.abspath(__file__).split(os.sep)
-	path_list = abs_path[0:len(abs_path)-4]
-	rel_path = 'pickle/drinks_list.pickle'
-	full_path = "/".join(abs_path) + "/" + rel_path
-
-	# with open(full_path, "rb") as input_file:
-    # 		drinks_list = pickle.load(input_file)
-
-	drinks_list, all_ingredients_list, recipe_dict, lower_to_upper_i = build_recipe_dict()
-	ml_ingred_list = copy.deepcopy(all_ingredients_list)
+	
+	# set up dictionaries
+	with open(r'pickle/drinks_list.pickle', "rb") as input_file:
+			drinks_list = pickle.load(input_file)
+	with open(r'pickle/all_ingredients_list.pickle', "rb") as input_file:
+			all_ingredients_list = pickle.load(input_file)
+	with open(r'pickle/recipe_dict.pickle', "rb") as input_file:
+			recipe_dict = pickle.load(input_file)
+	with open(r'pickle/lower_to_upper_i.pickle', "rb") as input_file:
+		lower_to_upper_i = pickle.load(input_file)
+	with open(r'pickle/lower_to_upper_i.pickle', "rb") as input_file:
+		ml_ingred_list = pickle.load(input_file)
 	ingredients_dict = build_ingredients_dict(recipe_dict)
 	indexTermDict = indexDict(all_ingredients_list)
 	co_oc = makeCoOccurrence(recipe_dict, len(all_ingredients_list), indexTermDict[1])
