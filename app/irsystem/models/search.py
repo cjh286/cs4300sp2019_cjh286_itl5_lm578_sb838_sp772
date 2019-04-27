@@ -399,6 +399,25 @@ def makeCocktailRanks(input_query, input_jaccard, input_dict):
 def createCocktailFlavor(input_query, input_flavor_dict):
     print(input_query)
     cocktail_taste = {}
+    for ingred in input_query:
+        if ingred in input_flavor_dict:
+            flavor = input_flavor_dict[ingred]
+            print(flavor)
+            if flavor in cocktail_taste:
+                cocktail_taste =+ 1
+            else:
+                cocktail_taste[flavor] = 1
+        else:
+            print('not in flavor')
+
+    print(cocktail_taste)
+    ranked = []
+    for flavors in cocktail_taste:
+        max_flavor = max(cocktail_taste.items(), key=operator.itemgetter(1))[0]
+        ranked.append(max_flavor)
+        flavors[max_flavor] = 0
+
+    return ranked
 
 # testing
 def main():
