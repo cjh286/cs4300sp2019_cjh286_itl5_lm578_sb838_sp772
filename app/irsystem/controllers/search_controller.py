@@ -6,6 +6,7 @@ from app.irsystem.models.machine_learning import *
 from app.irsystem.models.taste_profiles import *
 import os
 import copy
+import pickle
 
 # global variables - requires storage
 project_name = "Drink Up!"
@@ -43,6 +44,14 @@ def search():
 	done = request.args.get('done-cocktail')
 
 	# set up - build all necessary datasets
+	abs_path = os.path.abspath(__file__).split(os.sep)
+	path_list = abs_path[0:len(abs_path)-4]
+	rel_path = 'pickle/drinks_list.pickle'
+	full_path = "/".join(abs_path) + "/" + rel_path
+
+	# with open(full_path, "rb") as input_file:
+    # 		drinks_list = pickle.load(input_file)
+
 	drinks_list, all_ingredients_list, recipe_dict, lower_to_upper_i = build_recipe_dict()
 	ml_ingred_list = copy.deepcopy(all_ingredients_list)
 	ingredients_dict = build_ingredients_dict(recipe_dict)
@@ -84,6 +93,10 @@ def search():
 			xable.remove(removeFromQuery)
 			if (len(xable) == 0):
 				session['rankings'] = []
+			else:
+				initial_rank = complementRanking(xable, co_oc, indexTermDict[1], indexTermDict[0])
+				rankings = displayRanking(initial_rank, lower_to_upper_i, labeled_dict, flavor_dict, session['searchBy'])[:50]
+				session['rankings'] = []
 			session['xable'] = xable
 
 
@@ -100,10 +113,15 @@ def search():
 		session['cocktail'] = cocktail
 
 	# user wants to add item to cocktail
-	if (addToCocktail != None) and (addToCocktail not in session['cocktail']):
-		cocktail = session.pop('cocktail', [])
-		cocktail.append(addToCocktail)
-		session['cocktail'] = cocktail
+	if (addToCocktail != None):
+		if (addToCocktail not in session['cocktail']):
+			cocktail = session.pop('cocktail', [])
+			cocktail.append(addToCocktail)
+			session['cocktail'] = cocktail
+		# if (addToCocktail not in session['xable']):
+		# 	xable = session.pop('xable', [])
+		# 	xable.append(addToCocktail)
+		# 	session['xable'] = xable
 
 	# user wants to clear the cocktail list
 	if clearCocktail:

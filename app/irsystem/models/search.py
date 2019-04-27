@@ -5,6 +5,7 @@ from collections import defaultdict
 import numpy as np
 import sys
 import copy
+import pickle
 # import spacy
 # from sklearn.model_selection import train_test_split 
 # uncomment line below to test this file only
@@ -232,7 +233,7 @@ def complementRanking(query, co_oc, input_term_to_index, input_index_to_term):
             q__col_normed_list.append(q_column/(co_oc_matrix[q_index][q_index]))
             #all_q_cols[i] = q_column
     for r in range(0,len(q__col_normed_list)):
-        q_col_sum = np.add(q_col_sum, q__col_normed_list[i])
+        q_col_sum = np.add(q_col_sum, q__col_normed_list[r])
     q_col_normed_avg = q_col_sum/len(q__col_normed_list)
 
     score = sys.maxsize
@@ -410,7 +411,10 @@ def main():
     ### collect lists of all recipes and ingredients ###
     ### create dictionary containing recipe names and list of ingredients and lowercase-uppercase associations dictionary ###
     drinks_list, all_ingredients_list, recipe_dict, lower_to_upper_i = build_recipe_dict()
+    with open(r"lower_to_upper_i.pickle", "wb") as output_file:
+        pickle.dump(lower_to_upper_i, output_file)
     # print("len drinks list:", len(drinks_list), "len all ingredients list:", len(all_ingredients_list))
+
     print(len(all_ingredients_list))
 
     ### build dictionary of ingredients to recipes ###
@@ -457,6 +461,17 @@ def main():
     # print(len(all_ingredients_list))
     # auto_list = autoCompleteList(all_ingredients_list)
     # print(len(auto_list))
+
+
+    # drinks_list, all_ingredients_list, recipe_dict, lower_to_upper_i = build_recipe_dict()
+	# ml_ingred_list = copy.deepcopy(all_ingredients_list)
+	# ingredients_dict = build_ingredients_dict(recipe_dict)
+	# indexTermDict = indexDict(all_ingredients_list)
+	# co_oc = makeCoOccurrence(recipe_dict, len(all_ingredients_list), indexTermDict[1])
+	# auto_ingredients_list = autoCompleteList(all_ingredients_list)
+	# labeled_dict = do_ml(ml_ingred_list)
+	# flavor_dict = create_flavor_dict()
+
 
 
 if __name__ == "__main__":

@@ -54,7 +54,6 @@ def tokenize(text):
 
 #     return liquor_store_output_drinks
 
-
 def create_flavor_dict():
     ingred_dict = {} #store alc names and review text
     script_path = os.path.abspath(__file__) 
