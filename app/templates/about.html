@@ -2,6 +2,7 @@
     <head>
         <link rel="stylesheet" href="/static/bootstrap.min.css">
         <link rel="stylesheet" href="/static/main.css">
+        <link rel="stylesheet" href="/static/about.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <link href="https://fonts.googleapis.com/css?family=Cuprum|Hind+Siliguri" rel="stylesheet">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -9,14 +10,74 @@
         <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
         <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     </head>
-<body id="aboutBody">
 
-  <h1>{{name}}</h1>
-  <h2 id="aboutNetID">{{netid}}</h2>
+  <body>
 
-  <form id="backToSearch">
-    <input type="submit" name="back" class="btn btn-info" value="Return to Cocktail">
-  </form>
+    <h1 >{{name}}</h1>
+    <h2>team members: {{netid}}</h2>
 
-</body>
+    <div class='content'>
+      <div class='about'>
+        <h2>About DrinkUp!</h2>
+        <p>DrinkUp! is a searched engine designed for those who want to build their own cocktails
+          using a few set of ingredients that they already own. You can search for an ingredient in 
+          our database, and the results will show you a list of ingredients that complement the searched
+          ingredient. The way complements are determined are by co-occurrence. The more times two ingredients
+          appeared together in a recipe, the more likely they co-occur.<br><br>
+          In addition, our app provides flavor profiles for each ingredient. These flavor profiles will give
+          you a sense of what your mix will taste like.<br><br>
+          The final result, once you finish compiling your ingredients, will be your own cocktail with its
+          own unique flavor profile. We also offer you a list of existing cocktails that use similar ingredients
+          to your original cocktail, so you can try all these out!
+        </p>
+      </div>
+      <div class='about'>
+        <h2>How to Use!</h2>
+        <p>There are various ways to search in DrinkUp!</p>
+        <h3>Simple Search</h3>
+        <p>Just type in an ingredient in the search bar, and the autocomplete will show you the list of ingredients
+          that exist in our database. Once you hit search, you will see your query appear under the title "your search:",
+          and you will see the results of your search below that.<br>
+          You can add to your query by typing in a new ingredient at the search bar on the top, and you can
+          remove items from you query by clicking the little x next to each item in the query.<br>
+          If you want to clear all query items, simply click the DrinkUp! logo at the top, or press search on an
+          empty search bar.
+        </p>
+        <h3>Advanced Search</h3>
+        <p>If you want to search for a specific type of ingredient, we have labeld all our ingredients
+          as "alcohol", "garnish", or "mixer". To do a labeled search, go back to the very home page with no results.
+          You will see a link to "advanced search" below the search bar. Click on the link, and you will see
+          the option to select what type of ingredient to search for.
+        </p>
+        <h3>Cocktail List</h3>
+        <p>To Add Query to Cocktail List:<br>
+        Just press on the yellow button with the query word written on it. It will get added to your list of cocktail
+        ingredients.
+        </p>
+        <p>To Add Searched Ingredient to Cocktail List:<br>
+        Click on the little green + button next to each ingredient
+        </p>
+        <p>To Remove Item from Cocktail List:<br>
+        Click on the red - button next to each ingredient in your cocktail list.
+        </p>
+        <p>To Remove All Items in Cocktail List:<br>
+        Click on the red "clear" button at the bottom of the cocktail list.
+        </p>
+        <h3>Cocktail Search</h3>
+        <p>In order to search for cocktails, you need to have a list of ingredients in "Your Recipe."
+          Once you have complied your final list of ingredients, click on the green done button at the
+          bottom of the list to show the taste profile of your cocktail and a list of similar exisitng cocktails.
+        </p>
+      </div>
+    </div>
+
+    <form id="backToSearch">
+      <input type="submit" name="back" class="btn btn-info" value="back to search">
+    </form>
+
+    <div class='bird'>
+        <img class='bird-img' src='/static/images/cocktail-bird.png'>
+    </div>
+
+  </body>
 </html>

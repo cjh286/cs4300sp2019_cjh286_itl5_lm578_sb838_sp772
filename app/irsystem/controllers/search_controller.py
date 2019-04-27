@@ -10,7 +10,7 @@ import pickle
 # import time
 
 # global variables - requires storage
-project_name = "Drink Up!"
+project_name = "DrinkUp!"
 net_id = "cjh286, itl5, lm578, sb838, sp772"
 search_by_options = ['alcohol', 'mixer', 'garnish']
 

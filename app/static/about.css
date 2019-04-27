@@ -1,0 +1,41 @@
+body{
+    padding: 20px;
+}
+h1{
+    font-size: 40px;
+    text-decoration: underline;
+    top: 2px;
+}
+
+h2{
+    color: #3A3637;
+    font-size: 20px;
+    text-decoration: none;
+}
+
+h3{
+    color: #3A3637;
+    font-size: 18px;
+    text-align: left;
+}
+
+p{
+    text-align: left;
+}
+
+.content{
+    width: 100%;
+    font-family: 'Cuprum', sans-serif;
+    vertical-align: top;
+}
+
+.about{
+    width: 500px;
+    text-align: center;
+    display: inline-block;
+    vertical-align: top;
+    padding: 5px 20px;
+    margin: 5px 20px;
+    height: 400px;
+    overflow: auto;
+}
