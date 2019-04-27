@@ -141,8 +141,10 @@ def search():
 	# user is done building recipe
 	if done:
 		ingred_query = queriesForCocktail(session['cocktail'])
+		cocktail_flavor = createCocktailFlavor(ingred_query, flavor_dict)
 		cocktail_list = makeCocktailRanks(ingred_query, makeJaccard, recipe_dict)
-		return render_template('cocktails.html', cocktail=session['cocktail'], cocktail_search=cocktail_list)
+		return render_template('cocktails.html', cocktail=session['cocktail'], cocktail_search=cocktail_list,\
+			cocktail_flavor = cocktail_flavor)
 
 
 	# takes the user to the about page

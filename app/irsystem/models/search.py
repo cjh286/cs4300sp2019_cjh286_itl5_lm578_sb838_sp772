@@ -6,6 +6,7 @@ import numpy as np
 import sys
 import copy
 import pickle
+import operator
 # import spacy
 # from sklearn.model_selection import train_test_split 
 # uncomment line below to test this file only
@@ -356,7 +357,6 @@ def queriesForCocktail(input_query):
     return new_queries
 
 def makeJaccard(input_query, input_dict):
-    #######
     query = list()
     query.extend(input_query)
     query_set = set(query)
@@ -379,18 +379,8 @@ def makeJaccard(input_query, input_dict):
         else:
             jacc_dict[drink] = 0
 
-    
-    # list_sort = (sorted(jacc_dict, key=jacc_dict.get, reverse=True)[:10])
-
-    #print first 10
-    
-    # for i in range(0,10):
-    #     recipe_name = list_sort[i]
-        #THIS PRINTS TOP TEN CORRECTLY IF UNCOMMENTED
-        #print(i+1 , recipe_name, "\t\tJaccard score:",round(jacc_dict[recipe_name],2), "\tIngredients in common:", ingreds_common_dict[recipe_name])
-    #print("HERE",list_sort)
-    # print(jacc_dict)
     return jacc_dict
+
 
 def makeCocktailRanks(input_query, input_jaccard, input_dict):
     finalRanks = []
@@ -404,6 +394,30 @@ def makeCocktailRanks(input_query, input_jaccard, input_dict):
             finalRanks.append({'cocktail': x, 'ingredients': ingredients_list, 'score': score})
 
     return finalRanks
+
+
+def createCocktailFlavor(input_query, input_flavor_dict):
+    print(input_query)
+    cocktail_taste = {}
+    for ingred in input_query:
+        if ingred in input_flavor_dict:
+            flavor = input_flavor_dict[ingred]
+            print(flavor)
+            if flavor in cocktail_taste:
+                cocktail_taste =+ 1
+            else:
+                cocktail_taste[flavor] = 1
+        else:
+            print('not in flavor')
+            
+    print(cocktail_taste)
+    ranked = []
+    for flavors in cocktail_taste:
+        max_flavor = max(cocktail_taste.items(), key=operator.itemgetter(1))[0]
+        ranked.append(max_flavor)
+        flavors[max_flavor] = 0
+    
+    return ranked
 
 
 # testing
@@ -438,17 +452,16 @@ def main():
 
 
     # test queries
-    query1 = ['mincemeat']
-    query2 = ['cranberry juice']
-    query3 = ['cranberry juice', 'orange juice']
-    search_by = 'ingredients'
-    print(len(all_ingredients_list))
-    query = queryReformulation(query1, all_ingredients_list)
-    rankings1 = complementRanking(query, co_oc, indexTermDict[1], indexTermDict[0])[:10]
-    ranked = displayRanking(rankings1, lower_to_upper_i, labeled_dict, flavor_dict, search_by)
-    print(rankings1)
-    rankings2 = complementRanking(query2, co_oc, indexTermDict[1], indexTermDict[0])
-    rankings3 = complementRanking(query3, co_oc, indexTermDict[1], indexTermDict[0])
+    # query1 = ['mincemeat']
+    # query2 = ['cranberry juice']
+    # query3 = ['cranberry juice', 'orange juice']
+    # print(createCocktailFlavor(query3, flavor_dict))
+    # search_by = 'ingredients'
+    # query = queryReformulation(query1, all_ingredients_list)
+    # rankings1 = complementRanking(query, co_oc, indexTermDict[1], indexTermDict[0])[:10]
+    # ranked = displayRanking(rankings1, lower_to_upper_i, labeled_dict, flavor_dict, search_by)
+    # rankings2 = complementRanking(query2, co_oc, indexTermDict[1], indexTermDict[0])
+    # rankings3 = complementRanking(query3, co_oc, indexTermDict[1], indexTermDict[0])
     # print(rankings1[:10])
     # print("")
     # print(rankings2[:10])
@@ -466,17 +479,6 @@ def main():
     # print(len(all_ingredients_list))
     # auto_list = autoCompleteList(all_ingredients_list)
     # print(len(auto_list))
-
-
-    # drinks_list, all_ingredients_list, recipe_dict, lower_to_upper_i = build_recipe_dict()
-	# ml_ingred_list = copy.deepcopy(all_ingredients_list)
-	# ingredients_dict = build_ingredients_dict(recipe_dict)
-	# indexTermDict = indexDict(all_ingredients_list)
-	# co_oc = makeCoOccurrence(recipe_dict, len(all_ingredients_list), indexTermDict[1])
-	# auto_ingredients_list = autoCompleteList(all_ingredients_list)
-	# labeled_dict = do_ml(ml_ingred_list)
-	# flavor_dict = create_flavor_dict()
-
 
 
 if __name__ == "__main__":
