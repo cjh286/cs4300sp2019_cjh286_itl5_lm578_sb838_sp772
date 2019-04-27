@@ -45,6 +45,7 @@ def search():
 		session['searchBy'] = 'ingredients'
 	done = request.args.get('done-cocktail')
 
+	# set up dictionaries without pickle
 	# drinks_list, all_ingredients_list, recipe_dict, lower_to_upper_i = build_recipe_dict()
 	# ingredients_dict = build_ingredients_dict(recipe_dict)
 	# indexTermDict = indexDict(all_ingredients_list)
@@ -54,7 +55,7 @@ def search():
 	# labeled_dict = do_ml(ingred_list_ml)
 	# flavor_dict = create_flavor_dict()
 	
-	# set up dictionaries
+	# set up dictionaries with pickle
 	with open(r'pickle/drinks_list.pickle', "rb") as input_file:
 			drinks_list = pickle.load(input_file)
 	with open(r'pickle/all_ingredients_list.pickle', "rb") as input_file:
