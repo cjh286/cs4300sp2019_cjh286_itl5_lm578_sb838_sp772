@@ -59,51 +59,39 @@ def build_recipe_dict():
         and a list of ingredients as the corresponding value
     lower_to_upper_i: dict
         Associates lower and uppercase of each ingredient
+    amounts_dict: dict
+        Associates recipes with ingredient and amount (list of tuples)
         
     Format
     ======
-    
-        { 
-         recipe name: [ingredient1, ingredient2, ...],
-         recipe name: [ingredient1, ingredient2, ...],
-         ...
-       }
-
     """
-    script_path = os.path.abspath(__file__) 
-    path_list = script_path.split(os.sep)
-    script_directory = path_list[0:len(path_list)-4]
-    rel_path = 'scraped_data/uk_output.json'
-    path = "/".join(script_directory) + "/" + rel_path
-    
-    with open(path) as f:
-        data = json.loads(f.readlines()[0])
-    num = len(data)
-
-    recipe_dict = defaultdict(list)
     all_recipes = []
     all_ingredients = []
     lower_to_upper_i = {}
-    
+    amounts_dict = {}
+
     for index in range(num): #this loops through each recipe
         drink_name = data[index].get('name')
         ingredients = data[index].get('ingredients')
         ingredient_list = []
+        ingred_amount_list = []
         for i in ingredients:
             ingred = i.get('ingredient')
+            amount = i.get('amount')
             lower_to_upper_i[ingred.lower()] = ingred
             ingredient_list.append(ingred.lower())
             if (ingred.lower() not in all_ingredients):
                 all_ingredients.append(ingred.lower()) 
-        
+
+
+            ingred_amount_list.append((ingred.lower(), amount))
+        amounts_dict[drink_name.lower()] = ingred_amount_list
+
         # all_ingredients2 = set(all_ingredients) #this is now the list of ingredients without duplicates
         all_recipes.append(drink_name)
         recipe_dict[drink_name.lower()] = ingredient_list
-    
-    # print(len(all_ingredients))
-    # print(len(all_ingredients2))
 
-    return all_recipes, all_ingredients, recipe_dict, lower_to_upper_i 
+    return all_recipes, all_ingredients, recipe_dict, lower_to_upper_i, amounts_dict
 
 
 # set up ingredient list for autocomplete
