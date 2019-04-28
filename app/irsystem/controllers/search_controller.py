@@ -12,7 +12,7 @@ import pickle
 # global variables - requires storage
 project_name = "DrinkUp!"
 net_id = "cjh286, itl5, lm578, sb838, sp772"
-search_by_options = ['alcohol', 'mixer', 'garnish']
+# search_by_options = ['alcohol', 'mixer', 'garnish']
 
 @irsystem.route('/', methods=['GET'])
 def search():
@@ -27,12 +27,10 @@ def search():
 	if ('rankings' not in session):
 		session['rankings'] = []
 	if ('searchBy' not in session):
-		session['searchBy'] = 'ingredient'
+		session['searchBy'] = 'ingredients'
 
 
 	ingredients = request.args.get('ingredients')
-	# print(ingredients == "")
-	# print(ingredients)
 	addToCocktail = request.args.get('add-to-cocktail')
 	addQueryToCocktail = request.args.get('add-query-to-cocktail')
 	clearCocktail = request.args.get('clear-cocktail')
@@ -101,9 +99,6 @@ def search():
 			
 			session['rankings'] = rankings
 			session['xable'] = xable
-
-
-	# user wants to search by
 	 
 
 	# user wants to remove an item from their running query

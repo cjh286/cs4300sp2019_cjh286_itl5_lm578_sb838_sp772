@@ -282,7 +282,7 @@ def displayRanking(input_rankings, lower_to_upper, labeled_dict, flavor_dict, se
         rankeditem = {'rank': count, 'name': lower_to_upper[x['item']], \
             'score': round(x['score'], 2), 'label': label, 'flavor': flavor}
 
-        if (search_by != "ingredient") and (search_by != None):
+        if (search_by == "alcohol") or (search_by == "garnish") or (search_by = "mixer"):
             if (search_by == label):
                 rankings.append(rankeditem)
                 count += 1
