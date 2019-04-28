@@ -255,6 +255,7 @@ def complementRanking(query, co_oc, input_term_to_index, input_index_to_term):
 # TODO: combine complement ranking with display ranking to optimize code
 # intakes a ranking and formats it in a displayable manner
 def displayRanking(input_rankings, lower_to_upper, labeled_dict, flavor_dict, search_by):
+    print(search_by)
     if (type(input_rankings) != list):
         return "query not found"
 
@@ -281,7 +282,7 @@ def displayRanking(input_rankings, lower_to_upper, labeled_dict, flavor_dict, se
         rankeditem = {'rank': count, 'name': lower_to_upper[x['item']], \
             'score': round(x['score'], 2), 'label': label, 'flavor': flavor}
 
-        if (search_by != "ingredients") and (search_by != None):
+        if (search_by != "ingredient") and (search_by != None):
             if (search_by == label):
                 rankings.append(rankeditem)
                 count += 1

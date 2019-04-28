@@ -28,6 +28,8 @@ def search():
 		session['xable'] = []
 	if ('rankings' not in session):
 		session['rankings'] = []
+	if ('searchBy' not in session):
+		session['searchBy'] = 'ingredients'
 
 
 	ingredients = request.args.get('ingredients')
@@ -39,11 +41,10 @@ def search():
 	removeFromCocktail = request.args.get('remove-from-cocktail')
 	removeFromQuery = request.args.get('remove-from-query')
 	about = request.args.get('about')
-	if (request.args.get('search-label') in search_by_options):
-		session['searchBy'] = request.args.get('search-label')
-	else:
-		session['searchBy'] = 'ingredients'
 	done = request.args.get('done-cocktail')
+	if (request.args.get('search-label') != None):
+		session['searchBy'] = request.args.get('search-label')
+		print(session['searchBy'])
 
 	# set up dictionaries without pickle
 	# drinks_list, all_ingredients_list, recipe_dict, lower_to_upper_i = build_recipe_dict()
@@ -103,6 +104,9 @@ def search():
 			session['rankings'] = rankings
 			session['xable'] = xable
 
+
+	# user wants to search by
+	 
 
 	# user wants to remove an item from their running query
 	if removeFromQuery:
