@@ -11,7 +11,7 @@ import time
 # import spacy
 # from sklearn.model_selection import train_test_split 
 # uncomment line below to test this file only
-# from machine_learning import *
+#from machine_learning import *
 # from taste_profiles import *
 
 
@@ -431,8 +431,9 @@ def main():
     co_oc = makeCoOccurrence(recipe_dict, len(all_ingredients_list), indexTermDict[1])
     auto_ingredients_list = autoCompleteList(all_ingredients_list)
     ingred_list_ml = copy.deepcopy(all_ingredients_list)
-    # labeled_dict = do_ml(ingred_list_ml)
-    flavor_dict = create_flavor_dict()
+    #labeled_dict = do_ml(ingred_list_ml)
+    #print(labeled_dict['smirnoff no. 21® vodka'])
+    #flavor_dict = create_flavor_dict()
 
     # code for pickling
     # with open(r"amounts_dict.pickle", "wb") as output_file:
@@ -450,7 +451,7 @@ def main():
     cocktail_ranks = makeCocktailRanks(query, makeJaccard, recipe_dict, amounts_dict)
     # print(cocktail_ranks)
 
-    print(createCocktailFlavor(query1, flavor_dict))
+    #print(createCocktailFlavor(query1, flavor_dict))
    
 if __name__ == "__main__":
     main()
