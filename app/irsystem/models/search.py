@@ -401,30 +401,26 @@ def makeCocktailRanks(input_query, input_jaccard, input_dict, amounts_dict):
 # creates the flavor profile of cocktails
 def createCocktailFlavor(input_query, input_flavor_dict):
     # print(input_query)
-    print(len(input_flavor_dict))
-    cocktail_taste = set()
+    cocktail_taste = {}
     for ingred in input_query:
         print(ingred)
         if ingred in input_flavor_dict:
             flavor = input_flavor_dict[ingred]
             print(flavor)
             for x in flavor:
-                cocktail_taste.add(x)
-            # if flavor in cocktail_taste:
-            #     cocktail_taste =+ 1
-            # else:
-            #     cocktail_taste[flavor] = 1
-        else:
-            print('not in flavor')
+                print(x)
+                if x in cocktail_taste:
+                    cocktail_taste[x] += 1
+                else:
+                    cocktail_taste[x] = 1
 
-    # print(cocktail_taste)
-    # ranked = []
-    # for flavors in cocktail_taste:
-    #     max_flavor = max(cocktail_taste.items(), key=operator.itemgetter(1))[0]
-    #     ranked.append(max_flavor)
-    #     flavors[max_flavor] = 0
+    ranked = []
+    for x in range(len(cocktail_taste)):
+        max_flavor = max(cocktail_taste.items(), key=operator.itemgetter(1))[0]
+        ranked.append(max_flavor)
+        cocktail_taste[max_flavor] = 0
 
-    return cocktail_taste
+    return ", ".join(ranked)
 
 # testing
 def main():
@@ -448,10 +444,12 @@ def main():
     rankings = complementRanking(query, co_oc, indexTermDict[1], indexTermDict[0])[:10]
     # ranked = displayRanking(rankings, lower_to_upper_i, labeled_dict, flavor_dict, search_by)
     
+    query1 = ['baileys® original irish cream liqueur', 'caster sugar', 'dark chocolate', \
+        'cocoa powder', 'sweet oat biscuits']
     cocktail_ranks = makeCocktailRanks(query, makeJaccard, recipe_dict, amounts_dict)
     # print(cocktail_ranks)
 
-    print(createCocktailFlavor(query, flavor_dict))
+    print(createCocktailFlavor(query1, flavor_dict))
    
 if __name__ == "__main__":
     main()
