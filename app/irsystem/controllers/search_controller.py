@@ -29,7 +29,7 @@ def search():
 	if ('rankings' not in session):
 		session['rankings'] = []
 	if ('searchBy' not in session):
-		session['searchBy'] = 'ingredients'
+		session['searchBy'] = 'ingredient'
 
 
 	ingredients = request.args.get('ingredients')
