@@ -40,7 +40,7 @@ def search():
 	done = request.args.get('done-cocktail')
 	if (request.args.get('search-label') != None):
 		session['searchBy'] = request.args.get('search-label')
-		print(session['searchBy'])
+		
 
 	# set up dictionaries without pickle
 	# drinks_list, all_ingredients_list, recipe_dict, lower_to_upper_i = build_recipe_dict()
