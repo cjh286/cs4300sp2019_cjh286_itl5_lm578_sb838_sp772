@@ -122,6 +122,8 @@ def create_flavor_dict():
             flavors_dict[ingredient] = list(overlapping_flavors) #list of positive descriptive words
             for word in overlapping_negative_flavors: 
                 flavors_dict[ingredient].append(get_negative_phrase[word]) #word is 'flavorful' so add 'not flavorful' to the dictionary
+        else:
+            flavors_dict[ingredient] = []
 
     return flavors_dict
 
