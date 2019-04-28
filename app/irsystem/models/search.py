@@ -11,8 +11,8 @@ import time
 # import spacy
 # from sklearn.model_selection import train_test_split 
 # uncomment line below to test this file only
-from machine_learning import *
-#from taste_profiles import *
+# from machine_learning import *
+# from taste_profiles import *
 
 
 # nlp = spacy.load('en_core_web_md')
@@ -266,7 +266,8 @@ def displayRanking(input_rankings, lower_to_upper, labeled_dict, flavor_dict, se
         else:
             label = 'n/a'
 
-        ingred_string = "'{}'".format(x['item'])
+        # ingred_string = "'{}'".format(x['item'])
+        ingred_string = x['item']
         flavor = ''
         if ingred_string not in flavor_dict:
             flavor = 'n/a'
@@ -399,27 +400,31 @@ def makeCocktailRanks(input_query, input_jaccard, input_dict, amounts_dict):
 # TODO: complete this
 # creates the flavor profile of cocktails
 def createCocktailFlavor(input_query, input_flavor_dict):
-    print(input_query)
-    cocktail_taste = {}
+    # print(input_query)
+    print(len(input_flavor_dict))
+    cocktail_taste = set()
     for ingred in input_query:
+        print(ingred)
         if ingred in input_flavor_dict:
             flavor = input_flavor_dict[ingred]
             print(flavor)
-            if flavor in cocktail_taste:
-                cocktail_taste =+ 1
-            else:
-                cocktail_taste[flavor] = 1
+            for x in flavor:
+                cocktail_taste.add(x)
+            # if flavor in cocktail_taste:
+            #     cocktail_taste =+ 1
+            # else:
+            #     cocktail_taste[flavor] = 1
         else:
             print('not in flavor')
 
-    print(cocktail_taste)
-    ranked = []
-    for flavors in cocktail_taste:
-        max_flavor = max(cocktail_taste.items(), key=operator.itemgetter(1))[0]
-        ranked.append(max_flavor)
-        flavors[max_flavor] = 0
+    # print(cocktail_taste)
+    # ranked = []
+    # for flavors in cocktail_taste:
+    #     max_flavor = max(cocktail_taste.items(), key=operator.itemgetter(1))[0]
+    #     ranked.append(max_flavor)
+    #     flavors[max_flavor] = 0
 
-    return ranked
+    return cocktail_taste
 
 # testing
 def main():
@@ -429,8 +434,8 @@ def main():
     co_oc = makeCoOccurrence(recipe_dict, len(all_ingredients_list), indexTermDict[1])
     auto_ingredients_list = autoCompleteList(all_ingredients_list)
     ingred_list_ml = copy.deepcopy(all_ingredients_list)
-    labeled_dict = do_ml(ingred_list_ml)
-    # flavor_dict = create_flavor_dict()
+    # labeled_dict = do_ml(ingred_list_ml)
+    flavor_dict = create_flavor_dict()
 
     # code for pickling
     # with open(r"amounts_dict.pickle", "wb") as output_file:
@@ -445,6 +450,8 @@ def main():
     
     cocktail_ranks = makeCocktailRanks(query, makeJaccard, recipe_dict, amounts_dict)
     # print(cocktail_ranks)
+
+    print(createCocktailFlavor(query, flavor_dict))
    
 if __name__ == "__main__":
     main()
