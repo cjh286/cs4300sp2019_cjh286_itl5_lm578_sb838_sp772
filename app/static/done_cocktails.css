@@ -45,6 +45,14 @@ li{
     font-family: 'Cuprum', sans-serif;
 }
 
+table{
+    width: 300px;
+}
+
+td{
+    width: 100px;
+}
+
 
 .back-btn-div{
     width: 100%;
