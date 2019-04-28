@@ -73,7 +73,6 @@ def create_flavor_dict():
                 ingred_dict[row[0]] = tokenize(row[4])
             else:
                 ingred_dict[row[0]].extend(tokenize(row[4]))
-    ingred_dict.pop('name')
 
 
     # # read in excel data as set
