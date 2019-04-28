@@ -56,14 +56,16 @@
                 <!-- <img class='cocktail-img' src='/static/images/cosmopolitan.jpghttps://uk.thebar.com/assets/en-gb/Images/AM/strawberry-daquiri$$069A0000000eCU8IAM.jpg?maxheight=360&maxwidth=540&quality=85' alt="{{r['cocktail']}}"> -->
                 <h4>score: {{r['score']}}</h4>
                 <h3>Ingredients</h3>
-                <table>
-                    {% for i in r['ingredients'] %}
-                    <tr>
-                        <td>{{i[0]}}</td>
-                        <td>{{i[1]}}</td>
-                    </tr>
-                    {% endfor %}
-                </table>
+                <div class='table-container'>
+                    <table>
+                        {% for i in r['ingredients'] %}
+                        <tr>
+                            <td>{{i[0]}}</td>
+                            <td>{{i[1]}}</td>
+                        </tr>
+                        {% endfor %}
+                    </table>
+                </div>
             </div>
             {% endfor %}
         </div>

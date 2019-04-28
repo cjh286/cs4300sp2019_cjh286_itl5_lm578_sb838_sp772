@@ -45,12 +45,20 @@ li{
     font-family: 'Cuprum', sans-serif;
 }
 
+.table-container{
+    text-align: center;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
 table{
     width: 300px;
 }
 
 td{
-    width: 100px;
+    /* width: 100px; */
+    padding: 5px;
+    border-bottom: solid 1px #3A3637;
 }
 
 
