@@ -22,8 +22,6 @@ def search():
 		session['cocktail'] = []
 	if ('output_message' not in session):
 		session['output_message'] = ""
-	if ('searchBy' not in session):
-		session['searchBy'] = 'ingredients'
 	if ('xable' not in session):
 		session['xable'] = []
 	if ('rankings' not in session):
