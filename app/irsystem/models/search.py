@@ -170,7 +170,7 @@ def termDocMatrix(input_dict):
 
 # create co-occurrence matrix
 def makeCoOccurrence(input_dict, n_ingredients, index_dict):
-    print(n_ingredients)
+    #print(n_ingredients)
     """
     Inputs: 
         input_dict: recipe_dict (recipes: list of ingredients)
@@ -429,7 +429,7 @@ def main():
     co_oc = makeCoOccurrence(recipe_dict, len(all_ingredients_list), indexTermDict[1])
     auto_ingredients_list = autoCompleteList(all_ingredients_list)
     ingred_list_ml = copy.deepcopy(all_ingredients_list)
-    # labeled_dict = do_ml(ingred_list_ml)
+    #labeled_dict = do_ml(ingred_list_ml)
     # flavor_dict = create_flavor_dict()
 
     # code for pickling
