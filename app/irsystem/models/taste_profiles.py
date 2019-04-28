@@ -63,7 +63,6 @@ def create_flavor_dict():
     path = "/".join(script_directory) + "/" + rel_path
     with open(path, encoding="utf8") as csv_file:
         csv_reader = csv.reader(csv_file, delimiter=',')
-        line_count = 0
         for row in csv_reader:
             if not ingred_dict.get(row[0]):
                 ingred_dict[row[0]] = tokenize(row[3])
@@ -74,6 +73,7 @@ def create_flavor_dict():
                 ingred_dict[row[0]] = tokenize(row[4])
             else:
                 ingred_dict[row[0]].extend(tokenize(row[4]))
+    ingred_dict.pop('name')
 
 
     # # read in excel data as set
