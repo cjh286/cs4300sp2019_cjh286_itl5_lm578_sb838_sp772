@@ -2,8 +2,8 @@ from . import *
 from app.irsystem.models.helpers import *
 from app.irsystem.models.helpers import NumpyEncoder as NumpyEncoder
 from app.irsystem.models.search import *
-from app.irsystem.models.machine_learning import *
-from app.irsystem.models.taste_profiles import *
+# from app.irsystem.models.machine_learning import *
+# from app.irsystem.models.taste_profiles import *
 import os
 import copy
 import pickle
@@ -73,9 +73,8 @@ def search():
 		auto_ingredients_list = pickle.load(input_file)
 	with open(r'pickle/labeled_dict.pickle', "rb") as input_file:
 		labeled_dict = pickle.load(input_file)
-	# with open(r'pickle/flavor_dict.pickle', "rb") as input_file:
-	# 	flavor_dict = pickle.load(input_file)
-	flavor_dict = create_flavor_dict()
+	with open(r'pickle/flavor_dict.pickle', "rb") as input_file:
+		flavor_dict = pickle.load(input_file)
 
 	# user searched ingredients
 	if (ingredients == ""):

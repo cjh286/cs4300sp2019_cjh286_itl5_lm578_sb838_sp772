@@ -11,8 +11,8 @@ import time
 # import spacy
 # from sklearn.model_selection import train_test_split 
 # uncomment line below to test this file only
-from machine_learning import *
-from taste_profiles import *
+# from machine_learning import *
+# from taste_profiles import *
 
 
 # nlp = spacy.load('en_core_web_md')
@@ -433,11 +433,11 @@ def main():
     ingred_list_ml = copy.deepcopy(all_ingredients_list)
     labeled_dict = do_ml(ingred_list_ml)
     print(labeled_dict['smirnoff no. 21® vodka'])
-    #flavor_dict = create_flavor_dict()
+    flavor_dict = create_flavor_dict()
 
     # code for pickling
-    with open(r"labeled_dict.pickle", "wb") as output_file:
-        pickle.dump(labeled_dict, output_file)
+    with open(r"flavor_dict.pickle", "wb") as output_file:
+        pickle.dump(flavor_dict, output_file)
 
     # test queries
     query = ['mincemeat', 'cranberry juice', 'orange juice']
